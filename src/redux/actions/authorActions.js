@@ -16,9 +16,10 @@ import axios from 'axios'
 export const getAuthor = (id) =>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .get(`author/${id}`)
+    .get(`/author/${id}`)
     .then(res=>{
-        dispatch({type: SET_AUTHOR},{payload: res.data})
+        console.log(res.data)
+        dispatch({type: SET_AUTHOR, payload: res.data})
         dispatch({type: STOP_LOADING_UI})
     })
     .catch(err=>{
@@ -35,7 +36,7 @@ export const setBio = (bio)=>(dispatch)=>{
     .post('/author',bio)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch({type: SET_AUTHOR_BIO},{bio})
+        dispatch({type: SET_AUTHOR_BIO, bio})
     })
     .catch(err=>{
         dispatch({
@@ -51,7 +52,7 @@ export const addAudio = (audio)=>(dispatch)=>{
     .post('/author',audio)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch({type: ADD_AUTHOR_AUDIO},{audio})
+        dispatch({type: ADD_AUTHOR_AUDIO, audio})
     })
     .catch(err=>{
         dispatch({
@@ -66,7 +67,7 @@ export const addMovie = (movie)=>(dispatch)=>{
     .post('/author',movie)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch({type: ADD_AUTHOR_MOVIE},{movie})
+        dispatch({type: ADD_AUTHOR_MOVIE, movie})
     })
     .catch(err=>{
         dispatch({
@@ -82,7 +83,7 @@ export const addTest = (test)=>(dispatch)=>{
     .post('/author',test)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch({type: ADD_AUTHOR_TEST},{test})
+        dispatch({type: ADD_AUTHOR_TEST, test})
     })
     .catch(err=>{
         dispatch({
@@ -97,7 +98,7 @@ export const addIllustration = (illustration)=>(dispatch)=>{
     .post('/author',illustration)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch({type: ADD_AUTHOR_ILLUSTRATION},{illustration})
+        dispatch({type: ADD_AUTHOR_ILLUSTRATION, illustration})
     })
     .catch(err=>{
         dispatch({
@@ -112,7 +113,7 @@ export const addText = (text)=>(dispatch)=>{
     .post('/author',text)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch({type: ADD_AUTHOR_TEXT},{text})
+        dispatch({type: ADD_AUTHOR_TEXT, text})
     })
     .catch(err=>{
         dispatch({

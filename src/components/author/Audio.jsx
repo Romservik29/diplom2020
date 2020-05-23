@@ -7,23 +7,15 @@ import SubTitle from './SubTitle'
  width: 100%;
 `;
 
- const AudioWrapper=styled.div`
-width: 100%;
- `;
 
 export default function Audio() {
-
-
     return (
         <Wrapper>
             <SubTitle name="Аудиозаписи"  add/>
-
-            <AudioWrapper>
                 <AudioInfo/>
                 <AudioInfo/>
                 <AudioInfo/>
                 <AudioInfo/>
-            </AudioWrapper>
         </Wrapper>
     )
 }

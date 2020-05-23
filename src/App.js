@@ -71,7 +71,6 @@ function App() {
           <Route exact path="/movies" component={movies} />
           <Route exact path="/texts" component={books} />
           <Route exact path="/authors/:authorId" component={author} />
-
         </Switch>
       </div>   
       </Router>

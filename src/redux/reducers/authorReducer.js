@@ -9,8 +9,18 @@ import {
 } from '../types'
 
 const initialState = {
-    author:{
-
+    author: {
+        firstName:'',
+        lastName:'',
+        midName:'',
+        portretUrl:'',
+        yearOfLife:'',
+        bio:'',
+        audio:[],
+        movies:[],
+        illustrations:[],
+        tests:[],
+        books:[]
     }
 }
 

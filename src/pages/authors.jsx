@@ -25,7 +25,7 @@ export default class authors extends Component {
             <Grid style={{background: '#fff'}} container justify='space-evenly' spacing={9}>{console.log('render')}
                     {this.state.authors.map(author=>
                     <Grid item>
-                        <AuthorInfo key={author.authorId} author ={author} sm={4} xs={4}/>
+                        <AuthorInfo key={author.id} author ={author} sm={4} xs={4}/>
                     </Grid>)} 
             </Grid>
 

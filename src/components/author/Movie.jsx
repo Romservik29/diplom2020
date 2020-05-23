@@ -2,7 +2,6 @@ import React from 'react'
 import SubTitle from './SubTitle'
 import styled from 'styled-components'
 import Carousel from 'react-elastic-carousel' 
-import {Link} from 'react-router-dom'
 
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -10,9 +9,6 @@ const breakPoints = [
     { width: 768, itemsToShow: 3 },
     { width: 1200, itemsToShow: 4 }
 ];
-
-
-export default function Movie() {
 
 const Wrapper = styled.div`
 width: 100%;
@@ -26,7 +22,7 @@ height: 100%;
 width: 100%;
 `;
 
-const Item = styled(Link)`
+const Item = styled.div`
 display: flex;
 height: 250px;
 width: 100%;
@@ -42,7 +38,7 @@ width: 100%;
 height: 100%;
 `;
 
-
+export default function Movie() {
     return (
         <Wrapper>
             <SubTitle name="Фильмы" add/>

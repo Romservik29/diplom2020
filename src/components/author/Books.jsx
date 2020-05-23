@@ -3,8 +3,8 @@ import SubTitle from './SubTitle'
 import styled from 'styled-components'
 import IconButton from '@material-ui/core/IconButton';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import EditButton from './EditButton';
+import DeleteButton from './DeleteButton';
 
 const Wrapper = styled.div`
 width: 100%;
@@ -16,41 +16,24 @@ justify-content: space-between;
 align-items: center;
 `; 
 
-export default function Books() {
+export default function Books(props) {
+    let i =1;
     return (
         <Wrapper>
             <SubTitle name="Тексты" add/>
-            <Name>
+            {props.books.map(book=> <Name>
                     <div>
-                        <span>1. </span>Приход номер 2 везельвула | 16 вопросов
+                        <span>{i++}. </span>{book.name} | 16 вопросов
                     </div> 
                     <div>
-                    <IconButton>
-                        <EditIcon color='primary'/>
-                    </IconButton> 
-                    <IconButton>
-                        <DeleteForeverIcon color='primary'/>
-                    </IconButton>
+                    <EditButton/> 
+                    <DeleteButton/>
                     <IconButton>
                         <CloudDownloadIcon color='primary'/>
                     </IconButton>
 
                     </div>
-                </Name>                <Name>
-                    <div>
-                        <span>1. </span>Приход номер 2 везельвула | 16 вопросов
-                    </div> 
-                    <IconButton>
-                        <CloudDownloadIcon color='primary'/>
-                    </IconButton>
-                </Name>                <Name>
-                    <div>
-                        <span>1. </span>Приход номер 2 везельвула | 16 вопросов
-                    </div> 
-                    <IconButton>
-                        <CloudDownloadIcon color='primary'/>
-                    </IconButton>
-                </Name>
+                </Name> )} 
         </Wrapper>
     )
 }

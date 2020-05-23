@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import SubTitle from './SubTitle'
 import IconButton from '@material-ui/core/IconButton';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+
 const Wrapper = styled.div`
 width: 100%;
 `;

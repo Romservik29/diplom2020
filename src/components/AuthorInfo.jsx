@@ -1,40 +1,44 @@
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const styles = {
-    wrapper:{
+    wrapper: {
         flexWrap: 'wrap',
         marginBottom: 25,
     },
-    bioImg:{
+    bioImg: {
         border: '1px solid #dce2e9',
         padding: 20,
     },
-    bioDisc:{
+    bioDisc: {
         textDecoration: 'none',
         minWidth: 248,
-        color: 'black',        
+        color: 'black',
     },
-    years:{
-    fontStyle: 'italic',
-    color:'#697678',
-    fontSize: 14,
+    years: {
+        fontStyle: 'italic',
+        color: '#697678',
+        fontSize: 14,
     },
-    surname:{
+    surname: {
         fontWeight: 'Bold',
         fontSize: 16,
     },
-    name:{
+    name: {
         fontSize: 14,
     }
 };
 
 class authorInfo extends Component {
+    
     render() {
+        debugger
         const { classes,
             author: {
-                name,
+                firstName,
+                lastName,
+                midName,
                 portretUrl,
                 yearOfLife,
                 authorId,
@@ -45,14 +49,14 @@ class authorInfo extends Component {
             authenticated && userHandle === handle ? (
               <DeleteScream screamId={screamId} />
             ) : null;*/
-        return(
+        return (
             <div className={classes.wrapper}>
                 <div className={classes.bioImg}>
-                    <div><img src={portretUrl} alt={name}/></div>
+                    <div><img src={portretUrl} alt={firstName} /></div>
                 </div>
                 <Link className={classes.bioDisc} to={`/authors/${authorId}`}>
-                    <div className={classes.surname}>Пушкин</div>
-                    <div className={classes.name}>Александр Сергеевич</div>
+                    <div className={classes.surname}>{lastName}</div>
+                    <div className={classes.name}>{`${firstName} ${midName}`}</div>
                     <div className={classes.years}>
                         <time>
                             {yearOfLife}

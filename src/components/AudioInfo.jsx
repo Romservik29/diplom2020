@@ -2,38 +2,42 @@ import React, { useState } from 'react'
 import IconButton from '@material-ui/core/IconButton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Typography from '@material-ui/core/Typography';
-import makeStyles from '@material-ui/core/styles/makeStyles';
 import PauseIcon from '@material-ui/icons/Pause';
 import { CardActionArea } from '@material-ui/core';
+import styled from 'styled-components'
 
-const useStyles = makeStyles({
-    root: {
-        display: 'flex',
-        alignItems: 'center',
-        borderBottom: '1px dotted grey',
-        maxWidth: 1000,
-    },
-    content: {
-        display: 'flex',
-        width: '100%',
-    },
-    time: {
-        textAlign: 'right',
-    },
-});
+const Root = styled(CardActionArea)`
+display: flex;
+align-items: center;
+border-bottom: 1px dotted grey;
+max-width: 1000;
+`;
 
-export default function AudioInfo() {
-    const classes = useStyles();
+const Content = styled.div`
+display: flex;
+width: 100%;
+`;
+
+const AudioInfo = (props) => {
     const [play, setPlay] = useState(false);
+    const handlePlayClick = () => {
+        if (play === false) setPlay(true)
+        else setPlay(false);
+    }
     return (
-            <CardActionArea className={classes.root}>
-            <div className={classes.content}>
-                <IconButton aria-label="play/pause">
-                    {play === false
-                        ? <PlayArrowIcon color="primary" onClick={() => setPlay(true)} />
-                        : <PauseIcon color="primary" onClick={() => setPlay(false)} />
-                    }
-                </IconButton>
+        <Root onClick={handlePlayClick}>
+            <Content>
+                {play === false
+                    ?   <IconButton aria-label="play/pause" onClick={handlePlayClick}>
+
+                            <PlayArrowIcon color="primary" />
+                        </IconButton>
+
+                    :   <IconButton aria-label="play/pause" onClick={handlePlayClick}>
+                            <PauseIcon color="primary" />
+                        </IconButton>
+                }
+
                 <div>
                     <Typography variant='body1'>
                         How are u, Russians Mans
@@ -42,13 +46,15 @@ export default function AudioInfo() {
                         How are u, Russians Mans
                     </Typography>
                 </div>
-            </div>
+            </Content>
             <div>
-                <span className={classes.time}>
+                <span>
                     3:12
                 </span>
             </div>
-            </CardActionArea>
+        </Root>
 
     )
 }
+
+export default AudioInfo;

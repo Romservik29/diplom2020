@@ -5,37 +5,83 @@ import Illustration from '../components/author/Illustration'
 import Audio from '../components/author/Audio'
 import Test from '../components/author/Test'
 import Movie from '../components/author/Movie'
-import withStyles from '@material-ui/core/styles/withStyles'
 import Books from '../components/author/Books'
+import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { getAuthor } from '../redux/actions/authorActions'
+const Wrapper = styled(Grid)`
+padding:10px;
+border:3px outset #174578;
+background: white;
+`;
 
-const styles = {
-    root:{
-        padding:10,
-        border:'3px outset #174578',
-        background: 'white',
+const GridWrapper = styled(Grid)`
+    >div{
+        width:100%;
     }
-}
+`;
 
-    
 
 class author extends Component {
+
+    componentDidMount() {
+        let authorId = this.props.match.params.authorId;
+        this.props.getAuthor(authorId);
+    }
     render() {
-        const {classes} = this.props;
+        const { author: {
+            firstName,
+            lastName,
+            midName,
+            portretUrl,
+            yearOfLife,
+            bio,
+            audio,
+            movies,
+            illustrations,
+            tests,
+            books,
+        } } = this.props;
+
         return (
-                <Grid   className={classes.root}
-                    container
-                    justify="center"
-                    alignItems="center"
-                >
-                    <Grid container component={Bio}/>
-                    <Grid container component={Books}/>
-                    <Grid container component={Audio}/>
-                    <Grid container component={Illustration}/>
-                    <Grid container component={Movie}/>
-                    <Grid container component={Test}/>  
-                </Grid>
+            <Wrapper
+                container
+                justify="center"
+                alignItems="center"
+            >
+                <GridWrapper container>
+                    <Bio
+                        portretUrl={portretUrl}
+                        firstName={firstName}
+                        lastName={lastName}
+                        midName={midName}
+                        yearOfLife={yearOfLife}
+                        bio={bio}
+                    />
+                </GridWrapper>
+                <GridWrapper container >
+                    <Books books={books} />
+                </GridWrapper>
+                <GridWrapper container>
+                    <Audio audio={audio} />
+                </GridWrapper>
+                <GridWrapper container>
+                    <Illustration illustrations={illustrations} />
+                </GridWrapper>
+                <GridWrapper container>
+                    <Movie movies={movies} />
+                </GridWrapper>
+                <GridWrapper container>
+                    <Test tests={tests} />
+                </GridWrapper>
+            </Wrapper>
         )
     }
+
 }
 
-export default withStyles(styles)(author)
+const mapStateToProps = (state) => ({
+    author: state.author.author
+})
+
+export default connect(mapStateToProps, { getAuthor })(author)

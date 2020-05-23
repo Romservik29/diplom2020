@@ -12,9 +12,6 @@ const breakPoints = [
     { width: 768, itemsToShow: 3 },
     { width: 1200, itemsToShow: 4 }
 ];
-
-
-export default function CarouselGen(props) {
 const Wrapper = styled.div`
 height: 100%;
 width: 100%;
@@ -48,8 +45,10 @@ font-family: 'Segoe UI';
 line-height: 300px;
 text-align: center;
 color: #fff;
-
 `;
+
+export default function CarouselGen(props) {
+
     return (
         <Wrapper>
             <SubTitle name="Иллюстрации" add/>
