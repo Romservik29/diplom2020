@@ -50,6 +50,10 @@ if(token){
   }
 }
 
+axios.defaults.baseURL =
+  'https://us-central1-diplomsgk2020-ff454.cloudfunctions.net/api';
+
+
 function App() {
 
   return (

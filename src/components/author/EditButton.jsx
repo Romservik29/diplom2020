@@ -8,6 +8,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import EditIcon from '@material-ui/icons/Edit';
 import { useFormik } from 'formik';
 import { TextField, DialogContent } from '@material-ui/core';
+import MyButton from '../../util/MyButton';
+
 
 const EditButton = (props) => {
     const [open, setOpen] = useState(false)
@@ -34,12 +36,12 @@ const EditButton = (props) => {
 
     return (
         <>
-            <Button
-                tip="Delete Scream"
+            <MyButton
+                tip={props.tip}
                 onClick={handleOpen}
             >
                 <EditIcon style={{color:'pink'}} />
-            </Button>
+            </MyButton>
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -78,7 +80,9 @@ const EditButton = (props) => {
 }
 EditButton.propTypes = {
     editFunc: PropTypes.func.isRequired,
-    editId: PropTypes.string.isRequired
+    editId: PropTypes.string.isRequired,
+    tip: PropTypes.string.isRequired
 };
+
 
 export default EditButton;

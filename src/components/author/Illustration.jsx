@@ -51,7 +51,7 @@ export default function CarouselGen(props) {
 
     return (
         <Wrapper>
-            <SubTitle name="Иллюстрации" add/>
+            <SubTitle name="Иллюстрации" add tip="Добавить иллюстрацию"/>
             <CarouselWrapper>
                 <Carousel breakPoints={breakPoints}>
                     <Item><img src={img} alt="Mom"/></Item>

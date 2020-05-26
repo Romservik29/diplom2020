@@ -46,13 +46,14 @@ export const setBio = (bio)=>(dispatch)=>{
     }) 
 }
 
-export const addAudio = (audio)=>(dispatch)=>{
+export const addAudio = (formData) => (dispatch)=>{
+    alert('audioDispatcher');
     dispatch({type: LOADING_UI})
     axios
-    .post('/author',audio)
+    .post(`author/${formData.authorId}/audio`,formData)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch({type: ADD_AUTHOR_AUDIO, audio})
+        //dispatch({type: ADD_AUTHOR_AUDIO, formData})
     })
     .catch(err=>{
         dispatch({
@@ -98,7 +99,7 @@ export const addIllustration = (illustration)=>(dispatch)=>{
     .post('/author',illustration)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch({type: ADD_AUTHOR_ILLUSTRATION, illustration})
+        dispatch({type: ADD_AUTHOR_ILLUSTRATION,  illustration})
     })
     .catch(err=>{
         dispatch({
@@ -113,7 +114,7 @@ export const addText = (text)=>(dispatch)=>{
     .post('/author',text)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch({type: ADD_AUTHOR_TEXT, text})
+        dispatch({type: ADD_AUTHOR_TEXT,  text})
     })
     .catch(err=>{
         dispatch({

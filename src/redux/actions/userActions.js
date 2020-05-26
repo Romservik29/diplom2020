@@ -1,6 +1,7 @@
 import {
     SET_UNAUTHENTICATED,
     SET_USER,
+    SET_AUTHENTICATED,
     //LOADING_USER,
     //MARK_NOTIFICATION,
     LOADING_UI,
@@ -17,6 +18,7 @@ export const loginUser = (userData,history)=>(dispatch)=>{
     .then(res=>{
         setAuthorizationHeader(res.data.token);
         //dispatch(getUserData())
+        dispatch({type: SET_AUTHENTICATED})
         dispatch({
             type: CLEAR_ERRORS
         })

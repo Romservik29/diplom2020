@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React from 'react';
 import EditButton from './EditButton';
 import AddButton from './AddButton';
-
+import {connect} from 'react-redux';
 
 const Background = styled.div`
 display: flex;
@@ -21,19 +21,27 @@ padding-left: 1em;
 font-weight: bold;
 `;
 
-export default function SubTitle(props) {
+ function SubTitle(props) {
+
+    const AdminButtons = props.authenticated
+        ? <div style={{ paddingRight: '6px' }}>
+            {props.add &&
+                <AddButton addId={'1'} tip={props.tip} addFunc={props.addFunc} />
+            }
+            {props.edit &&
+                <EditButton editId={'d'} tip={props.tip} editFunc={props.editFunc} />
+            }
+        </div>
+        : null
     return (
         <Background>
             <Name align='left'>{props.name}</Name>
-            <div style={{ paddingRight: '6px' }}>
-                {props.add &&       
-                <AddButton addId={'1'} addFunc={()=>alert()} />
-                }                
-                {props.edit &&
-                    <EditButton editId={'d'} editFunc={()=>alert('edited')}/>
-                }
-            </div>
+{AdminButtons}
 
         </Background>
     )
 }
+let mapStateToProps = (state)=>({
+    authenticated:state.user.authenticated
+})
+export default connect(mapStateToProps,null)(SubTitle)

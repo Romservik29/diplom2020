@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
+import {Link} from 'react-router-dom'
 //import PropTypes from 'prop-types'
-import AppIcon from '../images/book.png'
+import AppIcon from '../images/book2.png'
 //MUI Stuff
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import { Paper } from '@material-ui/core';
+
 //Redux 
 import {connect} from 'react-redux'
 import {compose} from 'redux'
@@ -71,6 +74,7 @@ class login extends Component {
             <Grid container className={classes.form}>
                 <Grid item sm/>
                 <Grid item sm>
+                    <Paper style={{padding: '20px'}}>
                     <img width="200px" src={AppIcon} alt="Book"/>
                     <Typography variant="h2" className={classes.pageTitle}>
                         Вход
@@ -105,8 +109,11 @@ class login extends Component {
                          className={classes.button}   
                          disabled={loading}>
                          Войти
-                        </Button>
+                        </Button><br/>
+                        <small>Ещё нет аккаунта?</small> <br/>
+                        <small>Зарегистрировать аккаунт <Link to="/login">здесь</Link></small>
                     </form>
+                    </Paper>
                 </Grid>
                 <Grid item sm/>
             </Grid>

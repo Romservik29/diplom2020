@@ -18,7 +18,6 @@ font-family: sans-serif;
 display: flex;
 align-items: center;
 justify-content: center;
-height: 100%;
 width: 100%;
 `;
 
@@ -41,7 +40,7 @@ height: 100%;
 export default function Movie() {
     return (
         <Wrapper>
-            <SubTitle name="Фильмы" add/>
+            <SubTitle name="Фильмы" add tip="Добавить фильм"/>
             <CarouselWrapper>
                 <Carousel breakPoints={breakPoints}>
                     <Item>

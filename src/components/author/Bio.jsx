@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import SubTitle from './SubTitle' 
-import UploadPortret from './UploadPortret' 
+import SubTitle from './SubTitle'
+import { Paper } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import MyButton from '../../util/MyButton';
 
-const CardTop = styled.div`
+const CardTop = styled(Paper)`
 padding: 20px;
 text-align: center;
 border: 1px inset ${props => props.theme.background};
@@ -17,7 +19,7 @@ margin-right: 15px;
 margin-bottom: 1em;
 margin-top: 20px;
 border-radius: 10px;
-box-shadow: 0 0 5px 5px ${props=>props.theme.background};
+box-shadow: 0 0 5px 5px ${props => props.theme.background};
  `;
 
 const CardContent = styled.section`
@@ -32,31 +34,55 @@ font-family: -apple-system,
         }
 `;
 
-const StyledUploadPortret = styled(UploadPortret)`
-position: relative;
-left: 10px;
-`;
 
-export default function Bio(props) { 
+export default function Bio(props) {
+    const handleEditPicture = () => {
+        const fileInput = document.getElementById('imageInput');
+        fileInput.click();
+    };
+    const handleImageChange = (event) => {
+        const image = event.target.files[0];
+        const formData = new FormData();
+        formData.append('image', image, image.name);
+        props.uploadImage(formData);
+    };
+    const uploadImage = props.authenticated === true
+        ? <MyButton
+            tip="Изменить портрет"
+            onClick={handleEditPicture}
+            btnClassName="button"
+        >
+            <EditIcon color="primary" />
+        </MyButton>
+        : null
+
+
     return (
         <>
             <div>
-                <CardTop>
-                        
-                    <AuthorImage src={props.portretUrl} alt={props.firstName}/>
-                    <UploadPortret />
-                    <h2 style={{lineHeight: '10px'}}>{props.lastName}</h2>
-                    <h4 style={{lineHeight: '10px'}}>{`${props.firstName} ${props.midName}`}</h4>
-                    <p style={{fontWeight: 'lighter'}}>{props.yearOfLife}</p>
+                <CardTop square>
+                    <div className="image-wrapper">
+                        <AuthorImage src={props.portretUrl} alt={props.firstName} />
+                        <input
+                            type="file"
+                            id="imageInput"
+                            hidden="hidden"
+                            onChange={handleImageChange}
+                        />
+                        {uploadImage}
+                    </div>
+                    <h2 style={{ lineHeight: '10px' }}>{props.lastName}</h2>
+                    <h4 style={{ lineHeight: '10px' }}>{`${props.firstName} ${props.midName}`}</h4>
+                    <p style={{ fontWeight: 'lighter' }}>{props.yearOfLife}</p>
                 </CardTop>
-                <SubTitle name="Биография" edit/>
+                <SubTitle name="Биография" edit tip="Изменить биографию"/>
 
-            <CardContent>
-                {props.bio}
-           </CardContent>
-           </div>
+                <CardContent>
+                    {props.bio}
+                </CardContent>
+            </div>
 
-            
+
         </>
     )
 }

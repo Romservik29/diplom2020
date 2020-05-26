@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 
 // MUI Stuff
+import MyButton from '../../util/MyButton';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -33,12 +34,12 @@ const DeleteButton = (props) => {
     };
     return (
             <>
-                <Button
-                    tip="Delete Scream"
+                <MyButton
+                    tip={props.tip}
                     onClick={handleOpen}
                 >
-                    <DeleteOutline color="secondary" />
-                </Button>
+                    <DeleteOutline color="primary" />
+                </MyButton>
                 <Dialog
                     open={open}
                     onClose={handleClose}
@@ -63,7 +64,8 @@ const DeleteButton = (props) => {
 
 DeleteButton.propTypes = {
     deleteFunc: PropTypes.func.isRequired,
-    deleteId: PropTypes.string.isRequired
+    deleteId: PropTypes.string.isRequired,
+    tip: PropTypes.string.isRequired
 };
 
 export default DeleteButton;

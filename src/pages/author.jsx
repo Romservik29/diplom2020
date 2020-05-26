@@ -8,7 +8,14 @@ import Movie from '../components/author/Movie'
 import Books from '../components/author/Books'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { getAuthor } from '../redux/actions/authorActions'
+import {
+    getAuthor,
+    addAudio,
+    addMovie,
+    addIllustration,
+    addText
+} from '../redux/actions/authorActions'
+
 const Wrapper = styled(Grid)`
 padding:10px;
 border:3px outset #174578;
@@ -41,6 +48,7 @@ class author extends Component {
             illustrations,
             tests,
             books,
+            authorId
         } } = this.props;
 
         return (
@@ -57,22 +65,25 @@ class author extends Component {
                         midName={midName}
                         yearOfLife={yearOfLife}
                         bio={bio}
+                        authenticated={this.props.authenticated}
                     />
                 </GridWrapper>
                 <GridWrapper container >
-                    <Books books={books} />
+                    <Books books={books} authenticated={this.props.authenticated} />
+
                 </GridWrapper>
                 <GridWrapper container>
-                    <Audio audio={audio} />
+                    <Audio audio={audio} authorId={this.props.author.authorId} addAudio={this.props.addAudio} authenticated={this.props.authenticated} />
+                    <button onClick={this.props.addAudio}>Click</button>
                 </GridWrapper>
                 <GridWrapper container>
-                    <Illustration illustrations={illustrations} />
+                    <Illustration illustrations={illustrations} authenticated={this.props.authenticated} />
                 </GridWrapper>
                 <GridWrapper container>
-                    <Movie movies={movies} />
+                    <Movie movies={movies} authenticated={this.props.authenticated} />
                 </GridWrapper>
                 <GridWrapper container>
-                    <Test tests={tests} />
+                    <Test tests={tests} authenticated={this.props.authenticated} />
                 </GridWrapper>
             </Wrapper>
         )
@@ -81,7 +92,12 @@ class author extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    author: state.author.author
+    author: state.author.author,
+    authenticated: state.user.authenticated
 })
 
-export default connect(mapStateToProps, { getAuthor })(author)
+export default connect(mapStateToProps, {getAuthor,
+    addAudio,
+    addMovie,
+    addIllustration,
+    addText})(author)

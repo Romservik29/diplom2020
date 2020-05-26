@@ -33,7 +33,6 @@ const styles = {
 class authorInfo extends Component {
     
     render() {
-        debugger
         const { classes,
             author: {
                 firstName,

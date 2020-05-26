@@ -20,7 +20,7 @@ export default function Books(props) {
     let i =1;
     return (
         <Wrapper>
-            <SubTitle name="Тексты" add/>
+            <SubTitle name="Тексты" add tip="Добавить книгу"/>
             {props.books.map(book=> <Name>
                     <div>
                         <span>{i++}. </span>{book.name} | 16 вопросов

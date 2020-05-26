@@ -24,6 +24,9 @@ const AudioInfo = (props) => {
         if (play === false) setPlay(true)
         else setPlay(false);
     }
+let audio = new Audio();
+audio.src = props.audioUrl;
+const duration = audio.duration;
     return (
         <Root onClick={handlePlayClick}>
             <Content>
@@ -49,7 +52,7 @@ const AudioInfo = (props) => {
             </Content>
             <div>
                 <span>
-                    3:12
+                    {duration}
                 </span>
             </div>
         </Root>

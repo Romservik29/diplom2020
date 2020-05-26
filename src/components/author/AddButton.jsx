@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import PropTypes from 'prop-types';
 
 // MUI Stuff
+import MyButton from '../../util/MyButton';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -11,7 +12,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { TextField, DialogContent } from '@material-ui/core';
 
 const AddButton = (props) => {
-
+    debugger
     const [open, setOpen] = useState(false)
     const handleOpen = () => {
         setOpen(true)
@@ -19,24 +20,17 @@ const AddButton = (props) => {
     const handleClose = () => {
         setOpen(false)
     };
+    const submit =(file,name)=>{
+        props.addFunc(file,name)
+        handleClose();
+    }
     return (
 
         <Formik
             initialValues={{ file: undefined, name: '' }}
-            onSubmit={(values) => {
-                alert(
-                    JSON.stringify(
-                        {
-                            fileName: values.file.name,
-                            type: values.file.type,
-                            size: `${values.file.size} bytes`
-                        },
-                        null,
-                        2
-                    )
-                );
-                handleClose();
-            }}
+            onSubmit={(values) => 
+                submit(values.file,values.name)
+            }
             render={({
                 values,
                 handleSubmit,
@@ -45,12 +39,12 @@ const AddButton = (props) => {
             }) => {
                 return (
                     <>
-                        <Button
-                            tip="Добавить"
+                        <MyButton
+                            tip={props.tip}
                             onClick={handleOpen}
                         >
                             <AddCircleOutlineIcon />
-                        </Button>
+                        </MyButton>
                         <Dialog
                             open={open}
                             onClose={handleClose}
@@ -64,11 +58,11 @@ const AddButton = (props) => {
                             <DialogContent>
                                 <form onSubmit={handleSubmit}>
                                     <TextField
-                                        id="text"
-                                        name="text"
+                                        id="name"
+                                        name="name"
                                         type="text"
                                         onChange={handleChange}
-                                        value={values.text}
+                                        value={values.name}
                                         fullWidth
                                     />
                                     <input
@@ -77,12 +71,12 @@ const AddButton = (props) => {
                                         type="file"
                                         onChange={event => { setFieldValue("file", event.currentTarget.files[0], false) }}
                                     />
-
+                                    <button type='submit'>Ok</button>
                                     <DialogActions>
                                         <Button onClick={handleClose} color="primary">
                                             Отменить
                                     </Button>
-                                        <Button type="submit" color='primary'>
+                                        <Button color='primary'>
                                             Добавить
                                     </Button>
                                     </DialogActions>
@@ -98,7 +92,8 @@ const AddButton = (props) => {
 }
 AddButton.propTypes = {
     addFunc: PropTypes.func.isRequired,
-    addId: PropTypes.string.isRequired
+    addId: PropTypes.string.isRequired,
+    tip: PropTypes.string.isRequired
 };
 
 export default AddButton;

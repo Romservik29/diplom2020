@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import PropTypes from 'prop-types';
 
 // MUI Stuff
-import IconButton from '@material-ui/core/IconButton';
+
 import Button from '@material-ui/core/IconButton';
 
 import Dialog from '@material-ui/core/Dialog';
