@@ -10,18 +10,16 @@ const Wrapper = styled.div`
 
 export default function Audio(props) {
     const handleAudioAdd = (file,name) => {
-        debugger
         const formData = new FormData();
         formData.append('audio', file, file.name);
         formData.append('name', name);
-        formData.append('authorId', "jj");
-        formData.append('name', name);
+        formData.append('authorId', props.authorId);
         props.addAudio(formData);
     };
     return (
         <Wrapper>
-            <SubTitle name="Аудиозаписи" audioUrl="" addFunc={handleAudioAdd} add />
-            {props.audio.map((audio)=><AudioInfo audioUrl={audio.audioUrl}/>)}
+            <SubTitle name="Аудиозаписи" addFunc={handleAudioAdd} add />
+            {props.audio.map((audio)=><AudioInfo authenticated={props.authenticated} name={audio.name} audioUrl={audio.audioUrl}/>)}
         </Wrapper>
     )
 }

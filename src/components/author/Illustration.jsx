@@ -28,6 +28,7 @@ width: 100%;
 
 const Item = styled.div`
 display: flex;
+user-select: none;
 height: 250px;
 width: 100%;
 color: #fff;
@@ -35,31 +36,13 @@ margin: 0 15px;
 font-size: 4em;
 `;
 
-const Shadow = styled.div`
-width: 100%;
-height: 100%;
-display: none;
-font-size: 30px;
-font-weight: 700;
-font-family: 'Segoe UI';
-line-height: 300px;
-text-align: center;
-color: #fff;
-`;
-
 export default function CarouselGen(props) {
-
     return (
         <Wrapper>
             <SubTitle name="Иллюстрации" add tip="Добавить иллюстрацию"/>
             <CarouselWrapper>
                 <Carousel breakPoints={breakPoints}>
-                    <Item><img src={img} alt="Mom"/></Item>
-                    <Item><img src={img} alt="Mom"/><Shadow/></Item>
-                    <Item><img src={img} alt="Mom"/><Shadow/></Item>
-                    <Item><img src={img} alt="Mom"/><Shadow/></Item>
-                    <Item><img src={img} alt="Mom"/><Shadow/></Item>
-                    <Item><img src={img} alt="Mom"/><Shadow/></Item>
+                    {props.illustrations.map(i =><Item><img src={i.illustrationUrl} alt={props.name}/></Item>)}
                 </Carousel>
             </CarouselWrapper>
         </Wrapper>

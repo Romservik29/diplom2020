@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom'
-
+import styled from 'styled-components'
 const styles = {
     wrapper: {
         flexWrap: 'wrap',
@@ -27,8 +27,13 @@ const styles = {
     },
     name: {
         fontSize: 14,
-    }
+    },
 };
+const Hover = styled(Link)`
+:hover{
+    text-decoration: underline;
+}
+`;
 
 class authorInfo extends Component {
     
@@ -53,7 +58,7 @@ class authorInfo extends Component {
                 <div className={classes.bioImg}>
                     <div><img src={portretUrl} alt={firstName} /></div>
                 </div>
-                <Link className={classes.bioDisc} to={`/authors/${authorId}`}>
+                <Hover className={classes.bioDisc} to={`/authors/${authorId}`}>
                     <div className={classes.surname}>{lastName}</div>
                     <div className={classes.name}>{`${firstName} ${midName}`}</div>
                     <div className={classes.years}>
@@ -61,7 +66,7 @@ class authorInfo extends Component {
                             {yearOfLife}
                         </time>
                     </div>
-                </Link>
+                </Hover>
             </div>
         )
     }

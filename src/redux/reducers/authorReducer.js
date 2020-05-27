@@ -15,7 +15,7 @@ import {
 
 const initialState = {
     author: {
-        authorId: '',
+        id: '',
         firstName:'',
         lastName:'',
         midName:'',

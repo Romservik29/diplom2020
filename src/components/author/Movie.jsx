@@ -1,7 +1,7 @@
 import React from 'react'
 import SubTitle from './SubTitle'
 import styled from 'styled-components'
-import Carousel from 'react-elastic-carousel' 
+import Carousel from 'react-elastic-carousel'
 
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -32,28 +32,22 @@ font-size: 4em;
 
 
 
-const Video= styled.iframe`
+const Video = styled.iframe`
 width: 100%;
 height: 100%;
 `;
 
-export default function Movie() {
+export default function Movie(props) {
     return (
         <Wrapper>
-            <SubTitle name="Фильмы" add tip="Добавить фильм"/>
+            <SubTitle name="Фильмы" add tip="Добавить фильм" />
             <CarouselWrapper>
                 <Carousel breakPoints={breakPoints}>
-                    <Item>
-                    <Video  src="https://www.youtube.com/embed/O_joXtIT0is" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen/>
-
-                        
-                    </Item>
-                    <Item>      
-                        <Video  src="https://www.youtube.com/embed/O_joXtIT0is"frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen/>
-                    </Item>
-                    <Item>      
-                        <Video  src="https://www.youtube.com/embed/O_joXtIT0is" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen/>
-                    </Item>
+                    {props.movies.map(movie =>
+                        <Item key={movie.moviId}>
+                            <Video src={`https://www.youtube.com/embed/${movie.movieId}`} frameborder="0" allowfullscreen/>
+                        </Item>)
+                    }
                 </Carousel>
             </CarouselWrapper>
         </Wrapper>

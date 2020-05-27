@@ -12,7 +12,6 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { TextField, DialogContent } from '@material-ui/core';
 
 const AddButton = (props) => {
-    debugger
     const [open, setOpen] = useState(false)
     const handleOpen = () => {
         setOpen(true)
@@ -71,12 +70,11 @@ const AddButton = (props) => {
                                         type="file"
                                         onChange={event => { setFieldValue("file", event.currentTarget.files[0], false) }}
                                     />
-                                    <button type='submit'>Ok</button>
                                     <DialogActions>
                                         <Button onClick={handleClose} color="primary">
                                             Отменить
                                     </Button>
-                                        <Button color='primary'>
+                                        <Button type='submit' color='primary'>
                                             Добавить
                                     </Button>
                                     </DialogActions>

@@ -111,7 +111,7 @@ class login extends Component {
                          Войти
                         </Button><br/>
                         <small>Ещё нет аккаунта?</small> <br/>
-                        <small>Зарегистрировать аккаунт <Link to="/login">здесь</Link></small>
+                        <small>Зарегистрировать аккаунт <Link to="/signup">здесь</Link></small>
                     </form>
                     </Paper>
                 </Grid>

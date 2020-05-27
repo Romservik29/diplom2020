@@ -47,13 +47,13 @@ export const setBio = (bio)=>(dispatch)=>{
 }
 
 export const addAudio = (formData) => (dispatch)=>{
-    alert('audioDispatcher');
     dispatch({type: LOADING_UI})
     axios
     .post(`author/${formData.authorId}/audio`,formData)
     .then(res=> {
+        debugger
         dispatch({type: STOP_LOADING_UI})
-        //dispatch({type: ADD_AUTHOR_AUDIO, formData})
+        dispatch({type: ADD_AUTHOR_AUDIO, audio:res.data.audio})
     })
     .catch(err=>{
         dispatch({

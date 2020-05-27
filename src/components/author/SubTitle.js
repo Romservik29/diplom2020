@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
-import EditButton from './EditButton';
-import AddButton from './AddButton';
+import EditButton from '../adminButtons/EditButton';
+import AddButton from '../adminButtons/AddButton';
 import {connect} from 'react-redux';
 
 const Background = styled.div`

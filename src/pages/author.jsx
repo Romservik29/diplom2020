@@ -20,6 +20,7 @@ const Wrapper = styled(Grid)`
 padding:10px;
 border:3px outset #174578;
 background: white;
+height:100%;
 `;
 
 const GridWrapper = styled(Grid)`
@@ -48,7 +49,7 @@ class author extends Component {
             illustrations,
             tests,
             books,
-            authorId
+            id
         } } = this.props;
 
         return (
@@ -73,8 +74,7 @@ class author extends Component {
 
                 </GridWrapper>
                 <GridWrapper container>
-                    <Audio audio={audio} authorId={this.props.author.authorId} addAudio={this.props.addAudio} authenticated={this.props.authenticated} />
-                    <button onClick={this.props.addAudio}>Click</button>
+                    <Audio audio={audio} authorId={id} addAudio={this.props.addAudio} authenticated={this.props.authenticated} />
                 </GridWrapper>
                 <GridWrapper container>
                     <Illustration illustrations={illustrations} authenticated={this.props.authenticated} />

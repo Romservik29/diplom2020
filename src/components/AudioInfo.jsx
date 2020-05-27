@@ -5,6 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import PauseIcon from '@material-ui/icons/Pause';
 import { CardActionArea } from '@material-ui/core';
 import styled from 'styled-components'
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import EditButton from './adminButtons/EditButton';
+import DeleteButton from './adminButtons/DeleteButton';
 
 const Root = styled(CardActionArea)`
 display: flex;
@@ -16,45 +19,56 @@ max-width: 1000;
 const Content = styled.div`
 display: flex;
 width: 100%;
+justify-content: space-between;
 `;
-
 const AudioInfo = (props) => {
+    const adminButtons = props.authenticated
+        ? <div>
+            <EditButton />
+            <DeleteButton />
+            <IconButton>
+                <CloudDownloadIcon color='primary' />
+            </IconButton>
+        </div>
+        : <div>
+            <IconButton>
+                <CloudDownloadIcon color='primary' />
+            </IconButton>
+        </div>
     const [play, setPlay] = useState(false);
     const handlePlayClick = () => {
         if (play === false) setPlay(true)
         else setPlay(false);
     }
-let audio = new Audio();
-audio.src = props.audioUrl;
-const duration = audio.duration;
     return (
         <Root onClick={handlePlayClick}>
             <Content>
-                {play === false
-                    ?   <IconButton aria-label="play/pause" onClick={handlePlayClick}>
+                <div style={{display: 'flex'}}>
+                    <div>
+                    {play === false
+                        ? <IconButton aria-label="play/pause" onClick={handlePlayClick}>
 
                             <PlayArrowIcon color="primary" />
                         </IconButton>
 
-                    :   <IconButton aria-label="play/pause" onClick={handlePlayClick}>
+                        : <IconButton aria-label="play/pause" onClick={handlePlayClick}>
                             <PauseIcon color="primary" />
                         </IconButton>
-                }
-
-                <div>
+                    }
+                    </div>
+                    <div>
                     <Typography variant='body1'>
-                        How are u, Russians Mans
+                        {props.name}
                     </Typography>
                     <Typography variant='body2'>
-                        How are u, Russians Mans
+                        {props.name}
                     </Typography>
+                    </div>
+                </div>
+                <div>
+                    {adminButtons}
                 </div>
             </Content>
-            <div>
-                <span>
-                    {duration}
-                </span>
-            </div>
         </Root>
 
     )

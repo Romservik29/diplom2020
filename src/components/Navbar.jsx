@@ -18,7 +18,7 @@ import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
 import Box from '@material-ui/core/Box';
 import { connect } from 'react-redux'
-
+import {logoutUser} from '../redux/actions/userActions'
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PrimarySearchAppBar=(props) =>{
+const PrimarySearchAppBar = (props) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -111,7 +111,10 @@ const PrimarySearchAppBar=(props) =>{
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-
+  const logout =()=>{
+    props.logoutUser();
+    handleMenuClose()
+  }
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -123,8 +126,8 @@ const PrimarySearchAppBar=(props) =>{
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link style={{color: 'black'}} to="/user">Профиль</Link></MenuItem>
+      <MenuItem onClick={logout}><Link style={{color: 'black'}} to="/login">Выйти</Link></MenuItem>
     </Menu>
   );
 
@@ -141,7 +144,7 @@ const PrimarySearchAppBar=(props) =>{
     >
       <MenuItem>
         <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
+          <Badge badgeContent={4} color="primary">
             <MailIcon />
           </Badge>
         </IconButton>
@@ -149,7 +152,7 @@ const PrimarySearchAppBar=(props) =>{
       </MenuItem>
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
+          <Badge badgeContent={11} color="primary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -172,8 +175,8 @@ const PrimarySearchAppBar=(props) =>{
   return (
     <div className={classes.grow}>
       <AppBar position="static">
-        <Toolbar style={{display:'flex', justifyContent:'space-between'}}>
-          <div>
+        <Toolbar>
+
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -207,14 +210,12 @@ const PrimarySearchAppBar=(props) =>{
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-          </div>
-          {(props.authenticated === false)
-            ? <Button color="secondary" component={Link} to="/login">Войти</Button>
 
-            : <>
-              <div className={classes.grow} />
-              <div className={classes.sectionDesktop}>
-
+          <div className={classes.grow} />
+          <div className={classes.sectionDesktop}>
+            {(props.authenticated === false)
+              ? <Button color="secondary" component={Link} to="/login">Войти</Button>
+              : <>
                 <IconButton aria-label="show 4 new mails" color="inherit">
                   <Badge badgeContent={4} color="secondary">
                     <MailIcon />
@@ -235,7 +236,6 @@ const PrimarySearchAppBar=(props) =>{
                 >
                   <AccountCircle />
                 </IconButton>
-              </div>
               <div className={classes.sectionMobile}>
                 <IconButton
                   aria-label="show more"
@@ -246,9 +246,12 @@ const PrimarySearchAppBar=(props) =>{
                 >
                   <MoreIcon />
                 </IconButton>
-              </div>
-            </>
-          }
+                </div>
+                </>
+            }
+          </div>
+
+
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
@@ -256,10 +259,10 @@ const PrimarySearchAppBar=(props) =>{
     </div>
   );
 }
-let mapStateToProps = (state)=>({
+let mapStateToProps = (state) => ({
   authenticated: state.user.authenticated
 })
-export default connect(mapStateToProps,null)(PrimarySearchAppBar)
+export default connect(mapStateToProps, {logoutUser})(PrimarySearchAppBar)
 
 
 
