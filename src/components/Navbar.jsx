@@ -5,20 +5,19 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import Button from '@material-ui/core/Button'
-import { Link } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import { connect } from 'react-redux'
-import {logoutUser} from '../redux/actions/userActions'
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logoutUser } from '../redux/actions/userActions';
+import MyButton from '../util/MyButton';
+import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -58,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
   inputRoot: {
     color: 'inherit',
+    width: '100%',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '100%',
     },
   },
   sectionDesktop: {
@@ -84,10 +84,17 @@ const useStyles = makeStyles((theme) => ({
   pages: {
     position: 'absolute',
     left: '35%',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
   },
+  link: {
+    color: 'black',
+  }
 }));
 
 const PrimarySearchAppBar = (props) => {
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -111,7 +118,7 @@ const PrimarySearchAppBar = (props) => {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-  const logout =()=>{
+  const logout = () => {
     props.logoutUser();
     handleMenuClose()
   }
@@ -126,8 +133,8 @@ const PrimarySearchAppBar = (props) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}><Link style={{color: 'black'}} to="/user">Профиль</Link></MenuItem>
-      <MenuItem onClick={logout}><Link style={{color: 'black'}} to="/login">Выйти</Link></MenuItem>
+      <MenuItem onClick={handleMenuClose}><Link className={classes.link} to="/user">Профиль</Link></MenuItem>
+      <MenuItem onClick={logout}><Link className={classes.link} to="/login">Выйти</Link></MenuItem>
     </Menu>
   );
 
@@ -142,54 +149,52 @@ const PrimarySearchAppBar = (props) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="primary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
+      {props.authenticated === true
+         ?<MenuItem onClick={handleMobileMenuClose}>
+          <Link className={classes.link} to="/user">Профиль</Link>
+        </MenuItem>
+        :<MenuItem onClick={handleMobileMenuClose}>
+        <Link className={classes.link} to="/login">Войти</Link>
+      </MenuItem>}
+      <MenuItem onClick={handleMobileMenuClose}>
+        <Link className={classes.link} to="/authors">Писатели</Link>
       </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="primary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
+      <MenuItem onClick={handleMobileMenuClose}>
+        <Link className={classes.link} to="/audio">Аудиозаписи</Link>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
+      <MenuItem onClick={handleMobileMenuClose}>
+        <Link className={classes.link} to="/books">Тексты</Link>
       </MenuItem>
+      <MenuItem onClick={handleMobileMenuClose}>
+        <Link className={classes.link} to="/illustrations">Иллюстрации</Link>
+      </MenuItem>
+      <MenuItem onClick={handleMobileMenuClose}>
+        <Link className={classes.link} to="/movies">Фильмы</Link>
+      </MenuItem>
+      {props.authenticated===true
+            &&<MenuItem onClick={logout}>
+        <Link className={classes.link} to="/login">Выход</Link>
+      </MenuItem>}
     </Menu>
   );
-
   return (
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-
-          <IconButton
+          <MyButton
+            tip="РуссЛит"
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
-            <MenuIcon />
-          </IconButton>
+            <SwapHorizIcon color="secondary" />
+          </MyButton>
           <Typography className={classes.title} variant="h6" noWrap>
             БелЛит
           </Typography>
 
-          <Box component='div' display={{ xs: 'none', lg: 'block' }} className={classes.pages}>
+          <Box component='div' className={classes.pages}>
             <Button color="inherit" component={Link} to="/authors">Пісьменнікі</Button>
             <Button color="inherit" component={Link} to="/movies">Фільмы</Button>
             <Button color="inherit" component={Link} to="/audios">Аўдыёзапісы</Button>
@@ -216,16 +221,6 @@ const PrimarySearchAppBar = (props) => {
             {(props.authenticated === false)
               ? <Button color="secondary" component={Link} to="/login">Войти</Button>
               : <>
-                <IconButton aria-label="show 4 new mails" color="inherit">
-                  <Badge badgeContent={4} color="secondary">
-                    <MailIcon />
-                  </Badge>
-                </IconButton>
-                <IconButton aria-label="show 17 new notifications" color="inherit">
-                  <Badge badgeContent={17} color="secondary">
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
                 <IconButton
                   edge="end"
                   aria-label="account of current user"
@@ -234,23 +229,22 @@ const PrimarySearchAppBar = (props) => {
                   onClick={handleProfileMenuOpen}
                   color="inherit"
                 >
-                  <AccountCircle />
+                  <AccountCircle color="secondary" />
                 </IconButton>
-              <div className={classes.sectionMobile}>
-                <IconButton
-                  aria-label="show more"
-                  aria-controls={mobileMenuId}
-                  aria-haspopup="true"
-                  onClick={handleMobileMenuOpen}
-                  color="inherit"
-                >
-                  <MoreIcon />
-                </IconButton>
-                </div>
-                </>
+              </>
             }
           </div>
-
+          <div className={classes.sectionMobile}>
+            <IconButton
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MenuIcon color="secondary" />
+            </IconButton>
+          </div>
 
         </Toolbar>
       </AppBar>
@@ -259,63 +253,8 @@ const PrimarySearchAppBar = (props) => {
     </div>
   );
 }
+
 let mapStateToProps = (state) => ({
   authenticated: state.user.authenticated
 })
-export default connect(mapStateToProps, {logoutUser})(PrimarySearchAppBar)
-
-
-
-/*import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-
-import Button from '@material-ui/core/Button'
-import {Link} from 'react-router-dom'
-import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
-
-
-export default function Navbar(props) {
-
-    return (
-        <div className={'grow'}>
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={'menuButton'}
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={() => alert()}
-                    >
-                        <SwapHorizIcon />
-                    </IconButton>
-                    <Typography className={'title'} variant="h6" noWrap>
-                        Беларуская літаратура
-                    </Typography>
-                    <div className='nav-pages-container'>
-                        <Button color="inherit" component={Link} to="/authors">Пісьменнікі</Button>
-                        <Button color="inherit" component={Link} to="/movies">Фільмы</Button>
-                        <Button color="inherit" component={Link} to="/audios">Аўдыёзапісы</Button>
-                        <Button color="inherit" component={Link} to="/texts">Тэксты</Button>
-                        <Button color="inherit" component={Link} to="/tests">Тэсты</Button>
-                        <Button color="inherit" component={Link} to="/illustrations">Ілюстрацыі</Button>
-                    </div>
-
-                    <div className={'grow'} />
-                        <IconButton
-                            edge="end"
-                            aria-haspopup="true"
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
-}
-*/
+export default connect(mapStateToProps, { logoutUser })(PrimarySearchAppBar)

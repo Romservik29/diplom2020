@@ -12,9 +12,10 @@ export const CLEAR_ERRORS                  = 'CLEAR_ERRORS';
 export const LOADING_DATA                  = 'LOADING_DATA';
 export const STOP_LOADING_UI               = 'STOP_LOADING_UI';
 
-// Author reducer types   
-export const SET_AUTHOR                    = 'SET_AUTHORS'
-export const SET_AUTHOR_BIO               = 'SET_AUTHOR_BIO'
+// Author reducer types
+export const SET_AUTHORS                   = 'SET_AUTHORS'   
+export const SET_AUTHOR                    = 'SET_AUTHOR'
+export const SET_AUTHOR_BIO                = 'SET_AUTHOR_BIO'
 export const ADD_AUTHOR_AUDIO              = 'ADD_AUDIO'
 export const DEL_AUTHOR_AUDIO              = 'DEL_AUDIO'
 export const ADD_AUTHOR_MOVIE              = 'ADD_MOVIE'      
@@ -28,7 +29,7 @@ export const DEL_AUTHOR_TEXT               = 'DEL_TEXT'
 
 //data reducer type
 
-export const SET_AUTHORS                   = 'SET_AUTHORS'
+
 export const SET_AUDIOS                    = 'SET_AUDIOS'
 export const SET_MOVIES                    = 'SET_MOVIES'
 export const SET_ILLUSTRATIONS             = 'SET_ILLUSTRATIONS'

@@ -1,22 +1,11 @@
 import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
-import axios from 'axios'
 import BookInfo from '../components/BookInfo';
 
 
-export default class authors extends Component {
-    state = {
-        authors: []
-    }
-
+export default class books extends Component {
     componentDidMount() {
-        //authorAPI.getAuthors()
-        axios.get('authors?page=1&limit=10')
-            .then(res => {
-                this.setState({
-                    authors: res.data.authors
-                })
-            })
+
     }
     render() {
 

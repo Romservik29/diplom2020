@@ -10,10 +10,12 @@ import {
     DEL_AUTHOR_MOVIE,
     DEL_AUTHOR_ILLUSTRATION,
     DEL_AUTHOR_TEST,
-    DEL_AUTHOR_TEXT
+    DEL_AUTHOR_TEXT,
+    SET_AUTHORS
 } from '../types'
 
 const initialState = {
+    authors:[],
     author: {
         id: '',
         firstName:'',
@@ -32,6 +34,11 @@ const initialState = {
 
 export default function(state=initialState,action){
     switch(action.type){
+        case SET_AUTHORS:
+            return {
+                ...state,
+                authors: [...action.authors]
+            }
         case SET_AUTHOR:
             return {
                 ...state,

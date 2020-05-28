@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 //import PropTypes from 'prop-types'
-import AppIcon from '../images/book.png'
+import AppIcon from '../images/book2.png'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 //MUI Stuff

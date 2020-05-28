@@ -6,7 +6,6 @@ export class home extends Component {
         authors: []
     }
     componentDidMount(){
-        //authorAPI.getAuthors()
         axios.get('authors?page=1&limit=3')
         .then(res=>{
             this.setState({

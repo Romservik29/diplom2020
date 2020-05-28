@@ -1,4 +1,5 @@
 import {
+    SET_AUTHORS,
     SET_AUTHOR_BIO,
     LOADING_UI,
     SET_ERRORS,
@@ -13,6 +14,14 @@ import {
 
 import axios from 'axios'
 
+export const getAuthors = (page=1,limit=6)=>(dispatch)=>{
+    dispatch({type: LOADING_UI})
+    axios.get(`/authors?page=${page}&limit=${limit}`)
+    .then(res=>{
+        dispatch({type: SET_AUTHORS, authors: res.data.authors})
+        dispatch({type: STOP_LOADING_UI})
+    })
+}
 export const getAuthor = (id) =>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
@@ -22,10 +31,10 @@ export const getAuthor = (id) =>(dispatch)=>{
         dispatch({type: SET_AUTHOR, payload: res.data})
         dispatch({type: STOP_LOADING_UI})
     })
-    .catch(err=>{
+    .catch(err=>{debugger
         dispatch({
             type: SET_ERRORS,
-            payload: err.response.data
+            payload: err.message
         })
     })
 }
@@ -41,7 +50,7 @@ export const setBio = (bio)=>(dispatch)=>{
     .catch(err=>{
         dispatch({
             type: SET_ERRORS,
-            payload: err.response.data
+            payload: err.message
         })
     }) 
 }

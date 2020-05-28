@@ -1,14 +1,19 @@
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
-
-function ProgressBar() {
+const ProgressBar = (props) => {
   return (
-      <LinearProgress />
+    <>
+      {props.loading === true
+        ? <LinearProgress />
+        : <div style={{height: '4px'}}/>
+      }
+    </>
   );
 }
-const mapStateToProps =(state)=>({
+
+const mapStateToProps = (state) => ({
   loading: state.UI.loading
 })
-export default connect(mapStateToProps,{})(ProgressBar)
+export default connect(mapStateToProps, {})(ProgressBar)

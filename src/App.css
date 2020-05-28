@@ -8,13 +8,6 @@
   margin: 40px auto 0 auto;
   max-width: 1000px;
 }
-.nav-container{
-  margin: auto;
-}
-
-.nav-auth-container{
-  margin: auto;
-}
 
 .nav-pages-container{
   margin: auto
@@ -23,7 +16,4 @@
 
 a{
   text-decoration: none;
-}
-.rec-swipable-null:hover{
-  
 }

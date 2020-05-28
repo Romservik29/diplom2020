@@ -37,23 +37,26 @@ class author extends Component {
         this.props.getAuthor(authorId);
     }
     render() {
-        const { author: {
-            firstName,
-            lastName,
-            midName,
-            portretUrl,
-            yearOfLife,
-            bio,
-            audio,
-            movies,
-            illustrations,
-            tests,
-            books,
-            id
-        } } = this.props;
+        const { loading, authenticated,
+            author: {
+                firstName,
+                lastName,
+                midName,
+                portretUrl,
+                yearOfLife,
+                bio,
+                audio,
+                movies,
+                illustrations,
+                tests,
+                books,
+                id
+            } } = this.props;
 
-        return (
-            <Wrapper
+        return (<>
+            {loading
+            ?null
+            :<Wrapper
                 container
                 justify="center"
                 alignItems="center"
@@ -66,26 +69,26 @@ class author extends Component {
                         midName={midName}
                         yearOfLife={yearOfLife}
                         bio={bio}
-                        authenticated={this.props.authenticated}
+                        authenticated={authenticated}
                     />
                 </GridWrapper>
                 <GridWrapper container >
-                    <Books books={books} authenticated={this.props.authenticated} />
-
+                    <Books books={books} authenticated={authenticated} />
                 </GridWrapper>
                 <GridWrapper container>
-                    <Audio audio={audio} authorId={id} addAudio={this.props.addAudio} authenticated={this.props.authenticated} />
+                    <Audio audio={audio} authorId={id} addAudio={this.props.addAudio} authenticated={authenticated} />
                 </GridWrapper>
                 <GridWrapper container>
-                    <Illustration illustrations={illustrations} authenticated={this.props.authenticated} />
+                    <Illustration illustrations={illustrations} authenticated={authenticated} />
                 </GridWrapper>
                 <GridWrapper container>
-                    <Movie movies={movies} authenticated={this.props.authenticated} />
+                    <Movie movies={movies} authenticated={authenticated} />
                 </GridWrapper>
                 <GridWrapper container>
-                    <Test tests={tests} authenticated={this.props.authenticated} />
+                    <Test tests={tests} authenticated={authenticated}/>
                 </GridWrapper>
-            </Wrapper>
+            </Wrapper>}
+            </>
         )
     }
 
@@ -93,11 +96,14 @@ class author extends Component {
 
 const mapStateToProps = (state) => ({
     author: state.author.author,
-    authenticated: state.user.authenticated
+    authenticated: state.user.authenticated,
+    loading: state.UI.loading
 })
 
-export default connect(mapStateToProps, {getAuthor,
+export default connect(mapStateToProps, {
+    getAuthor,
     addAudio,
     addMovie,
     addIllustration,
-    addText})(author)
+    addText
+})(author)
