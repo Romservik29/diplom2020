@@ -19,8 +19,8 @@ const AddButton = (props) => {
     const handleClose = () => {
         setOpen(false)
     };
-    const submit =(file,name)=>{
-        props.addFunc(file,name)
+    const submit =(file,name,second)=>{
+        props.addFunc(file,name,second)
         handleClose();
     }
     return (
@@ -28,7 +28,7 @@ const AddButton = (props) => {
         <Formik
             initialValues={{ file: undefined, name: '' }}
             onSubmit={(values) => 
-                submit(values.file,values.name)
+                submit(values.file,values.name,values.second)
             }
             render={({
                 values,
@@ -52,7 +52,7 @@ const AddButton = (props) => {
                         >
 
                             <DialogTitle>
-                                Are you sure you want to delete this scream ?
+                               {props.title}
                             </DialogTitle>
                             <DialogContent>
                                 <form onSubmit={handleSubmit}>
@@ -62,6 +62,16 @@ const AddButton = (props) => {
                                         type="text"
                                         onChange={handleChange}
                                         value={values.name}
+                                        placeholder="Название"
+                                        fullWidth
+                                    />
+                                    <TextField
+                                        id="second"
+                                        name="second"
+                                        type="text"
+                                        onChange={handleChange}
+                                        value={values.second}
+                                        placeholder="Автор"
                                         fullWidth
                                     />
                                     <input
@@ -91,7 +101,8 @@ const AddButton = (props) => {
 AddButton.propTypes = {
     addFunc: PropTypes.func.isRequired,
     addId: PropTypes.string.isRequired,
-    tip: PropTypes.string.isRequired
+    tip: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
 };
 
 export default AddButton;

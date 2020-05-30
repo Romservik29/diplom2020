@@ -3,8 +3,8 @@ import SubTitle from './SubTitle'
 import styled from 'styled-components'
 import IconButton from '@material-ui/core/IconButton';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import EditButton from '../adminButtons/EditButton';
 import DeleteButton from '../adminButtons/DeleteButton';
+import PropTypes from 'prop-types'
 
 const Wrapper = styled.div`
 width: 100%;
@@ -17,20 +17,11 @@ align-items: center;
 `;
 
 
+
 export default function Books(props) {
-    const adminButtons = props.authenticated
-        ? <div>
-            <EditButton />
-            <DeleteButton />
-            <IconButton>
-                <CloudDownloadIcon color='primary' />
-            </IconButton>
-        </div>
-        : <div>
-            <IconButton>
-                <CloudDownloadIcon color='primary' />
-            </IconButton>
-        </div>
+
+    const title = "Вы действительно хотите удалить эту книгу?";
+
     let i = 1;
     return (
         <Wrapper>
@@ -39,8 +30,28 @@ export default function Books(props) {
                 <div>
                     <span>{i++}. </span>{book.name}
                 </div>
-                {adminButtons}
+
+                {props.authenticated === true
+                    ? <div>
+                        <DeleteButton title={title} tip='удалить' deleteId={book.id} deleteFunc={props.delBook} />
+                        <IconButton>
+                            <CloudDownloadIcon color='primary' />
+                        </IconButton>
+                    </div>
+                    : <div>
+                        <IconButton>
+                            <CloudDownloadIcon color='primary' />
+                        </IconButton>
+                    </div>}
             </Name>)}
         </Wrapper>
     )
+}
+
+Books.propTypes = {
+    book: PropTypes.object.isRequired,
+    delBook: PropTypes.func.isRequired,
+    authenticated: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired
 }

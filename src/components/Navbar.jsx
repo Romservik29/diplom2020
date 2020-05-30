@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
   inputRoot: {
     color: 'inherit',
-    width: '100%',
+    width: 'auto',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.down('sm')]: {
       width: '100%',
     },
   },
@@ -85,6 +85,9 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     left: '35%',
     [theme.breakpoints.down('md')]: {
+      left:'40%',
+    },
+    [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
   },

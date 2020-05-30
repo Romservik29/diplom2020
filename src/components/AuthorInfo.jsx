@@ -49,10 +49,6 @@ class authorInfo extends Component {
             }
         } = this.props;
 
-        /*  const deleteButton =
-            authenticated && userHandle === handle ? (
-              <DeleteScream screamId={screamId} />
-            ) : null;*/
         return (
             <div className={classes.wrapper}>
                 <div className={classes.bioImg}>
@@ -71,10 +67,5 @@ class authorInfo extends Component {
         )
     }
 }
-
-/*
-const mapStateToProps = (state) => ({
-    user: state.user
-});*/
 
 export default withStyles(styles)(authorInfo);

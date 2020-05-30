@@ -6,8 +6,8 @@ import PauseIcon from '@material-ui/icons/Pause';
 import { CardActionArea } from '@material-ui/core';
 import styled from 'styled-components'
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import EditButton from './adminButtons/EditButton';
 import DeleteButton from './adminButtons/DeleteButton';
+import PropTypes  from 'prop-types'
 
 const Root = styled(CardActionArea)`
 display: flex;
@@ -21,11 +21,16 @@ display: flex;
 width: 100%;
 justify-content: space-between;
 `;
+
 const AudioInfo = (props) => {
+
+    const title = "вы действительно хотите удалить эту аудиозапись?";
+    const handleDelete = (id)=>{
+    props.delAudio(id);
+}
     const adminButtons = props.authenticated
         ? <div>
-            <EditButton />
-            <DeleteButton />
+            <DeleteButton title={title} deleteId={props.id} deleteFunc={handleDelete}/>
             <IconButton>
                 <CloudDownloadIcon color='primary' />
             </IconButton>
@@ -40,6 +45,7 @@ const AudioInfo = (props) => {
         if (play === false) setPlay(true)
         else setPlay(false);
     }
+    
     return (
         <Root onClick={handlePlayClick}>
             <Content>
@@ -72,6 +78,13 @@ const AudioInfo = (props) => {
         </Root>
 
     )
+}
+
+AudioInfo.propTypes ={
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    authenticated: PropTypes.bool.isRequired,
+    delAudio: PropTypes.func.isRequired
 }
 
 export default AudioInfo;

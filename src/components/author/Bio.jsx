@@ -44,7 +44,8 @@ export default function Bio(props) {
         const image = event.target.files[0];
         const formData = new FormData();
         formData.append('image', image, image.name);
-        props.uploadImage(formData);
+        formData.append('authorId',props.authorId)
+        props.uploadPortret(formData,props.authorId);
     };
     const uploadImage = props.authenticated === true
         ? <MyButton

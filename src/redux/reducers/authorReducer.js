@@ -1,16 +1,16 @@
 import {
     SET_AUTHOR_BIO,
     SET_AUTHOR,
-    ADD_AUTHOR_AUDIO,
-    ADD_AUTHOR_MOVIE,
-    ADD_AUTHOR_ILLUSTRATION,
-    ADD_AUTHOR_TEST,
-    ADD_AUTHOR_TEXT,
-    DEL_AUTHOR_AUDIO,
-    DEL_AUTHOR_MOVIE,
-    DEL_AUTHOR_ILLUSTRATION,
-    DEL_AUTHOR_TEST,
-    DEL_AUTHOR_TEXT,
+    ADD_AUDIO,
+    ADD_MOVIE,
+    ADD_ILLUSTRATION,
+    ADD_TEST,
+    ADD_TEXT,
+    DEL_AUDIO,
+    DEL_MOVIE,
+    DEL_ILLUSTRATION,
+    DEL_TEST,
+    DEL_TEXT,
     SET_AUTHORS
 } from '../types'
 
@@ -49,32 +49,32 @@ export default function(state=initialState,action){
             ...state.author,
             bio: action.bio
         }
-        case ADD_AUTHOR_AUDIO: return{
+        case ADD_AUDIO: return{
             ...state,
             ...state.author,
             audio: [...state.author.audio, action.audio]
         }
-        case ADD_AUTHOR_MOVIE: return{
+        case ADD_MOVIE: return{
             ...state,
             ...state.author,
             movies: [...state.author.movies, action.movie]
         }
-        case ADD_AUTHOR_ILLUSTRATION: return{
+        case ADD_ILLUSTRATION: return{
             ...state,
             ...state.author,
             illustrations: [...state.author.illustrations, action.illustration]
         }
-        case ADD_AUTHOR_TEST: return{
+        case ADD_TEST: return{
             ...state,
             ...state.author,
             tests: [...state.author.tests, action.test]
         }
-        case ADD_AUTHOR_TEXT: return{
+        case ADD_TEXT: return{
             ...state,
             ...state.author,
             books: [...state.author.books, action.book]
         }
-        case DEL_AUTHOR_AUDIO: 
+        case DEL_AUDIO: 
         let index = state.author.audio.findIndex(
             (audio) => audio.id === action.payload
         )
@@ -82,7 +82,7 @@ export default function(state=initialState,action){
         return{
             ...state
         }
-        case DEL_AUTHOR_MOVIE: 
+        case DEL_MOVIE: 
         index = state.author.movies.findIndex(
             (movies) => movies.id === action.payload
         )
@@ -90,7 +90,7 @@ export default function(state=initialState,action){
         return{
             ...state
         }
-        case DEL_AUTHOR_ILLUSTRATION: 
+        case DEL_ILLUSTRATION: 
         index = state.author.illustrations.findIndex(
             (illustrations) => illustrations.id === action.payload
         )
@@ -98,7 +98,7 @@ export default function(state=initialState,action){
         return{
             ...state
         }
-        case DEL_AUTHOR_TEST:  
+        case DEL_TEST:  
         index = state.author.tests.findIndex(
             (tests) => tests.id === action.payload
         )
@@ -106,7 +106,7 @@ export default function(state=initialState,action){
         return{
             ...state
         }
-        case DEL_AUTHOR_TEXT: 
+        case DEL_TEXT:
         index = state.author.texts.findIndex(
             (texts) => texts.id === action.payload
         )

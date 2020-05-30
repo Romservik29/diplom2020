@@ -15,24 +15,16 @@ export const STOP_LOADING_UI               = 'STOP_LOADING_UI';
 // Author reducer types
 export const SET_AUTHORS                   = 'SET_AUTHORS'   
 export const SET_AUTHOR                    = 'SET_AUTHOR'
+export const UPLOAD_PORTRET                = 'SET_AUTHOR'
 export const SET_AUTHOR_BIO                = 'SET_AUTHOR_BIO'
-export const ADD_AUTHOR_AUDIO              = 'ADD_AUDIO'
-export const DEL_AUTHOR_AUDIO              = 'DEL_AUDIO'
-export const ADD_AUTHOR_MOVIE              = 'ADD_MOVIE'      
-export const DEL_AUTHOR_MOVIE              = 'DEL_MOVIE'
-export const ADD_AUTHOR_ILLUSTRATION       = 'ADD_ILLUSTRATION'
-export const DEL_AUTHOR_ILLUSTRATION       = 'ILLUSTRATION'
-export const ADD_AUTHOR_TEST               = 'ADD_TEST'
-export const DEL_AUTHOR_TEST               = 'DEL_TEST'
-export const ADD_AUTHOR_TEXT               = 'ADD_TEXT'
-export const DEL_AUTHOR_TEXT               = 'DEL_TEXT'
-
-//data reducer type
-
-
-export const SET_AUDIOS                    = 'SET_AUDIOS'
-export const SET_MOVIES                    = 'SET_MOVIES'
-export const SET_ILLUSTRATIONS             = 'SET_ILLUSTRATIONS'
-export const SET_TESTS                     = 'SET_TESTS'
-export const SET_TEXTS                     = 'SET_TEXTS'
+export const ADD_AUDIO                     = 'ADD_AUDIO'
+export const DEL_AUDIO                     = 'DEL_AUDIO'
+export const ADD_MOVIE                     = 'ADD_MOVIE'      
+export const DEL_MOVIE                     = 'DEL_MOVIE'
+export const ADD_ILLUSTRATION              = 'ADD_ILLUSTRATION'
+export const DEL_ILLUSTRATION              = 'ILLUSTRATION'
+export const ADD_TEST                      = 'ADD_TEST'
+export const DEL_TEST                      = 'DEL_TEST'
+export const ADD_BOOK                      = 'ADD_BOOK'
+export const DEL_BOOK                      = 'DEL_BOOK'
 

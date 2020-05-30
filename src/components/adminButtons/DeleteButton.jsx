@@ -29,7 +29,7 @@ const DeleteButton = (props) => {
         setOpen(false)
     };
     const deleteFunction = () => {
-        props.deleteFunc(props.id);
+        props.deleteFunc(props.deleteId);
         setOpen(false)
     };
     return (
@@ -47,14 +47,14 @@ const DeleteButton = (props) => {
                     maxWidth="sm"
                 >
                     <DialogTitle>
-                        Are you sure you want to delete this scream ?
+                        {props.title}
                     </DialogTitle>
                     <DialogActions>
                         <Button onClick={handleClose} color="primary">
-                            Cancel
+                            Отменить
                     </Button>
                     <Button onClick={deleteFunction} color="primary">
-                            Delete
+                            Удалить
                     </Button>
                     </DialogActions>
                 </Dialog>
@@ -65,6 +65,7 @@ const DeleteButton = (props) => {
 DeleteButton.propTypes = {
     deleteFunc: PropTypes.func.isRequired,
     deleteId: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     tip: PropTypes.string.isRequired
 };
 
