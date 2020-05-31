@@ -18,9 +18,8 @@ import Movie from '../components/author/Movie';
 import Books from '../components/author/Books';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import { IconButton, Menu, MenuItem } from '@material-ui/core';
+import AddAuthorItemsMenu from '../components/author/AddAuthorItemsMenu';
+import SubTitle from '../components/author/SubTitle'
 
 const Wrapper = styled(Grid)`
 padding:10px;
@@ -35,17 +34,7 @@ const GridWrapper = styled(Grid)`
     }
 `;
 
-const AuthorAddItems = styled(IconButton)`
-    position: fixed;
-    top: 90%;
-    right: 18%;
-`;
-
-
 class Author extends Component {
-    state = {
-        anchorEl: null
-    }
     componentDidMount() {
         let authorId = this.props.match.params.authorId;
         this.props.getAuthor(authorId)
@@ -67,36 +56,7 @@ class Author extends Component {
                 books,
                 id
             } } = this.props;
-        const handleClose = () => {
-            this.setState({
-                anchorEl: null
-            })
-        }
-        const handleClick = (event) => {
-            this.setState({
-                anchorEl: event.currentTarget
-            });
-        };
-        const renderAuthorAddItemsMenu = (
-            authenticated === true
-            && <>
-                <AuthorAddItems onClick={handleClick}>
-                    <AddCircleIcon style={{ fontSize: '3em', color: '#9bcffd' }} />
-                </AuthorAddItems>
-                <Menu
-                    id="author-add-items-menu"
-                    anchorEl={this.state.anchorEl}
-                    keepMounted
-                    open={Boolean(this.state.anchorEl)}
-                    onClose={handleClose}>
-                    <MenuItem onClick={handleClose}>Аудиозапись</MenuItem>
-                    <MenuItem onClick={handleClose}>Текст</MenuItem>
-                    <MenuItem onClick={handleClose}>Иллюстрацию</MenuItem>
-                    <MenuItem onClick={handleClose}>Тест</MenuItem>
-                </Menu>
-            </>
 
-        )
         return (<>
             {<Wrapper
                 container
@@ -117,35 +77,33 @@ class Author extends Component {
                     />
                 </GridWrapper>
                 <GridWrapper container >
+                    <SubTitle name="Тексты" />
                     <Books books={books} delBook={this.props.delBook} addBook={this.props.addBook} authenticated={authenticated} authorId={id} />
                 </GridWrapper>
                 <GridWrapper container>
-                    <Audio audio={audio} delAudio={this.props.delAudio} addAudio={this.props.addAudio} authenticated={authenticated} authorId={id} />
+                    <Grid item ><SubTitle name="Аудиозаписи"/></Grid>
+                    <Grid item><Audio audio={audio} delAudio={this.props.delAudio} addAudio={this.props.addAudio} authenticated={authenticated} authorId={id} /></Grid>
                 </GridWrapper>
                 <GridWrapper container>
+                    <Grid item ><SubTitle name="Иллюстрации"/></Grid>
+
                     <Illustration illustrations={illustrations} authenticated={authenticated} authorId={id} />
                 </GridWrapper>
                 <GridWrapper container>
+                    <Grid item ><SubTitle name="Фильмы"/></Grid>
                     <Movie movies={movies} authenticated={authenticated} authorId={id} />
                 </GridWrapper>
                 <GridWrapper container>
+                <Grid item ><SubTitle name="Тесты"/></Grid>
                     <Test tests={tests} authenticated={authenticated} authorId={id} />
                 </GridWrapper>
+                <AddAuthorItemsMenu authorId={id} authenticated={authenticated} />
             </Wrapper>}
-            {renderAuthorAddItemsMenu}
+
         </>
         )
     }
 }
-/*const handleDelete =(file,name,second)=>{
-    const formData = new FormData();
-    formData.append('audio', file, file.name);
-    formData.append('name', name);
-    formData.append('singer', second)
-    formData.append('authorId', props.authorId);
-    props.delBook(formData);
-}*/
-
 
 const mapStateToProps = (state) => ({
     author: state.author.author,

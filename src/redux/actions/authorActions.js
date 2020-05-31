@@ -1,6 +1,5 @@
 import {
     STOP_LOADING_UI,
-    SET_AUTHOR_BIO,
     SET_AUTHORS,
     LOADING_UI,
     SET_ERRORS,
@@ -27,7 +26,7 @@ export const getAuthor = (id) =>(dispatch)=>{
         dispatch({type: SET_AUTHOR, payload: res.data})
         dispatch({type: STOP_LOADING_UI})
     })
-    .catch(err=>{debugger
+    .catch(err=>{
         dispatch({
             type: SET_ERRORS,
             payload: err.message
@@ -60,13 +59,13 @@ export const setBio = (bio,id)=>(dispatch)=>{
     }) 
 }
 
-export const addAudio = (formData) => (dispatch)=>{
+export const addAudio = (formData,id) => (dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .post(`author/audio`,formData)
+    .post(`/author/audio`,formData)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch(getAuthor(formData.authorId))
+        dispatch(getAuthor(id))
     })
     .catch(err=>{
         dispatch({
@@ -115,13 +114,13 @@ export const addTest = (test,id)=>(dispatch)=>{
         })
     }) 
 }
-export const addIllustration = (formData)=>(dispatch)=>{
+export const addIllustration = (formData,id)=>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
     .post('/author/illustration',formData)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch(getAuthor(formData.authorId))
+        dispatch(getAuthor(id))
     })
     .catch(err=>{
         dispatch({
@@ -130,13 +129,13 @@ export const addIllustration = (formData)=>(dispatch)=>{
         })
     }) 
 }
-export const addBook = (formData)=>(dispatch)=>{
+export const addBook = (formData,id)=>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .post('/author/text',formData)
+    .post('/author/book',formData)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch(getAuthor(formData.authorId))
+        dispatch(getAuthor(id))
     })
     .catch(err=>{
         dispatch({
@@ -148,7 +147,7 @@ export const addBook = (formData)=>(dispatch)=>{
 export const delBook = (id)=>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .delete(`/audio/${id}`)
+    .delete(`/book/${id}`)
     .then(res=>{
         dispatch({type:DEL_BOOK, payload: id})
         dispatch({type: STOP_LOADING_UI})

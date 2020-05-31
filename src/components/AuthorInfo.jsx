@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+
 const styles = {
     wrapper: {
         flexWrap: 'wrap',
         marginBottom: 25,
+        paddingTop: 20,
     },
     bioImg: {
         border: '1px solid #dce2e9',
@@ -52,7 +54,7 @@ class authorInfo extends Component {
         return (
             <div className={classes.wrapper}>
                 <div className={classes.bioImg}>
-                    <div><img src={portretUrl} alt={firstName} /></div>
+                    <div><img width="220px" height="290px" src={portretUrl} alt={firstName} /></div>
                 </div>
                 <Hover className={classes.bioDisc} to={`/authors/${authorId}`}>
                     <div className={classes.surname}>{lastName}</div>

@@ -63,7 +63,7 @@ const App = () => {
       <MuiThemeProvider theme={MuiTheme}>
         <Provider store={store}>
           <Router>
-            <ProgressBar/>
+            <ProgressBar style={{ position: 'fixed', top: '0px', left: '0px' }} />
             <Navbar />
             <div className="container">
               <Switch>
@@ -79,6 +79,7 @@ const App = () => {
                 <ProtectRoute exact path="/user" component={user} />
               </Switch>
             </div>
+            <audio id="player" preload="metadata"></audio>
           </Router>
         </Provider>
       </MuiThemeProvider>

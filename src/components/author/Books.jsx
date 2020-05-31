@@ -1,10 +1,10 @@
 import React from 'react'
-import SubTitle from './SubTitle'
 import styled from 'styled-components'
 import IconButton from '@material-ui/core/IconButton';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import DeleteButton from '../adminButtons/DeleteButton';
 import PropTypes from 'prop-types'
+import EmptyContainer from './EmptyContainer'
 
 const Wrapper = styled.div`
 width: 100%;
@@ -25,25 +25,26 @@ export default function Books(props) {
     let i = 1;
     return (
         <Wrapper>
-            <SubTitle name="Тексты" add tip="Добавить книгу" />
-            {props.books.map(book => <Name>
-                <div>
-                    <span>{i++}. </span>{book.name}
-                </div>
-
-                {props.authenticated === true
-                    ? <div>
-                        <DeleteButton title={title} tip='удалить' deleteId={book.id} deleteFunc={props.delBook} />
-                        <IconButton>
-                            <CloudDownloadIcon color='primary' />
-                        </IconButton>
+            {!props.books.length>0
+                ? <EmptyContainer />
+                : props.books.map(book => <Name>
+                    <div>
+                        <span>{i++}. </span>{book.name}
                     </div>
-                    : <div>
-                        <IconButton>
-                            <CloudDownloadIcon color='primary' />
-                        </IconButton>
+
+                    {props.authenticated === true
+                        ? <div>
+                            <DeleteButton title={title} tip='удалить' deleteId={book.id} deleteFunc={props.delBook} />
+                            <IconButton>
+                                <CloudDownloadIcon color='primary' />
+                            </IconButton>
+                        </div>
+                        : <div>
+                            <IconButton>
+                                <CloudDownloadIcon color='primary' />
+                            </IconButton>
                     </div>}
-            </Name>)}
+                </Name>)}
         </Wrapper>
     )
 }

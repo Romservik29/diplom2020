@@ -1,16 +1,11 @@
 import {
     SET_AUTHOR_BIO,
     SET_AUTHOR,
-    ADD_AUDIO,
-    ADD_MOVIE,
-    ADD_ILLUSTRATION,
-    ADD_TEST,
-    ADD_TEXT,
     DEL_AUDIO,
     DEL_MOVIE,
     DEL_ILLUSTRATION,
     DEL_TEST,
-    DEL_TEXT,
+    DEL_BOOK,
     SET_AUTHORS
 } from '../types'
 
@@ -33,6 +28,7 @@ const initialState = {
 }
 
 export default function(state=initialState,action){
+    let index;
     switch(action.type){
         case SET_AUTHORS:
             return {
@@ -49,33 +45,8 @@ export default function(state=initialState,action){
             ...state.author,
             bio: action.bio
         }
-        case ADD_AUDIO: return{
-            ...state,
-            ...state.author,
-            audio: [...state.author.audio, action.audio]
-        }
-        case ADD_MOVIE: return{
-            ...state,
-            ...state.author,
-            movies: [...state.author.movies, action.movie]
-        }
-        case ADD_ILLUSTRATION: return{
-            ...state,
-            ...state.author,
-            illustrations: [...state.author.illustrations, action.illustration]
-        }
-        case ADD_TEST: return{
-            ...state,
-            ...state.author,
-            tests: [...state.author.tests, action.test]
-        }
-        case ADD_TEXT: return{
-            ...state,
-            ...state.author,
-            books: [...state.author.books, action.book]
-        }
         case DEL_AUDIO: 
-        let index = state.author.audio.findIndex(
+        index = state.author.audio.findIndex(
             (audio) => audio.id === action.payload
         )
         state.author.audio.splice(index,1)
@@ -106,11 +77,11 @@ export default function(state=initialState,action){
         return{
             ...state
         }
-        case DEL_TEXT:
-        index = state.author.texts.findIndex(
-            (texts) => texts.id === action.payload
+        case DEL_BOOK:
+        index = state.author.books.findIndex(
+            (book) => book.id === action.payload
         )
-        state.author.texts.splice(index,1)
+        state.author.books.splice(index,1)
         return{
             ...state
         }      

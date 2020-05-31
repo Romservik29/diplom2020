@@ -1,26 +1,30 @@
-import React from 'react'
+import React,{useState} from 'react'
 import AudioInfo from '../AudioInfo'
 import styled from 'styled-components'
-import SubTitle from './SubTitle'
 import PropTypes from 'prop-types'
+import EmptyContainer from './EmptyContainer'
 
 const Wrapper = styled.div`
  width: 100%;
 `;
 
 export default function Audio(props) {
-    const handleAudioAdd = (file,name,second) => {
-        const formData = new FormData();
-        formData.append('audio', file, file.name);
-        formData.append('name', name);
-        formData.append('singer', second)
-        formData.append('authorId', props.authorId);
-        props.addAudio(formData);
-    };
+    const [playerSrc, setPlayerSrc] = useState('');
+    const setSrc = (src) => {
+        setPlayerSrc(src)
+    }
     return (
         <Wrapper>
-            <SubTitle name="Аудиозаписи" addFunc={handleAudioAdd} add />
-            {props.audio.map((audio)=><AudioInfo delAudio={props.delAudio} authenticated={props.authenticated} id={audio.id} name={audio.name} audioUrl={audio.audioUrl}/>)}
+            {!props.audio.length > 0
+                ? <EmptyContainer />
+                : props.audio.map((audio) => <AudioInfo
+                    setSrc={setSrc}
+                    delAudio={props.delAudio}
+                    authenticated={props.authenticated}
+                    id={audio.id} name={audio.name}
+                    playerSrc={playerSrc}
+                    audioUrl={audio.audioUrl} />)
+            }
         </Wrapper>
     )
 }
