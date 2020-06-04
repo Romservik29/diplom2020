@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import EditButton from '../adminButtons/EditButton';
-import AddButton from '../adminButtons/AddButton';
+import DeleteButtonList from '../adminButtons/DeleteButtonList';
 import { connect } from 'react-redux';
 
 const Background = styled.div`
@@ -21,19 +21,22 @@ padding-left: 1em;
 font-weight: bold;
 `;
 
-function SubTitle(props) {
+const SubTitle = (props) => {
     return (
         <Background>
             <Name align='left'>{props.name}</Name>
-            {props.authenticated === true
-                && <div style={{ paddingRight: '6px'}}>
-                    {props.add
-                        && <AddButton addId={'1'} tip={props.tip} data={props.data} addFunc={props.addFunc} />
+            {
+                props.authenticated === true
+                && <div style={{ paddingRight: '6px' }}>
+                    {props.delete
+                        ? <DeleteButtonList data={props.data} delFunc={props.delFunc} />
+                        : props.edit
+                        && <EditButton bio={props.bio}/>
                     }
                 </div>
 
             }
-        </Background>
+        </Background >
     )
 }
 let mapStateToProps = (state) => ({

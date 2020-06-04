@@ -27,17 +27,18 @@ const EditButton = (props) => {
 
     const formik = useFormik({
         initialValues: {
-          text: '',
+          text: props.bio,
         },
         onSubmit: values => {
           handleSubmit(values)
         },
+        enableReinitialize:true,
       });
 
     return (
         <>
             <MyButton
-                tip={props.tip}
+                tip="Изменить"
                 onClick={handleOpen}
             >
                 <EditIcon style={{color:'pink'}} />
@@ -81,7 +82,7 @@ const EditButton = (props) => {
 EditButton.propTypes = {
     editFunc: PropTypes.func.isRequired,
     editId: PropTypes.string.isRequired,
-    tip: PropTypes.string.isRequired
+    bio: PropTypes.string.isRequired
 };
 
 

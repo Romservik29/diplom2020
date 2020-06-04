@@ -6,7 +6,7 @@ import PauseIcon from '@material-ui/icons/Pause';
 import { CardActionArea } from '@material-ui/core';
 import styled from 'styled-components'
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import DeleteButton from './adminButtons/DeleteButton';
+import DeleteButtonModal from './adminButtons/DeleteButtonModal';
 import PropTypes from 'prop-types'
 import AudioProgress from './AudioProgress';
 
@@ -34,7 +34,7 @@ const AudioInfo = (props) => {
     }
     const adminButtons = props.authenticated
         ? <div>
-            <DeleteButton tip="удалить" title={title} deleteId={props.id} deleteFunc={handleDelete} />
+            <DeleteButtonModal tip="удалить" title={title} deleteId={props.id} deleteFunc={handleDelete} />
             <IconButton>
                 <CloudDownloadIcon color='primary' />
             </IconButton>

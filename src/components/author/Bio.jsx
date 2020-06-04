@@ -78,7 +78,7 @@ export default function Bio(props) {
                     <h4 style={{ lineHeight: '10px' }}>{`${props.firstName} ${props.midName}`}</h4>
                     <p style={{ fontWeight: 'lighter' }}>{props.yearOfLife}</p>
                 </CardTop>
-                <SubTitle name="Биография" edit tip="Изменить биографию"/>
+                <SubTitle name="Биография" bio={props.bio} edit/>
 
                 <CardContent>
                     {props.bio}

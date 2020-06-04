@@ -3,6 +3,8 @@ import {
     uploadPortret,
     delAudio,
     delBook,
+    delMovie,
+    delIllustration,
 } from '../redux/actions/authorActions';
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
@@ -86,13 +88,13 @@ class Author extends Component {
                 </GridWrapper>
                 <GridWrapper container>
                     <Grid item >
-                        <SubTitle name="Иллюстрации" delFunc={this.props.delBook} data={illustrations} add/>
+                        <SubTitle name="Иллюстрации" delFunc={this.props.delIllustration} data={illustrations} add/>
                     </Grid>
                     <Illustration illustrations={illustrations} authenticated={authenticated} authorId={id} />
                 </GridWrapper>
                 <GridWrapper container>
                     <Grid item>
-                        <SubTitle name="Фильмы" delFunc={this.props.delIllustration} data={movies} add/>
+                        <SubTitle name="Фильмы" delFunc={this.props.delMovie} data={movies} add/>
                     </Grid>
                     <Grid item >
                         <Movie movies={movies} authenticated={authenticated} authorId={id} />
@@ -125,4 +127,6 @@ export default connect(mapStateToProps, {
     delBook,
     uploadPortret,
     delAudio,
+    delIllustration,
+    delMovie
 })(Author)

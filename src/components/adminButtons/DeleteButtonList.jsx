@@ -14,24 +14,24 @@ import YouTubeIcon from '@material-ui/icons/YouTube';
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 
 const SimpleDialog = (props) => {
-    const { onClose, selectedValue, open, data } = props;
+    const { onClose, open, data , delFunc} = props;
     const handleClose = () => {
-        onClose(selectedValue);
+        onClose();
     };
 
     const handleListItemClick = (value) => {
-        alert("click")
-        onClose(value);
+        delFunc(value)
+        onClose();
     };
     return (
         <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
             <DialogTitle id="simple-dialog-title">Удалить? Это действие нельзя отменить.</DialogTitle>
             <List>
                 {data.map((item) => (
-                    <ListItem button onClick={() => handleListItemClick(item)} key={item.id}>
+                    <ListItem button onClick={() => handleListItemClick(item.id)} key={item.index}>
                         <ListItemAvatar>
                             {item.illustrationUrl !== undefined
-                                ? <img width="30px" height="30px" src={item.illustrationUrl} alt="Картинка"/>
+                                ? <img item width="30px" height="30px" src={item.illustrationUrl} alt="Картинка"/>
                                 : <YouTubeIcon style={{color: 'red'}}/>}
                         </ListItemAvatar>
                         <ListItemText primary={item.name} />
@@ -44,41 +44,37 @@ const SimpleDialog = (props) => {
 
 SimpleDialog.propTypes = {
     onClose: PropTypes.func.isRequired,
+    delFunc: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
-    selectedValue: PropTypes.string.isRequired,
     data: PropTypes.array.isRequired
 };
 
-const AddButton = (props) => {
-    const [selectedValue, setSelectedValue] = React.useState(null);
+const DeleteButtonList = (props) => {
+
     const [open, setOpen] = useState(false)
 
     const handleOpen = () => {
         setOpen(true)
     };
-    const handleClose = (value) => {
+    const handleClose = () => {
         setOpen(false)
-        setSelectedValue(value);
-        setTimeout(props.del)
     };
     return (
         <>
             <MyButton
-                tip={props.tip}
+                tip="удалить"
                 onClick={handleOpen}
             >
                 <DeleteOutline />
             </MyButton>
-            <SimpleDialog selectedValue={selectedValue} data={props.data} open={open} onClose={handleClose} />
+            <SimpleDialog data={props.data} delFunc={props.delFunc} open={open} onClose={handleClose} />
         </>
     )
 }
-AddButton.propTypes = {
-    addFunc: PropTypes.func.isRequired,
-    addId: PropTypes.string.isRequired,
-    tip: PropTypes.string.isRequired,
+DeleteButtonList.propTypes = {
+    delFunc: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
     data: PropTypes.array.isRequired,
 };
 
-export default AddButton;
+export default DeleteButtonList;

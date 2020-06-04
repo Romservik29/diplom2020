@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import IconButton from '@material-ui/core/IconButton';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import DeleteButton from '../adminButtons/DeleteButton';
+import DeleteButtonModal from '../adminButtons/DeleteButtonModal';
 import PropTypes from 'prop-types'
 import EmptyContainer from './EmptyContainer'
 
@@ -34,7 +34,7 @@ export default function Books(props) {
 
                     {props.authenticated === true
                         ? <div>
-                            <DeleteButton title={title} tip='удалить' deleteId={book.id} deleteFunc={props.delBook} />
+                            <DeleteButtonModal title={title} tip='удалить' deleteId={book.id} deleteFunc={props.delBook} />
                             <IconButton>
                                 <CloudDownloadIcon color='primary' />
                             </IconButton>

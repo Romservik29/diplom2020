@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import DeleteButton from '../adminButtons/DeleteButton';
+import DeleteButtonModal from '../adminButtons/DeleteButtonModal';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import MyButton from '../../util/MyButton'
 import EmptyContainer from './EmptyContainer';
@@ -39,7 +39,7 @@ export default function Test(props) {
                             {props.authenticated === true
                                 &&
                                 <MyButton>
-                                    <DeleteButton />
+                                    <DeleteButtonModal />
                                 </MyButton>
                             }
                             <MyButton>
