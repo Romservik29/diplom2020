@@ -198,7 +198,7 @@ const PrimarySearchAppBar = (props) => {
           </Typography>
 
           <Box component='div' className={classes.pages}>
-            <Button color="inherit" component={Link} to="/authors">Пісьменнікі</Button>
+            <Button data-testid="navbar" color="inherit" component={Link} to="/authors">Пісьменнікі</Button>
             <Button color="inherit" component={Link} to="/movies">Фільмы</Button>
             <Button color="inherit" component={Link} to="/audios">Аўдыёзапісы</Button>
             <Button color="inherit" component={Link} to="/texts">Тэксты</Button>

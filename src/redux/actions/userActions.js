@@ -22,7 +22,7 @@ export const loginUser = (userData,history)=>(dispatch)=>{
         dispatch({
             type: CLEAR_ERRORS
         })
-        history.push('/')
+        history.push('/authors')
     })
     .catch(err=>{
         dispatch({

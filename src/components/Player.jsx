@@ -13,10 +13,10 @@ const useStyles = makeStyles({
     },
 });
 
-export default function AudioInfo() {
+export default function AudioInfo(props) {
     return (
         <div >
-            <AudioPlayer useStyles={useStyles} download={true} variation="primary"/>
+            <AudioPlayer src={props.src} useStyles={useStyles} download={true} variation="primary"/>
         </div>
     )
 }

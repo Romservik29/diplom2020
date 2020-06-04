@@ -34,7 +34,7 @@ const AudioInfo = (props) => {
     }
     const adminButtons = props.authenticated
         ? <div>
-            <DeleteButton title={title} deleteId={props.id} deleteFunc={handleDelete} />
+            <DeleteButton tip="удалить" title={title} deleteId={props.id} deleteFunc={handleDelete} />
             <IconButton>
                 <CloudDownloadIcon color='primary' />
             </IconButton>
@@ -52,6 +52,7 @@ const AudioInfo = (props) => {
             
         if (player.src !== src) {
             console.log(player.paused+" Play")
+	    player.currentTime = 0;
             player.src = src;
             props.setSrc(src)
             player.play()
@@ -89,7 +90,7 @@ const AudioInfo = (props) => {
                             {props.name}
                         </Typography>
                         <Typography variant='body2'>
-                            {props.name}
+                            {props.singer}
                         </Typography>
                     </div>
                 </div>
@@ -106,6 +107,7 @@ const AudioInfo = (props) => {
 
 AudioInfo.propTypes = {
     name: PropTypes.string.isRequired,
+    singer: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     authenticated: PropTypes.bool.isRequired,
     delAudio: PropTypes.func.isRequired

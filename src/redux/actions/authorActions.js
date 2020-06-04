@@ -5,7 +5,9 @@ import {
     SET_ERRORS,
     SET_AUTHOR,
     DEL_AUDIO,
-    DEL_BOOK
+    DEL_BOOK,
+    DEL_MOVIE,
+    DEL_ILLUSTRATION
 } from '../types'
 
 import axios from 'axios'
@@ -62,7 +64,7 @@ export const setBio = (bio,id)=>(dispatch)=>{
 export const addAudio = (formData,id) => (dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .post(`/author/audio`,formData)
+    .post(`/audio`,formData)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
         dispatch(getAuthor(id))
@@ -83,13 +85,13 @@ export const delAudio = (id)=>(dispatch)=>{
         dispatch({type: STOP_LOADING_UI})
     })
 }
-export const addMovie = (movie,id)=>(dispatch)=>{
+export const addMovie = (movie)=>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .post(`/author/${id}`,movie)
+    .post(`/movie`,movie)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch(getAuthor(id))
+        dispatch(getAuthor(movie.authorId))
     })
     .catch(err=>{
         dispatch({
@@ -97,6 +99,15 @@ export const addMovie = (movie,id)=>(dispatch)=>{
             payload: err.response.data
         })
     }) 
+}
+export const delMovie = (id)=>(dispatch)=>{
+    dispatch({type: LOADING_UI})
+    axios
+    .delete(`/movie/${id}`)
+    .then(res=>{
+        dispatch({type:DEL_MOVIE, payload: id})
+        dispatch({type: STOP_LOADING_UI})
+    })
 }
 
 export const addTest = (test,id)=>(dispatch)=>{
@@ -117,7 +128,7 @@ export const addTest = (test,id)=>(dispatch)=>{
 export const addIllustration = (formData,id)=>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .post('/author/illustration',formData)
+    .post('/illustration',formData)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
         dispatch(getAuthor(id))
@@ -129,10 +140,19 @@ export const addIllustration = (formData,id)=>(dispatch)=>{
         })
     }) 
 }
+export const delIllustration = (id)=>(dispatch)=>{
+    dispatch({type: LOADING_UI})
+    axios
+    .delete(`/illustration/${id}`)
+    .then(res=>{
+        dispatch({type:DEL_ILLUSTRATION, payload: id})
+        dispatch({type: STOP_LOADING_UI})
+    })
+}
 export const addBook = (formData,id)=>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .post('/author/book',formData)
+    .post('/book',formData)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
         dispatch(getAuthor(id))

@@ -14,10 +14,10 @@ font-size: 22px;
 
 const AuthorImage = styled.img`
 width: auto;
+max-width: 40%;
 min-height: 250px;
 min-width: 250px;
 max-height: 300px; 
-margin-right: 15px;
 margin-bottom: 1em;
 margin-top: 20px;
 border-radius: 10px;

@@ -3,9 +3,8 @@ import Grid from '@material-ui/core/Grid'
 import AuthorInfo from '../components/AuthorInfo';
 import { connect } from 'react-redux'
 import { getAuthors } from '../redux/actions/authorActions'
-import ReactPaginate from 'react-paginate'
-import './authors.css'
 import AuthorSkeleton from '../util/AuthorSkeleton'
+import Pagination from '@material-ui/lab/Pagination';
 
 class authors extends Component {
     state = {
@@ -43,19 +42,7 @@ class authors extends Component {
                     justifyContent='center'
                     xs={12}
                 >
-                    <ReactPaginate
-                        previousLabel={"<"}
-                        nextLabel={">"}
-                        breakLabel={"..."}
-                        breakClassName={"break-me"}
-                        pageCount={15}
-                        marginPagesDisplayed={1}
-                        pageRangeDisplayed={3}
-                        onPageChange={this.handlePageClick}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
-                        activeClassName={"active"}
-                    />
+                    <Pagination style={{margin: 'auto', padding: '10px', paddingBottom: '20px'}} count={10} variant="outlined" shape="rounded" />
                 </Grid>
             </Grid>
         )

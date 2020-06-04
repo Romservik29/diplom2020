@@ -1,9 +1,5 @@
 import {
     getAuthor,
-    addAudio,
-    addMovie,
-    addIllustration,
-    addBook,
     uploadPortret,
     delAudio,
     delBook,
@@ -81,21 +77,34 @@ class Author extends Component {
                     <Books books={books} delBook={this.props.delBook} addBook={this.props.addBook} authenticated={authenticated} authorId={id} />
                 </GridWrapper>
                 <GridWrapper container>
-                    <Grid item ><SubTitle name="Аудиозаписи"/></Grid>
-                    <Grid item><Audio audio={audio} delAudio={this.props.delAudio} addAudio={this.props.addAudio} authenticated={authenticated} authorId={id} /></Grid>
+                    <Grid item >
+                        <SubTitle name="Аудиозаписи" />
+                    </Grid>
+                    <Grid item>
+                        <Audio audio={audio} delAudio={this.props.delAudio} addAudio={this.props.addAudio} authenticated={authenticated} authorId={id} />
+                    </Grid>
                 </GridWrapper>
                 <GridWrapper container>
-                    <Grid item ><SubTitle name="Иллюстрации"/></Grid>
-
+                    <Grid item >
+                        <SubTitle name="Иллюстрации" delFunc={this.props.delBook} data={illustrations} add/>
+                    </Grid>
                     <Illustration illustrations={illustrations} authenticated={authenticated} authorId={id} />
                 </GridWrapper>
                 <GridWrapper container>
-                    <Grid item ><SubTitle name="Фильмы"/></Grid>
-                    <Movie movies={movies} authenticated={authenticated} authorId={id} />
+                    <Grid item>
+                        <SubTitle name="Фильмы" delFunc={this.props.delIllustration} data={movies} add/>
+                    </Grid>
+                    <Grid item >
+                        <Movie movies={movies} authenticated={authenticated} authorId={id} />
+                    </Grid>
                 </GridWrapper>
                 <GridWrapper container>
-                <Grid item ><SubTitle name="Тесты"/></Grid>
-                    <Test tests={tests} authenticated={authenticated} authorId={id} />
+                    <Grid item >
+                        <SubTitle name="Тесты" />
+                    </Grid>
+                    <Grid item >
+                        <Test tests={tests} authenticated={authenticated} authorId={id} />
+                    </Grid>
                 </GridWrapper>
                 <AddAuthorItemsMenu authorId={id} authenticated={authenticated} />
             </Wrapper>}
@@ -113,10 +122,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
     getAuthor,
-    addAudio,
-    addMovie,
-    addIllustration,
-    addBook,
     delBook,
     uploadPortret,
     delAudio,

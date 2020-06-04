@@ -7,6 +7,7 @@ import themeObject from './util/theme';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import { ThemeProvider } from 'styled-components';
+
 //Pages 
 import home from './pages/home';
 import login from './pages/login';
@@ -18,6 +19,7 @@ import books from './pages/books';
 import user from './pages/user';
 import author from './pages/author';
 import Illustrations from './pages/Illustrations';
+import test from './pages/test'
 //components
 import Navbar from './components/Navbar'
 import AuthRoute from './util/AuthRoute'
@@ -42,8 +44,6 @@ const theme = {
 const token = localStorage.FBIdToken
 if (token) {
   const decodedToken = jwtDecode(token);
-  console.log(token);
-  console.log(decodedToken);
   if (decodedToken.exp * 10000 < Date.now()) {
     store.dispatch(logoutUser())
     window.location.href = '/login'
@@ -76,6 +76,7 @@ const App = () => {
                 <Route exact path="/movies" component={movies} />
                 <Route exact path="/texts" component={books} />
                 <Route exact path="/authors/:authorId" component={author} />
+                <Route exact path="/test" component={test} />
                 <ProtectRoute exact path="/user" component={user} />
               </Switch>
             </div>

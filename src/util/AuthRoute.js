@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
         <Route
         {...rest}
         render={(props)=> 
-        authenticated === true  ? <Redirect to='/'/> : <Component {...props}/>}
+        authenticated === true  ? <Redirect to='/authors'/> : <Component {...props}/>}
         />
     )
 }

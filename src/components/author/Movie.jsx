@@ -46,7 +46,7 @@ export default function Movie(props) {
                     <Carousel breakPoints={breakPoints}>
                         {props.movies.map(movie =>
                             <Item key={movie.moviId}>
-                                <Video src={`https://www.youtube.com/embed/${movie.movieId}`} frameborder="0" allowfullscreen />
+                                <Video src={`https://www.youtube.com/embed/${movie.movieId}`} frameborder="0"/>
                             </Item>)
                         }
                     </Carousel>

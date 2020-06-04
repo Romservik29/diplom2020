@@ -7,6 +7,8 @@ import userReducer from './reducers/userReducer'
 import dataReducer from './reducers/dataReducer'
 import uiReducer from './reducers/uiReducer'
 import authorReducer from './reducers/authorReducer'
+import testReducer from './reducers/testReducer'
+
 
 const initialState = {}
 
@@ -14,7 +16,8 @@ const reducers = combineReducers({
     user: userReducer,
     data: dataReducer,
     UI: uiReducer,
-    author: authorReducer
+    author: authorReducer,
+    test: testReducer
 })
 
 const store = createStore(reducers,initialState,composeWithDevTools(applyMiddleware(thunk)))

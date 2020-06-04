@@ -36,6 +36,11 @@ margin: 0 15px;
 font-size: 4em;
 `;
 
+const Img = styled.img`
+width:100%;
+height: 100%;
+`;
+
 export default function CarouselGen(props) {
     return (
         <Wrapper>
@@ -43,7 +48,7 @@ export default function CarouselGen(props) {
                 ? <EmptyContainer />
                 : <CarouselWrapper>
                     <Carousel breakPoints={breakPoints}>
-                        {props.illustrations.map(i => <Item><img src={i.illustrationUrl} alt={props.name} /></Item>)}
+                        {props.illustrations.map(i => <Item><Img src={i.illustrationUrl} alt={props.name} /></Item>)}
                     </Carousel>
                 </CarouselWrapper>}
         </Wrapper>

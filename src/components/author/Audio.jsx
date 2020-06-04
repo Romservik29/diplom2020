@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import AudioInfo from '../AudioInfo'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
@@ -18,10 +18,12 @@ export default function Audio(props) {
             {!props.audio.length > 0
                 ? <EmptyContainer />
                 : props.audio.map((audio) => <AudioInfo
+                    name={audio.name}
+                    singer={audio.singer}
                     setSrc={setSrc}
                     delAudio={props.delAudio}
                     authenticated={props.authenticated}
-                    id={audio.id} name={audio.name}
+                    id={audio.id}
                     playerSrc={playerSrc}
                     audioUrl={audio.audioUrl} />)
             }

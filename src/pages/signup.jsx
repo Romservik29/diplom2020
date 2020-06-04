@@ -97,7 +97,7 @@ class signup extends Component {
                     <Paper style={{ padding: '20px' }} >
                         <img width="200px" src={AppIcon} alt="Book" />
                         <Typography variant="h2" className={classes.pageTitle}>
-                            Вход
+                            Регистрация
                         </Typography>
                         <form noValidate onSubmit={this.handleSubmit}>
                             <TextField
