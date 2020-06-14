@@ -35,6 +35,21 @@ export const getAuthor = (id) =>(dispatch)=>{
         })
     })
 }
+export const addAuthor = (newAuthor)=>(dispatch)=>{
+    dispatch({type: LOADING_UI})
+    axios
+    .post('/author',newAuthor)
+    .then(res=> {
+        dispatch({type: STOP_LOADING_UI})
+        window.location.href =`/authors/${res.data.id}`
+    })
+    .catch(err=>{
+        dispatch({
+            type: SET_ERRORS,
+            payload: err.message
+        })
+    }) 
+}
 
 export const uploadPortret = (formData,authorId)=>(dispatch)=>{
     debugger
@@ -46,10 +61,10 @@ export const uploadPortret = (formData,authorId)=>(dispatch)=>{
     })
 }
 
-export const setBio = (bio,id)=>(dispatch)=>{
+export const changeBio = (bio,id)=>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .post(`/author/${id}`,bio)
+    .post(`/author/${id}/bio`,{bio})
     .then(res=> {
         dispatch(getAuthor(id))
     })

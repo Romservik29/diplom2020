@@ -8,22 +8,21 @@ import Pagination from '@material-ui/lab/Pagination';
 
 class authors extends Component {
     state = {
-        perPage: 10,
-        currentPage: 0
+        currentPage: 1
     }
 
     componentDidMount() {
         this.props.getAuthors()
     }
-    handlePageClick = (e) => {
-        const selectedPage = e.selected;
-
+    handlePageClick = (e,p) => {
         this.setState({
-            currentPage: selectedPage,
+            currentPage: p,
         }, () => {
-            this.props.getAuthors(this.props.currentPage)
+            this.props.getAuthors(this.state.currentPage)
         });
     };
+
+
 
     render() {
         let { authors, loading } = this.props;
@@ -42,7 +41,13 @@ class authors extends Component {
                     justifyContent='center'
                     xs={12}
                 >
-                    <Pagination style={{margin: 'auto', padding: '10px', paddingBottom: '20px'}} count={10} variant="outlined" shape="rounded" />
+                    <Pagination style={{margin: 'auto', padding: '10px', paddingBottom: '20px'}} 
+                                defaultPage={1}
+                                page={this.state.currentPage}
+                                count={10}
+                                onChange={this.handlePageClick} 
+                                variant="outlined" 
+                                shape="rounded" />
                 </Grid>
             </Grid>
         )

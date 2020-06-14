@@ -93,7 +93,12 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     color: 'black',
-  }
+  },
+  button:{
+    '&:hover':{
+      backgroundColor: 'rgba(0, 0, 0, 0.30)',
+    },
+  },
 }));
 
 const PrimarySearchAppBar = (props) => {
@@ -153,8 +158,8 @@ const PrimarySearchAppBar = (props) => {
       onClose={handleMobileMenuClose}
     >
       {props.authenticated === true
-         ?<MenuItem onClick={handleMobileMenuClose}>
-          <Link className={classes.link} to="/user">Профиль</Link>
+         ?<MenuItem >
+          <Link onClick={handleMobileMenuClose} className={classes.link} to="/user">Профиль</Link>
         </MenuItem>
         :<MenuItem onClick={handleMobileMenuClose}>
         <Link className={classes.link} to="/login">Войти</Link>
@@ -182,7 +187,7 @@ const PrimarySearchAppBar = (props) => {
   );
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <MyButton
             tip="РуссЛит"
@@ -198,12 +203,12 @@ const PrimarySearchAppBar = (props) => {
           </Typography>
 
           <Box component='div' className={classes.pages}>
-            <Button data-testid="navbar" color="inherit" component={Link} to="/authors">Пісьменнікі</Button>
-            <Button color="inherit" component={Link} to="/movies">Фільмы</Button>
-            <Button color="inherit" component={Link} to="/audios">Аўдыёзапісы</Button>
-            <Button color="inherit" component={Link} to="/texts">Тэксты</Button>
-            <Button color="inherit" component={Link} to="/tests">Тэсты</Button>
-            <Button color="inherit" component={Link} to="/illustrations">Ілюстрацыі</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/authors">Пісьменнікі</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/movies">Фільмы</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/audios">Аўдыёзапісы</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/texts">Тэксты</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/tests">Тэсты</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/illustrations">Ілюстрацыі</Button>
           </Box>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

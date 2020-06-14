@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import IconButton from '@material-ui/core/IconButton';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import DeleteButtonModal from '../adminButtons/DeleteButtonModal';
+import DeleteButtonModal from '../admin/DeleteButtonModal';
 import PropTypes from 'prop-types'
 import EmptyContainer from './EmptyContainer'
 

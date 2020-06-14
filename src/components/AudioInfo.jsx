@@ -6,7 +6,7 @@ import PauseIcon from '@material-ui/icons/Pause';
 import { CardActionArea } from '@material-ui/core';
 import styled from 'styled-components'
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import DeleteButtonModal from './adminButtons/DeleteButtonModal';
+import DeleteButtonModal from './admin/DeleteButtonModal';
 import PropTypes from 'prop-types'
 import AudioProgress from './AudioProgress';
 

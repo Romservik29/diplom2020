@@ -30,13 +30,6 @@ margin: 0 15px;
 font-size: 4em;
 `;
 
-
-
-const Video = styled.iframe`
-width: 100%;
-height: 100%;
-`;
-
 export default function Movie(props) {
     return (
         <Wrapper>
@@ -46,7 +39,7 @@ export default function Movie(props) {
                     <Carousel breakPoints={breakPoints}>
                         {props.movies.map(movie =>
                             <Item key={movie.moviId}>
-                                <Video src={`https://www.youtube.com/embed/${movie.movieId}`} frameborder="0"/>
+                                <iframe title={movie.moviId} style={{width:'100%'}} src={`https://www.youtube.com/embed/${movie.movieId}`} frameborder="0" allowfullscreen="true"/>
                             </Item>)
                         }
                     </Carousel>

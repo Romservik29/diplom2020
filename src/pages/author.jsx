@@ -88,13 +88,13 @@ class Author extends Component {
                 </GridWrapper>
                 <GridWrapper container>
                     <Grid item >
-                        <SubTitle name="Иллюстрации" delFunc={this.props.delIllustration} data={illustrations} add/>
+                        <SubTitle name="Иллюстрации" delFunc={this.props.delIllustration} data={illustrations} delete/>
                     </Grid>
                     <Illustration illustrations={illustrations} authenticated={authenticated} authorId={id} />
                 </GridWrapper>
                 <GridWrapper container>
                     <Grid item>
-                        <SubTitle name="Фильмы" delFunc={this.props.delMovie} data={movies} add/>
+                        <SubTitle name="Фильмы" delFunc={this.props.delMovie} data={movies} delete/>
                     </Grid>
                     <Grid item >
                         <Movie movies={movies} authenticated={authenticated} authorId={id} />

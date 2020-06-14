@@ -2,9 +2,6 @@ import React from 'react'
 import Carousel from 'react-elastic-carousel'
 import styled from 'styled-components'
 import EmptyContainer from './EmptyContainer';
-const img = 'https://sun9-21.userapi.com/c850136/v850136968/d1b2b/TiPdxf2idwM.jpg?ava=1';
-
-
 
 const breakPoints = [
     { width: 1, itemsToShow: 1 },

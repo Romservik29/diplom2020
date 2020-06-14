@@ -20,11 +20,10 @@ const EditButton = (props) => {
         setOpen(false)
     };
     const handleSubmit =(values)=>{
-        alert(JSON.stringify(values, null, 2));
-        handleClose(values);
+        props.changeBio(values.text,props.authorId)
+        handleClose();
     }
     
-
     const formik = useFormik({
         initialValues: {
           text: props.bio,
@@ -41,7 +40,7 @@ const EditButton = (props) => {
                 tip="Изменить"
                 onClick={handleOpen}
             >
-                <EditIcon style={{color:'pink'}} />
+                <EditIcon style={{color:'#01f5f5'}} />
             </MyButton>
             <Dialog
                 open={open}
@@ -51,7 +50,7 @@ const EditButton = (props) => {
             >
 
                 <DialogTitle>
-                    Are you sure you want to delete this scream ?
+                    Изменение биографии
                     </DialogTitle>
                 <DialogContent>
                     <form onSubmit={formik.handleSubmit}>

@@ -5,6 +5,7 @@ import {
     addMovie,
     addIllustration,
     addBook,
+    addAuthor,
 } from '../../redux/actions/authorActions';
 import { connect } from 'react-redux';
 //MUI staff
@@ -56,10 +57,24 @@ const AddAuthorItemsMenu = (props) => {
                 addMovie(values.name, values.second);
                 break;
             }
+            case authorAddId: {
+                addAuthor(values.firstName, values.lastName,values.midName,values.yearOfLife);
+                break;
+            }
             default: break;
         }
         resetForm({});
         handleClose();
+    }
+
+    const addAuthor = (firstName, lastName, midName, yearOfLife) => {
+        const newAuthor = {
+            firstName: firstName,
+            lastName: lastName,
+            midName: midName,
+            yearOfLife: yearOfLife,
+        }
+        props.addAuthor(newAuthor)
     }
 
     const addAudio = (file, name, second) => {
@@ -115,7 +130,15 @@ const AddAuthorItemsMenu = (props) => {
     const authorAddId = 'add-author-author'
     return (
         <Formik
-            initialValues={{ file: undefined, name: '', second: '' }}
+            initialValues={{
+                file: undefined,
+                name: '',
+                second: '',
+                firstName: '',
+                lastName: '',
+                midName: '',
+                yearOfLife: '',
+            }}
             onSubmit={submit}
             render={({
                 values,
@@ -130,13 +153,13 @@ const AddAuthorItemsMenu = (props) => {
                     <div style={{
                         position: 'fixed',
                         bottom: '0px',
-                        right: 'calc(18% - 30px)',
+                        right: 'calc(18%)',
 
                     }}>
                         {props.authenticated === true
                             && <>
                                 <MyButton tip="Добавить" onClick={handleClick}>
-                                    <AddCircleIcon style={{ fontSize: '2.25em', color: '#9bcffd' }} />
+                                    <AddCircleIcon style={{ fontSize: '2.25em', color: '#19ff19' }} />
                                 </MyButton>
                                 <Menu
                                     id="author-add-items-menu"
@@ -149,7 +172,7 @@ const AddAuthorItemsMenu = (props) => {
                                     <MenuItem id={illustrationAddId} onClick={handleItemAddClick}>Иллюстрацию</MenuItem>
                                     <MenuItem id={testAddId} onClick={handleItemAddClick}>Тест</MenuItem>
                                     <MenuItem id={movieAddId} onClick={handleItemAddClick}>Видео</MenuItem>
-                                    <MenuItem id={authorAddId} onClick={handleOpen}>Автора</MenuItem>
+                                    <MenuItem id={authorAddId} onClick={handleItemAddClick}>Автора</MenuItem>
                                 </Menu>
                             </>
                         }
@@ -163,12 +186,11 @@ const AddAuthorItemsMenu = (props) => {
                             <DialogTitle>
                                 Добавить
                                 {func === audioAddId ? " аудиозапись" : func === bookAddId ? " книгу"
-                                    : func === illustrationAddId ? " иллюстрацию" : func === movieAddId && " видео"}
-                                ?
+                                    : func === illustrationAddId ? " иллюстрацию" : func === movieAddId ? " видео" : func === authorAddId && " писателя"}?
                             </DialogTitle>
                             <DialogContent>
                                 <form onSubmit={handleSubmit}>
-                                    <TextField
+                                    {func !== authorAddId && <TextField
                                         id="name"
                                         name="name"
                                         type="text"
@@ -177,7 +199,7 @@ const AddAuthorItemsMenu = (props) => {
                                         placeholder="Название"
                                         onBlur={handleBlur}
                                         fullWidth
-                                    />
+                                    />}
                                     {(func === audioAddId || func === bookAddId || func === movieAddId) &&
                                         <TextField
                                             id="second"
@@ -189,12 +211,47 @@ const AddAuthorItemsMenu = (props) => {
                                             onBlur={handleBlur}
                                             fullWidth
                                         />}
-                                    {!(func === movieAddId) && <input
+                                    {!(func === movieAddId||func === authorAddId) && <input
                                         id="file"
                                         name="file"
                                         type="file"
                                         onChange={event => { setFieldValue("file", event.currentTarget.files[0], false) }}
                                     />}
+                                    {func ===authorAddId&&<>
+                                    <TextField id="firstName"
+                                        name="firstName"
+                                        type="text"
+                                        onChange={handleChange}
+                                        value={values.firstName}
+                                        placeholder="Имя"
+                                        onBlur={handleBlur}
+                                        fullWidth />
+                                    <TextField id="midName"
+                                        name="midName"
+                                        type="text"
+                                        onChange={handleChange}
+                                        value={values.midName}
+                                        placeholder="Отчество"
+                                        onBlur={handleBlur}
+                                        fullWidth />
+                                    <TextField id="lastName"
+                                        name="lastName"
+                                        type="text"
+                                        onChange={handleChange}
+                                        value={values.lastName}
+                                        placeholder="Фамилия"
+                                        onBlur={handleBlur}
+                                        fullWidth />
+                                    <TextField id="yearOfLife"
+                                        name="yearOfLife"
+                                        type="text"
+                                        onChange={handleChange}
+                                        value={values.yearOfLife}
+                                        placeholder="Годы жизни"
+                                        onBlur={handleBlur}
+                                        fullWidth />
+                                        </>
+                                    }
                                     <DialogActions>
                                         <Button onClick={handleReset.bind(null, resetForm)} color="primary">
                                             Отменить
@@ -218,6 +275,7 @@ AddAuthorItemsMenu.propTypes = {
     addBook: PropTypes.func.isRequired,
     addAudio: PropTypes.func.isRequired,
     addMovie: PropTypes.func.isRequired,
+    addAuthor: PropTypes.func.isRequired,
     addIllustration: PropTypes.func.isRequired,
     authenticated: PropTypes.bool.isRequired,
     authorId: PropTypes.string.isRequired,
@@ -228,4 +286,5 @@ export default connect(null, {
     addMovie,
     addIllustration,
     addBook,
+    addAuthor,
 })(AddAuthorItemsMenu)

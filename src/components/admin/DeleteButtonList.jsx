@@ -61,11 +61,8 @@ const DeleteButtonList = (props) => {
     };
     return (
         <>
-            <MyButton
-                tip="удалить"
-                onClick={handleOpen}
-            >
-                <DeleteOutline />
+            <MyButton tip="удалить" onClick={handleOpen}>
+                <DeleteOutline style={{color: 'red'}}/>
             </MyButton>
             <SimpleDialog data={props.data} delFunc={props.delFunc} open={open} onClose={handleClose} />
         </>

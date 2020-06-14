@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import React from 'react';
-import EditButton from '../adminButtons/EditButton';
-import DeleteButtonList from '../adminButtons/DeleteButtonList';
+import EditButton from '../admin/EditButton';
+import DeleteButtonList from '../admin/DeleteButtonList';
 import { connect } from 'react-redux';
+import {changeBio} from '../../redux/actions/authorActions'
 
 const Background = styled.div`
 display: flex;
@@ -31,7 +32,7 @@ const SubTitle = (props) => {
                     {props.delete
                         ? <DeleteButtonList data={props.data} delFunc={props.delFunc} />
                         : props.edit
-                        && <EditButton bio={props.bio}/>
+                        && <EditButton authorId={props.authorId} changeBio={props.changeBio} bio={props.bio}/>
                     }
                 </div>
 
@@ -42,4 +43,4 @@ const SubTitle = (props) => {
 let mapStateToProps = (state) => ({
     authenticated: state.user.authenticated
 })
-export default connect(mapStateToProps, null)(SubTitle)
+export default connect(mapStateToProps, {changeBio})(SubTitle)

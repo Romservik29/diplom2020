@@ -38,7 +38,7 @@ const DeleteButtonModal = (props) => {
                     tip={props.tip}
                     onClick={handleOpen}
                 >
-                    <DeleteOutline color="primary" />
+                    <DeleteOutline style={{color: 'red'}} />
                 </MyButton>
                 <Dialog
                     open={open}

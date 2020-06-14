@@ -6,11 +6,11 @@ import {
 
 const initialState = {
     test: {
-        title: "Hi",
+        title: "Пушкин А.С.",
         questions: [
             {
-                question: "Сколько лет пети?",
-                answers: ["1", "2", "3"]
+                question: "В каком году родился А.С. Пушкин?",
+                answers: ["1799", "1800", "1805","1795"]
             },
             {
                 question: "Сколько лет васи?",
