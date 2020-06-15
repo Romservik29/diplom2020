@@ -12,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import DonutChart from 'react-donut-chart';
 
 const Wrapper = styled.div`
   width: 500px;
@@ -64,9 +65,17 @@ export default function Question(props) {
   const handleClose = () => {
     setOpen(false);
   };
+  const data = [{
+    value: 4,
+    label: 'Верных ответов'
+  },
+  {
+    value: 1,
+    label: 'Не верных ответов'
+  }]
   return (
     <Wrapper>
-      <Paper style={{ padding: "15px", margin: 'auto'}}>
+      <Paper style={{ padding: "15px", margin: 'auto' }}>
         <Title>{test.title}</Title>
         <p>{test.questions[currentQuestion].question}</p>
       </Paper>
@@ -82,7 +91,7 @@ export default function Question(props) {
             <><FormControlLabel value={`${a}`} control={<MyRadio />} label={a} /><br /></>
           ))}
         </RadioGroup>
-        <Button variant="contained" disabled={end} color="primary" onClick={answerHandle}>Далее</Button>
+        <Button style={{marginTop: '10px'}} variant="contained" disabled={end} color="primary" onClick={answerHandle}>Далее</Button>
       </Paper>
       <Paper>
         <TestProgress currentQuest={currentQuestion + 1} questCount={test.questions.length} />
@@ -92,7 +101,6 @@ export default function Question(props) {
         TransitionComponent={Transition}
         keepMounted
         width={'xl'}
-        fullWidth={true}
         onClose={handleClose}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
@@ -100,10 +108,20 @@ export default function Question(props) {
         <DialogTitle id="alert-dialog-slide-title">{test.title}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Тест успешно завершён!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa voluptatum sapiente aperiam tempora dolorum doloremque ab quos dicta, laborum repudiandae dolores eligendi harum accusamus tempore, nulla ratione voluptates iusto autem?
-            Consequatur, iusto laborum quaerat voluptate tenetur molestiae ea, sapiente est pariatur nostrum illum sit aut voluptatum natus laboriosam reiciendis unde maxime qui rerum rem, dolor corrupti velit quis. Veniam, quia!
-            
+            <DonutChart
+            height={300}
+            width={300}
+            data={data}
+            legend={false}
+            innerRadius={0.53}
+            outerRadius={0.60}
+            colors={['#174578','#ab0c0f']}
+            selectedOffset={0.00}
+            emptyOffset={0}
+            toggledOffset={0}
+            startAngle={30}
+            />
+
           </DialogContentText>
         </DialogContent>
         <DialogActions>

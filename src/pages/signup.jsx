@@ -112,17 +112,6 @@ class signup extends Component {
                                 onChange={this.handleChange}
                                 fullWidth />
                             <TextField
-                                id="handle"
-                                name="handle"
-                                type="text"
-                                label="Номер зачетки"
-                                helperText={errors.handle}
-                                error={errors.handle ? true : false}
-                                className={classes.textField}
-                                value={this.state.handle}
-                                onChange={this.handleChange}
-                                fullWidth />
-                            <TextField
                                 id="password"
                                 name="password"
                                 type="password"
