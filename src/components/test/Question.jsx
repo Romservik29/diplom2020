@@ -13,6 +13,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import DonutChart from 'react-donut-chart';
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
   width: 500px;
@@ -20,7 +21,7 @@ const Wrapper = styled.div`
   margin: 30px;
   padding: 30px;
   border-radius: 5px;
-  font-family: "Parisienne", cursive;
+  font-family: "Parisienne", cursive,-apple-system, BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue", Arial,"Noto Sans",sans-serif,"Apple Color Emoji", "Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   margin: auto;
 `;
 
@@ -91,7 +92,7 @@ export default function Question(props) {
             <><FormControlLabel value={`${a}`} control={<MyRadio />} label={a} /><br /></>
           ))}
         </RadioGroup>
-        <Button style={{marginTop: '10px'}} variant="contained" disabled={end} color="primary" onClick={answerHandle}>Далее</Button>
+        <Button style={{ marginTop: '10px' }} variant="contained" disabled={end} color="primary" onClick={answerHandle}>Далее</Button>
       </Paper>
       <Paper>
         <TestProgress currentQuest={currentQuestion + 1} questCount={test.questions.length} />
@@ -109,28 +110,31 @@ export default function Question(props) {
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             <DonutChart
-            height={300}
-            width={300}
-            data={data}
-            legend={false}
-            innerRadius={0.53}
-            outerRadius={0.60}
-            colors={['#174578','#ab0c0f']}
-            selectedOffset={0.00}
-            emptyOffset={0}
-            toggledOffset={0}
-            startAngle={30}
+              height={300}
+              width={300}
+              data={data}
+              legend={false}
+              innerRadius={0.53}
+              outerRadius={0.60}
+              colors={['#174578', '#ab0c0f']}
+              selectedOffset={0.00}
+              emptyOffset={0}
+              toggledOffset={0}
+              startAngle={30}
             />
 
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+
+          <Button color="primary">
             Вернуться
           </Button>
-          <Button onClick={handleClose} color="primary">
-            На главную
+          <Link to="/authors">
+            <Button color="primary">
+              На главную
           </Button>
+          </Link>
         </DialogActions>
       </Dialog>
     </Wrapper>

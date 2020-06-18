@@ -33,25 +33,18 @@ export default function Test(props) {
                         <div>
                             {props.authenticated === true
                                 ? <Link to="/test">
-                                    <MyButton>
+                                    <MyButton tip="Пройти тест">
                                         <PlayArrowIcon color='primary' />
                                     </MyButton>
                                 </Link>
                                 : <Link to="/login">
-                                    <MyButton>
-                                        <PlayArrowIcon color='primary' />
-                                    </MyButton>
+                                    <PlayArrowIcon color='primary' />
                                 </Link>
                             }
                             {props.role === 'admin'
                                 &&
-                                <MyButton>
-                                    <DeleteButtonModal />
-                                </MyButton>
+                                <DeleteButtonModal tip="Удалить тест" />
                             }
-                            <MyButton>
-                                <CloudDownloadIcon color='primary' />
-                            </MyButton>
                         </div>
                     </Name>)}
 

@@ -14,7 +14,7 @@ class authors extends Component {
     componentDidMount() {
         this.props.getAuthors()
     }
-    handlePageClick = (e,p) => {
+    handlePageClick = (e, p) => {
         this.setState({
             currentPage: p,
         }, () => {
@@ -27,7 +27,7 @@ class authors extends Component {
     render() {
         let { authors, loading } = this.props;
         return (
-            <Grid style={{ background: '#fff', height: '100%' }} container justify='space-evenly'>{console.log('render')}
+            <Grid style={{ background: '#fff', height: '100%' }} container justify='space-around'>{console.log('render')}
                 {(loading
                     ? Array.from(new Array(6)) : authors).map((author, index) => <Grid item>
                         {author
@@ -41,13 +41,13 @@ class authors extends Component {
                     justifyContent='center'
                     xs={12}
                 >
-                    <Pagination style={{margin: 'auto', padding: '10px', paddingBottom: '20px'}} 
-                                defaultPage={1}
-                                page={this.state.currentPage}
-                                count={10}
-                                onChange={this.handlePageClick} 
-                                variant="outlined" 
-                                shape="rounded" />
+                     <Pagination style={{ margin: 'auto', padding: '10px', paddingBottom: '20px' }}
+                        defaultPage={1}
+                        page={this.state.currentPage}
+                        count={10}
+                        onChange={this.handlePageClick}
+                        variant="outlined"
+                        shape="rounded" />
                 </Grid>
             </Grid>
         )
@@ -55,6 +55,7 @@ class authors extends Component {
 }
 const mapStateToProps = (state) => ({
     authors: state.author.authors,
-    loading: state.UI.loading
+    loading: state.UI.loading,
+    loadingUser: state.user.loading
 })
 export default connect(mapStateToProps, { getAuthors })(authors)
