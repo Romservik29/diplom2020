@@ -27,7 +27,7 @@ const SubTitle = (props) => {
         <Background>
             <Name align='left'>{props.name}</Name>
             {
-                props.authenticated === true
+                props.role === 'admin'
                 && <div style={{ paddingRight: '6px' }}>
                     {props.delete
                         ? <DeleteButtonList data={props.data} delFunc={props.delFunc} />
@@ -41,6 +41,6 @@ const SubTitle = (props) => {
     )
 }
 let mapStateToProps = (state) => ({
-    authenticated: state.user.authenticated
+    role: state.user.credentials.role
 })
 export default connect(mapStateToProps, {changeBio})(SubTitle)

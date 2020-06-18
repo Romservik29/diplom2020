@@ -17,7 +17,7 @@ export const loginUser = (userData,history)=>(dispatch)=>{
     .post('/login', userData)
     .then(res=>{
         setAuthorizationHeader(res.data.token);
-        //dispatch(getUserData())
+        dispatch(getUserData())
         dispatch({type: SET_AUTHENTICATED})
         dispatch({
             type: CLEAR_ERRORS
@@ -25,6 +25,7 @@ export const loginUser = (userData,history)=>(dispatch)=>{
         history.push('/authors')
     })
     .catch(err=>{
+        console.log(err)
         dispatch({
             type: SET_ERRORS,
             payload: err.response.data
@@ -40,18 +41,16 @@ export const logoutUser = () => (dispatch) => {
 };
 
 export const getUserData =()=>(dispatch)=>{
-    axios.get('user'
+    axios
+    .get('/user')
     .then(res=>{
             dispatch({
                 type: SET_USER,
                 payload: res.data
             })
-    }))
+    })
     .catch(err=>{
-        dispatch({
-            type: SET_ERRORS,
-            payload: err.response.data
-        })
+        console.log(err);
     })
 }
 

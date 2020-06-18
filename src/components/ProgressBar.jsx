@@ -12,7 +12,7 @@ z-index: 1500;
 const ProgressBar = (props) => {
   return (
     <>
-      {props.loading === true
+      {props.loading||props.loadingUser === true
         ? <Gress><LinearProgress /></Gress>
         : null
       }
@@ -21,6 +21,7 @@ const ProgressBar = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  loading: state.UI.loading
+  loading: state.UI.loading,
+  loadingUser: state.user.loading
 })
 export default connect(mapStateToProps, {})(ProgressBar)

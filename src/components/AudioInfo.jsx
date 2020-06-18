@@ -32,7 +32,7 @@ const AudioInfo = (props) => {
     const handleDelete = (id) => {
         props.delAudio(id);
     }
-    const adminButtons = props.authenticated
+    const adminButtons = props.role==='admin'
         ? <div>
             <DeleteButtonModal tip="удалить" title={title} deleteId={props.id} deleteFunc={handleDelete} />
             <IconButton>
@@ -52,7 +52,6 @@ const AudioInfo = (props) => {
             
         if (player.src !== src) {
             console.log(player.paused+" Play")
-	    player.currentTime = 0;
             player.src = src;
             props.setSrc(src)
             player.play()
@@ -109,7 +108,7 @@ AudioInfo.propTypes = {
     name: PropTypes.string.isRequired,
     singer: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    authenticated: PropTypes.bool.isRequired,
+    role: PropTypes.string.isRequired,
     delAudio: PropTypes.func.isRequired
 }
 

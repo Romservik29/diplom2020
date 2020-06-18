@@ -1,54 +1,45 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import img from '../images/book2.png'
+import styled from 'styled-components'
+import Paper from '@material-ui/core/Paper'
+import Dialog from '@material-ui/core/Dialog';
 
-const useStyles = makeStyles({
-    root: {
-        maxWidth: 250,
-    },
-    media: {
-        height: 140,
-    },
-    btn:{
-        margin:'auto'
-    },
-});
+const Wrapper = styled.div`
+padding: 8px;
+width: 100%;
 
-export default function MediaCard() {
-    const classes = useStyles();
+`;
+
+
+export default function MovieInfo(props) {
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
     return (
-        <>
-            <Card className={classes.root}>
-                <CardActionArea>
-                    <CardMedia
-                        className={classes.media}
-                        image={img}
-                        title="Contemplative Reptile"
-                    />
-                    <CardContent>
-                        <Typography className={classes.btn} gutterBottom variant="h5" component="h2">
-                            Lizard
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                            across all continents except Antarctica
-                    </Typography>
-                    </CardContent>
-                </CardActionArea>
-                <CardActions>
-                    <Button className={classes.btn} size="small" color="primary">
-                        Просмотреть
-                    </Button>
-                </CardActions>
-            </Card>
-        </>
+        <Paper>
+            <Wrapper>
+                <div>
+                    <iframe width="285" height="200" src={`https://www.youtube.com/embed/${props.movieId}`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p style={{margin: '5px',fontFamily: "Parisienne,cursive"}}>{props.movieName}</p>
+                <Button onClick={handleClickOpen} variant="contained" color="primary">Просмотр в режиме кинотеатра</Button>
+            </Wrapper>
+            <Dialog
+        open={open}
+        keepMounted
+        maxWidth='lg'
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <iframe title="movie" width="850px" height="500px" src={`https://www.youtube.com/embed/${props.movieId}`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </Dialog>
+        </Paper>
     )
 }
 

@@ -32,7 +32,7 @@ export default function Books(props) {
                         <span>{i++}. </span>{book.name}
                     </div>
 
-                    {props.authenticated === true
+                    {props.role === 'admin'
                         ? <div>
                             <DeleteButtonModal title={title} tip='удалить' deleteId={book.id} deleteFunc={props.delBook} />
                             <IconButton>
@@ -52,7 +52,7 @@ export default function Books(props) {
 Books.propTypes = {
     book: PropTypes.object.isRequired,
     delBook: PropTypes.func.isRequired,
-    authenticated: PropTypes.bool.isRequired,
+    role: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired
 }

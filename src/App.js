@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
@@ -28,7 +28,7 @@ import ProgressBar from './components/ProgressBar';
 //redux
 import { Provider } from 'react-redux';
 import store from './redux/store'
-import { logoutUser } from './redux/actions/userActions';
+import { logoutUser, getUserData } from './redux/actions/userActions';
 import { SET_AUTHENTICATED } from './redux/types';
 
 axios.defaults.baseURL =
@@ -44,12 +44,13 @@ const theme = {
 const token = localStorage.FBIdToken
 if (token) {
   const decodedToken = jwtDecode(token);
-  if (decodedToken.exp * 10000 < Date.now()) {
+  if (decodedToken.exp * 1000 < Date.now()) {
     store.dispatch(logoutUser())
     window.location.href = '/login'
   } else {
     store.dispatch({ type: SET_AUTHENTICATED })
-    axios.defaults.headers.common['Authorization'] = token
+    axios.defaults.headers.common['Authorization'] = token 
+    store.dispatch(getUserData())
   }
 }
 
@@ -67,7 +68,7 @@ const App = () => {
             <Navbar />
             <div className="container">
               <Switch>
-                <Route exact path="/" component={home} />
+                <Route exact path="/" component={home}/>
                 <AuthRoute exact path="/login" component={login} />
                 <AuthRoute exact path="/signup" component={signup} />
                 <Route exact path="/authors" component={authors} />
@@ -78,6 +79,7 @@ const App = () => {
                 <Route exact path="/authors/:authorId" component={author} />
                 <Route exact path="/test" component={test} />
                 <ProtectRoute exact path="/user" component={user} />
+                <Route exact path="*" component={home}/>
               </Switch>
             </div>
             <audio id="player" preload="metadata"></audio>

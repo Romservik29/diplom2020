@@ -171,7 +171,7 @@ const PrimarySearchAppBar = (props) => {
         <Link className={classes.link} to="/audio">Аудиозаписи</Link>
       </MenuItem>
       <MenuItem onClick={handleMobileMenuClose}>
-        <Link className={classes.link} to="/books">Тексты</Link>
+        <Link className={classes.link} to="/tests">Тесты</Link>
       </MenuItem>
       <MenuItem onClick={handleMobileMenuClose}>
         <Link className={classes.link} to="/illustrations">Иллюстрации</Link>
@@ -190,7 +190,7 @@ const PrimarySearchAppBar = (props) => {
       <AppBar position="fixed">
         <Toolbar>
           <MyButton
-            tip="РуссЛит"
+            tip="БелЛiт"
             edge="start"
             className={classes.menuButton}
             color="inherit"
@@ -199,16 +199,15 @@ const PrimarySearchAppBar = (props) => {
             <SwapHorizIcon color="secondary" />
           </MyButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            БелЛит
+            РусЛит
           </Typography>
 
           <Box component='div' className={classes.pages}>
-            <Button className={classes.button} color="inherit" component={Link} to="/authors">Пісьменнікі</Button>
-            <Button className={classes.button} color="inherit" component={Link} to="/movies">Фільмы</Button>
-            <Button className={classes.button} color="inherit" component={Link} to="/audios">Аўдыёзапісы</Button>
-            <Button className={classes.button} color="inherit" component={Link} to="/texts">Тэксты</Button>
-            <Button className={classes.button} color="inherit" component={Link} to="/tests">Тэсты</Button>
-            <Button className={classes.button} color="inherit" component={Link} to="/illustrations">Ілюстрацыі</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/authors">Писатели</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/movies">Фильмы</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/audios">Аудиозаписи</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/tests">Тесты</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/illustrations">Иллюстрации</Button>
           </Box>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -263,6 +262,6 @@ const PrimarySearchAppBar = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-  authenticated: state.user.authenticated
+  authenticated: state.user.authenticated,
 })
 export default connect(mapStateToProps, { logoutUser })(PrimarySearchAppBar)

@@ -40,6 +40,7 @@ class Author extends Component {
     render() {
         const {
             authenticated,
+            role,
             author: {
                 firstName,
                 lastName,
@@ -69,28 +70,28 @@ class Author extends Component {
                         midName={midName}
                         yearOfLife={yearOfLife}
                         bio={bio}
-                        authenticated={authenticated}
+                        role={role}
                         authorId={id}
                         uploadPortret={this.props.uploadPortret}
                     />
                 </GridWrapper>
                 <GridWrapper container >
                     <SubTitle name="Тексты" />
-                    <Books books={books} delBook={this.props.delBook} addBook={this.props.addBook} authenticated={authenticated} authorId={id} />
+                    <Books books={books} delBook={this.props.delBook} role={role} addBook={this.props.addBook} authenticated={authenticated} authorId={id} />
                 </GridWrapper>
                 <GridWrapper container>
                     <Grid item >
                         <SubTitle name="Аудиозаписи" />
                     </Grid>
                     <Grid item>
-                        <Audio audio={audio} delAudio={this.props.delAudio} addAudio={this.props.addAudio} authenticated={authenticated} authorId={id} />
+                        <Audio audio={audio} delAudio={this.props.delAudio} addAudio={this.props.addAudio} role={role} authenticated={authenticated} authorId={id} />
                     </Grid>
                 </GridWrapper>
                 <GridWrapper container>
                     <Grid item >
                         <SubTitle name="Иллюстрации" delFunc={this.props.delIllustration} data={illustrations} delete/>
                     </Grid>
-                    <Illustration illustrations={illustrations} authenticated={authenticated} authorId={id} />
+                    <Illustration illustrations={illustrations} role={role} authenticated={authenticated} authorId={id} />
                 </GridWrapper>
                 <GridWrapper container>
                     <Grid item>
@@ -105,12 +106,11 @@ class Author extends Component {
                         <SubTitle name="Тесты" />
                     </Grid>
                     <Grid item >
-                        <Test tests={tests} authenticated={authenticated} authorId={id} />
+                        <Test tests={tests} role={role} authenticated={authenticated} authorId={id} />
                     </Grid>
                 </GridWrapper>
-                <AddAuthorItemsMenu authorId={id} authenticated={authenticated} />
+                <AddAuthorItemsMenu role={role} authorId={id} authenticated={authenticated} />
             </Wrapper>}
-
         </>
         )
     }
@@ -118,8 +118,10 @@ class Author extends Component {
 
 const mapStateToProps = (state) => ({
     author: state.author.author,
-    authenticated: state.user.authenticated,
-    loading: state.UI.loading
+    authenticated: state.user.authenticated,    
+    loadingUser: state.user.loading,
+    role: state.user.credentials.role,
+    loading: state.UI.loading,
 })
 
 export default connect(mapStateToProps, {

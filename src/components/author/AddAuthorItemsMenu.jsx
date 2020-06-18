@@ -156,7 +156,7 @@ const AddAuthorItemsMenu = (props) => {
                         right: 'calc(18%)',
 
                     }}>
-                        {props.authenticated === true
+                        {props.role === 'admin'
                             && <>
                                 <MyButton tip="Добавить" onClick={handleClick}>
                                     <AddCircleIcon style={{ fontSize: '2.25em', color: '#19ff19' }} />
@@ -277,7 +277,7 @@ AddAuthorItemsMenu.propTypes = {
     addMovie: PropTypes.func.isRequired,
     addAuthor: PropTypes.func.isRequired,
     addIllustration: PropTypes.func.isRequired,
-    authenticated: PropTypes.bool.isRequired,
+    role: PropTypes.string.isRequired,
     authorId: PropTypes.string.isRequired,
 }
 

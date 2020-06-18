@@ -22,7 +22,7 @@ export default function Audio(props) {
                     singer={audio.singer}
                     setSrc={setSrc}
                     delAudio={props.delAudio}
-                    authenticated={props.authenticated}
+                    role={props.role}
                     id={audio.id}
                     playerSrc={playerSrc}
                     audioUrl={audio.audioUrl} />)
@@ -36,5 +36,5 @@ Audio.propTypes = {
     addAudio: PropTypes.func.isRequired,
     delAudio: PropTypes.func.isRequired,
     authorId: PropTypes.string.isRequired,
-    authenticated: PropTypes.bool.isRequired
+    role: PropTypes.string.isRequired
 }

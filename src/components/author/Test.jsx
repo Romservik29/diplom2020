@@ -6,6 +6,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import MyButton from '../../util/MyButton'
 import EmptyContainer from './EmptyContainer';
 import { Link } from 'react-router-dom';
+
 const Wrapper = styled.div`
 width: 100%;
 `;
@@ -30,13 +31,19 @@ export default function Test(props) {
                             <span>{i++}. </span> {test.name} | {test.questionsCount} вопросов
                         </div>
                         <div>
-                            <Link to="/test">
-                                <MyButton>
-                                    <PlayArrowIcon color='primary' />
-                                </MyButton>
-                            </Link>
-
                             {props.authenticated === true
+                                ? <Link to="/test">
+                                    <MyButton>
+                                        <PlayArrowIcon color='primary' />
+                                    </MyButton>
+                                </Link>
+                                : <Link to="/login">
+                                    <MyButton>
+                                        <PlayArrowIcon color='primary' />
+                                    </MyButton>
+                                </Link>
+                            }
+                            {props.role === 'admin'
                                 &&
                                 <MyButton>
                                     <DeleteButtonModal />

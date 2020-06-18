@@ -65,10 +65,9 @@ class signup extends Component {
             loading: true
         })
         const newUserData = {
-            email: this.state.email.trim(),
-            password: this.state.password.trim(),
-            confirmPassword: this.state.confirmPassword.trim(),
-            handle: this.state.handle.trim()
+            email: this.state.email,
+            password: this.state.password,
+            confirmPassword: this.state.confirmPassword,
         }
         axios
             .post('/signup', newUserData)

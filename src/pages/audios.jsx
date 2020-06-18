@@ -30,7 +30,7 @@ class audios extends Component {
                                 singer={audio.singer}
                                 setSrc={this.setSrc}
                                 delAudio={this.props.delAudio}
-                                authenticated={this.props.authenticated}
+                                role={this.props.role}
                                 id={audio.id}
                                 playerSrc={this.state.src}
                                 audioUrl={audio.audioUrl} item sm={8} sx={12}
@@ -47,6 +47,6 @@ class audios extends Component {
 }
 const mapStateToProps = (state) => ({
     audio: state.data.audio,
-    authenticated: state.user.authenticated
+    role: state.user.credentials.role
 })
 export default connect(mapStateToProps, { getAudio, delAudio })(audios)

@@ -52,7 +52,7 @@ export default function Bio(props) {
         formData.append('authorId', props.authorId)
         props.uploadPortret(formData, props.authorId);
     };
-    const uploadImage = props.authenticated === true
+    const uploadImage = props.role === 'admin'
         ? <MyButton
             tip="Изменить портрет"
             onClick={handleEditPicture}
@@ -67,7 +67,7 @@ export default function Bio(props) {
         <>
             <div>
                 <CardTop square>
-                    <div style={{ position: 'absolute', top: '10px', right: '10px' }}><DeleteButtonModal tip="Удалить писателя" /></div>
+                    {props.role==='admin' &&<div style={{ position: 'absolute', top: '10px', right: '10px' }}><DeleteButtonModal tip="Удалить писателя" /></div>}
                     <div className="image-wrapper">
 
                         <AuthorImage src={props.portretUrl} alt={props.firstName} />
