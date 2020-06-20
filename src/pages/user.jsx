@@ -1,9 +1,51 @@
-import React, { Component } from 'react'
-import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper';
-import ProfileImage from '../components/profile/ProfileImage'
-import ProfileDetails from '../components/profile/ProfileDetails'
-import ProfileStats from '../components/profile/ProfileStats'
+import React, { Component } from 'react';
+import ProfileDetails from '../components/profile/ProfileDetails';
+import ProfileImage from '../components/profile/ProfileImage';
+import ProfileStats from '../components/profile/ProfileStats';
+import styled from 'styled-components'
+
+const GridWrapper = styled.div`
+display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 20px;
+
+`;
+
+const ProfileMain = styled.div`
+display:grid;
+grid-column-start: 1;
+grid-column-end: 5;
+border-bottom:  1px solid #6b6f8c;
+`;
+
+const Photo = styled.div`
+    grid-column-start: 1;
+    grid-column-end: 2;
+`;
+
+const Details = styled.div`
+display:grid;
+
+    grid-column-start: 2;
+    grid-column-end: 5;
+`;
+const Stats = styled.div`
+    grid-column-start: 1;
+    grid-column-end: 5; 
+    border-bottom:  1px solid #6b6f8c;
+`;
+
+const Radar = styled.div`
+    height: 500px;
+`;
+
+const Results = styled.div`
+    grid-column-start: 1;
+    grid-column-end: 5; 
+    border-bottom:  1px solid #6b6f8c;
+`;
+
 
 export default class user extends Component {
 
@@ -13,15 +55,21 @@ export default class user extends Component {
     render() {
         return (
             <Paper>
-            <Grid container xs={12}>
-                <Grid container spacing={4} xs={12}>
-                    <Grid item xs={3}><ProfileImage /></Grid>
-                    <Grid item xs={9}><ProfileDetails /></Grid>
-                </Grid>
-                <Grid container sx={12}>
-                    <ProfileStats />
-                </Grid>
-            </Grid>
+                <GridWrapper>
+                    <ProfileMain>
+                        <Photo ><ProfileImage /></Photo>
+                        <Details><ProfileDetails /></Details>
+                    </ProfileMain>
+                    <Stats>
+                        <h2>Статистика</h2>
+                        <Radar><ProfileStats /></Radar>
+
+                    </Stats>
+                    <Results>
+                        <h2>Результаты тестов</h2>
+                    </Results>
+
+                </GridWrapper>
             </Paper>
         )
     }

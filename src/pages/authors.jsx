@@ -44,7 +44,7 @@ class authors extends Component {
                      <Pagination style={{ margin: 'auto', padding: '10px', paddingBottom: '20px' }}
                         defaultPage={1}
                         page={this.state.currentPage}
-                        count={10}
+                        count={3}
                         onChange={this.handlePageClick}
                         variant="outlined"
                         shape="rounded" />

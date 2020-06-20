@@ -70,7 +70,7 @@ const App = () => {
               <Switch>
                 <Route exact path="/" component={home}/>
                 <AuthRoute exact path="/login" component={login} />
-                <AuthRoute exact path="/signup" component={signup} />
+                <AuthRoute exact path="/signup" component={signup}/>
                 <Route exact path="/authors" component={authors} />
                 <Route exact path="/audios" component={audios} />
                 <Route exact path="/illustrations" component={Illustrations} />

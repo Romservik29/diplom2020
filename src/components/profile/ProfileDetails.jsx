@@ -4,47 +4,67 @@ import { TextField } from "@material-ui/core/";
 import Button from '@material-ui/core/Button'
 
 const StyledInput = styled(TextField)`
-width: 300px;
+
 `;
 
 const Wrapper = styled.div`
 display: flex;
 flex-direction: column;
 width: 100%;
-border: 1px solid #6b6f8c;
-border-radius: 5px;
-align-items: center;
-padding: 10px;
+border-left: 1px solid #6b6f8c;
+
+justify-content: center;
+    h1{
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    button{
+        margin: 10px;
+        max-width: 120px;
+    }
 `;
 
+const Data = styled.div`
+    font-size: 1.25em;
+`;
 
 const EditProfileDetails = (props) => {
     return (
-        <Wrapper>
-            <StyledInput style={{ margin: '10px' }} label="Имя" variant="filled" />
-            <StyledInput style={{ margin: '10px' }} label="Фамилия" variant="filled" />
-            <StyledInput style={{ margin: '10px' }} label="Группа" variant="filled" />
-            <StyledInput style={{ margin: '10px' }} label="Специальность" variant="filled" /><br /><br />
-            <Button variant="contained">Изменить</Button>
-        </Wrapper>
+        <>
+            <StyledInput label="Имя" variant="filled" />
+            <StyledInput label="Фамилия" variant="filled" />
+            <StyledInput label="Группа" variant="filled" />
+            <StyledInput label="Город" variant="filled" />
+           
+            <Button onClick={props.changeProfileDetails} variant="contained">Изменить</Button>
+        </>
     )
 }
+
+
 const ProfileDetails = () => {
 
+    const [isEdit, setIsEdit] = React.useState(false)
+    const changeProfileDetails = (profile) => {
+        setIsEdit(false);
+    }
+    const openEditMode = () => {
+        setIsEdit(true)
+    }
     return (
-        <>
-            <EditProfileDetails />
-            {/*<div>
-                <div>Город: Могилев</div>
-
-                <div>Группа: 3ПОБШ</div>
-                <div>
-                    Специальность: Программное обеспечиние инфорсационных технологий
-      </div>
-                <div>Роль: Админ</div>
-                <div>Контакты: vk , tel, twitter</div>
-            </div>*/}
-        </>
+        <Wrapper>
+          <h1>Романовский Андрей</h1>
+            {isEdit === true
+                ? <EditProfileDetails changeProfileDetails={changeProfileDetails} />
+                : <div style={{padding: '10px'}}>
+                    <Data>Город: Могилев</Data>
+                    <Data>Группа: 3ПОБШ</Data>
+                    <Data>Роль: Админ</Data>
+                    <Button onClick={openEditMode} variant="contained"> Изменить</Button>
+                </div>
+            }
+        </Wrapper>
     )
 }
 

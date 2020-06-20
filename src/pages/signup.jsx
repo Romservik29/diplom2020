@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
-import withStyles from '@material-ui/core/styles/withStyles'
+import React, { Component } from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
 //import PropTypes from 'prop-types'
-import AppIcon from '../images/book2.png'
-import axios from 'axios'
-import PropTypes from 'prop-types'
+import AppIcon from '../images/book2.png';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { signup } from '../redux/actions/userActions';
 //MUI Stuff
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -42,10 +43,17 @@ const styles = (theme) => ({
     }
 });
 
-class signup extends Component {
+class Signup extends Component {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.UI.errors) {
+          this.setState({ errors: nextProps.UI.errors });
+        }
+      }
     constructor() {
         super();
         this.state = {
+            name: '',
+            secondName: '',
             email: '',
             password: '',
             confirmPassword: '',
@@ -61,30 +69,15 @@ class signup extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        this.setState({
-            loading: true
-        })
         const newUserData = {
+            name: this.state.name,
+            secondName: this.state.secondName,
             email: this.state.email,
             password: this.state.password,
             confirmPassword: this.state.confirmPassword,
         }
-        axios
-            .post('/signup', newUserData)
-            .then(res => {
-                localStorage.setItem('FBIdToken', ` ${res.data.token}`)
-                this.setState({
-                    loading: false
-                })
-                this.props.history.push('/');
-            })
-            .catch(err => {
-                console.log(err.response.data)
-                this.setState({
-                    errors: err.response.data,
-                    loading: false
-                })
-            })
+        this.props.signup(newUserData,this.props.history)
+        
     }
     render() {
         const { classes } = this.props;
@@ -100,10 +93,33 @@ class signup extends Component {
                         </Typography>
                         <form noValidate onSubmit={this.handleSubmit}>
                             <TextField
+                                id="name"
+                                name="name"
+                                type="text"
+                                label="Введите имя"
+                                className={classes.textField}
+                                helperText={errors.email}
+                                error={errors.name ? true : false}
+                                value={this.state.name}
+                                onChange={this.handleChange}
+                                fullWidth />
+                            <TextField
+                                id="secondName"
+                                name="secondName"
+                                type="text"
+                                label="Введите фамилию"
+                                className={classes.textField}
+                                helperText={errors.email}
+                                error={errors.secondName ? true : false}
+                                value={this.state.secondName}
+                                onChange={this.handleChange}
+                                fullWidth />
+
+                            <TextField
                                 id="email"
                                 name="email"
                                 type="email"
-                                label="Email"
+                                label="Введите email"
                                 className={classes.textField}
                                 helperText={errors.email}
                                 error={errors.email ? true : false}
@@ -154,5 +170,7 @@ class signup extends Component {
 signup.propTypes = {
     classes: PropTypes.object.isRequired
 }
-
-export default withStyles(styles)(signup)
+const mapStateToProps = (state)=>({
+    UI: state.UI
+})
+export default connect(mapStateToProps, { signup })(withStyles(styles)(Signup))

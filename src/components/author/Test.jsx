@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import DeleteButtonModal from '../admin/DeleteButtonModal';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import MyButton from '../../util/MyButton'

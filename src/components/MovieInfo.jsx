@@ -24,7 +24,7 @@ export default function MovieInfo(props) {
         <Paper>
             <Wrapper>
                 <div>
-                    <iframe width="285" height="200" src={`https://www.youtube.com/embed/${props.movieId}`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe title="movie"width="285" height="200" src={`https://www.youtube.com/embed/${props.movieId}`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <p style={{margin: '5px',fontFamily: "Parisienne,cursive"}}>{props.movieName}</p>
                 <Button onClick={handleClickOpen} variant="contained" color="primary">Просмотр в режиме кинотеатра</Button>
@@ -37,7 +37,7 @@ export default function MovieInfo(props) {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <iframe title="movie" width="850px" height="500px" src={`https://www.youtube.com/embed/${props.movieId}`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe title="movieTheater" width="850px" height="500px" src={`https://www.youtube.com/embed/${props.movieId}`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </Dialog>
         </Paper>
     )
