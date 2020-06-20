@@ -3,57 +3,18 @@ import React from 'react'
 import { ResponsiveRadar } from '@nivo/radar'
 class ProfileStats extends React.Component {
     state = {
-        data: [
-            {
-                'taste': "1",
-                'кол-во': 0
-            },
-            {
-                'taste': "2",
-                'кол-во': 0
-            },
-            {
-                'taste': "3",
-                'кол-во': 0
-            },
-            {
-                'taste': "4",
-                'кол-во': 0
-            },
-            {
-                'taste': "5",
-                'кол-во': 1
-            },
-            {
-                'taste': "6",
-                'кол-во': 0
-            },
-            {
-                'taste': "7",
-                'кол-во': 0
-            },
-            {
-                'taste': "8",
-                'кол-во': 0
-            },
-            {
-                'taste': "9",
-                'кол-во': 0
-            },
-            {
-                'taste': "10",
-                'кол-во': 0
-            },
-        ]
+        data: []
     }
     componentDidMount() {
-
-        for (let key in this.props.testResults) {
-            this.state.data.push(
-                {
+        for (let key  in this.props.testResults) {
+            
+            this.setState((state)=> {
+                return {
+                    data:[ ...state.data,
+                    {
                     "taste": key,
-                    "кол-во": test[key]
-                })
+                    "кол-во": this.props.testResults[key]}]
+                }})
         }
     }
 
