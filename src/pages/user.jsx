@@ -4,6 +4,7 @@ import ProfileDetails from '../components/profile/ProfileDetails';
 import ProfileImage from '../components/profile/ProfileImage';
 import ProfileStats from '../components/profile/ProfileStats';
 import styled from 'styled-components'
+import {connect} from 'react-redux'
 
 const GridWrapper = styled.div`
 display: grid;
@@ -47,7 +48,7 @@ const Results = styled.div`
 `;
 
 
-export default class user extends Component {
+ class User extends Component {
 
     componentDidMount() {
 
@@ -60,9 +61,9 @@ export default class user extends Component {
                         <Photo ><ProfileImage /></Photo>
                         <Details><ProfileDetails /></Details>
                     </ProfileMain>
-                    <Stats>
+                    <Stats >
                         <h2>Статистика</h2>
-                        <Radar><ProfileStats /></Radar>
+                        <Radar><ProfileStats testResults={this.props.testResults}/></Radar>
 
                     </Stats>
                     <Results>
@@ -74,3 +75,8 @@ export default class user extends Component {
         )
     }
 }
+const mapStateToProps=(state)=>({
+    testResults: state.user.credentials.testResults
+})
+
+export default connect(mapStateToProps,{})(User)
