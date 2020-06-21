@@ -5,6 +5,26 @@ class ProfileStats extends React.Component {
     state = {
         data: []
     }
+    componentDidUpdate(prevProps, prevState, snapshot){
+        let data=[];
+        for (let key  in prevProps.testResults) {
+            data = [ ...data,
+                    {
+                    "taste": key,
+                    "кол-во": this.props.testResults[key]}]
+        }
+        if(prevProps.testResults!==this.props.testResults){
+            for (let key  in this.props.testResults) {
+                this.setState((state)=> {
+                    return {
+                        data:[ ...state.data,
+                        {
+                        "taste": key,
+                        "кол-во": this.props.testResults[key]}]
+                    }})
+            }
+        }
+    }
     componentDidMount() {
         for (let key  in this.props.testResults) {
             
@@ -19,7 +39,6 @@ class ProfileStats extends React.Component {
     }
 
     render() {
-
         return <ResponsiveRadar
             data={this.state.data}
             keys={['кол-во']}

@@ -19,7 +19,7 @@ import books from './pages/books';
 import user from './pages/user';
 import author from './pages/author';
 import Illustrations from './pages/Illustrations';
-import test from './pages/test'
+import Test from './pages/Test'
 //components
 import Navbar from './components/Navbar'
 import AuthRoute from './util/AuthRoute'
@@ -77,7 +77,7 @@ const App = () => {
                 <Route exact path="/movies" component={movies} />
                 <Route exact path="/texts" component={books} />
                 <Route exact path="/authors/:authorId" component={author} />
-                <Route exact path="/test" component={test} />
+                <Route exact path="/test/:testId" component={Test} />
                 <ProtectRoute exact path="/user" component={user} />
                 <Route exact path="*" component={home}/>
               </Switch>

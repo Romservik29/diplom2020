@@ -34,5 +34,6 @@ export const SET_AUDIO                     ='SET_AUDIO'
 
 //TEST 
 export const SET_TEST                      ='SET_TEST'
-export const NEXT_QUEST                   ='NEXT_QUEST'
+export const SET_TEST_RESULT               ='SET_TEST_RESULT'
+export const NEXT_QUEST                    ='NEXT_QUEST'
 export const ADD_ANSWER                    ='ADD_ANSWER'

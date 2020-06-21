@@ -2,36 +2,20 @@ import {
     SET_TEST,
     NEXT_QUEST,
     ADD_ANSWER,
+    SET_TEST_RESULT
 } from '../types'
 
 const initialState = {
     test: {
-        title: "Пушкин А.С.",
-        questions: [
-            {
-                question: "В каком году родился А.С. Пушкин?",
-                answers: ["1799", "1800", "1805","1795"]
-            },
-            {
-                question: "Сколько лет васи?",
-                answers: ["4", "5", "6"]
-            },
-            {
-                question: "Сколько лет васи?",
-                answers: ["7", "8", "9"]
-            },
-            {
-                question: "Сколько лет васи?",
-                answers: ["10", "11", "12"]
-            },
-            {
-                question: "Сколько лет васи?",
-                answers: ["13", "14", "15"]
-            }
-        ]
+        title: '',
+        questions: [{
+            question: "0",
+            answers: [""]
+        }]
     },
     currentQuestion: 0,
-    answers: []
+    answers: [],
+    result: []
 }
 
 export default function (state = initialState, action) {
@@ -39,17 +23,22 @@ export default function (state = initialState, action) {
         case SET_TEST:
             return {
                 ...state,
-                test: [...action.test]
+                test: action.test.test
             }
         case ADD_ANSWER:
             return {
                 ...state,
-                answers: [...state.answers,action.answer]
+                answers: [...state.answers, action.answer]
             }
         case NEXT_QUEST:
             return {
                 ...state,
-                currentQuestion: state.currentQuestion+1
+                currentQuestion: state.currentQuestion + 1
+            }
+        case SET_TEST_RESULT:
+            return {
+                ...state,
+                result: [...state.result, action.result]
             }
         default: return state
     }

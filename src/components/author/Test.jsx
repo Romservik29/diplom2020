@@ -5,6 +5,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import MyButton from '../../util/MyButton'
 import EmptyContainer from './EmptyContainer';
 import { Link } from 'react-router-dom';
+import IconButton from '@material-ui/core/IconButton';
 
 const Wrapper = styled.div`
 width: 100%;
@@ -31,13 +32,15 @@ export default function Test(props) {
                         </div>
                         <div>
                             {props.authenticated === true
-                                ? <Link to="/test">
+                                ? <Link to={`/test/${test.testId}`}>
                                     <MyButton tip="Пройти тест">
                                         <PlayArrowIcon color='primary' />
                                     </MyButton>
                                 </Link>
                                 : <Link to="/login">
-                                    <PlayArrowIcon color='primary' />
+                                    <IconButton>
+                                        <PlayArrowIcon color='primary' />
+                                    </IconButton>
                                 </Link>
                             }
                             {props.role === 'admin'

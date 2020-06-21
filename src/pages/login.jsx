@@ -12,7 +12,6 @@ import { Paper } from '@material-ui/core';
 
 //Redux 
 import {connect} from 'react-redux'
-import {compose} from 'redux'
 import {loginUser} from '../redux/actions/userActions'
 
 const styles =(theme)=>({
@@ -142,4 +141,4 @@ const mapStateToProps=(state)=>({
     user: state.user,
     UI: state.UI
 })
-export default compose((withStyles(styles)),connect(mapStateToProps,{loginUser}))(login) 
+export default connect(mapStateToProps,{loginUser})(withStyles(styles)(login))
