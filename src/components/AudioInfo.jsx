@@ -52,7 +52,6 @@ const AudioInfo = (props) => {
     const doPlay = (src) => {
 
         if (player.src !== src) {
-            console.log(player.paused + " Play")
             player.src = src;
             props.setSrc(src)
             player.play()

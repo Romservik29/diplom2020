@@ -22,7 +22,11 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 border-bottom: 3px dotted #48b9f0;
-font-family: 'Parisienne', cursive;
+font-family: 'Parisienne', cursive,
+-apple-system, BlinkMacSystemFont,
+ 'Segoe UI', 'Roboto', 'Oxygen',
+ 'Ubuntu', 'Cantarell', 'Fira Sans', 
+ 'Droid Sans', 'Helvetica Neue', sans-serif;
 &:last-child{
     border-bottom: none;
 }

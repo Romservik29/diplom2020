@@ -7,8 +7,13 @@ import Dialog from '@material-ui/core/Dialog';
 const Wrapper = styled.div`
 padding: 8px;
 width: 100%;
-
+font-family: Parisienne,cursive,
+-apple-system, BlinkMacSystemFont,
+ 'Segoe UI', 'Roboto', 'Oxygen',
+ 'Ubuntu', 'Cantarell', 'Fira Sans', 
+ 'Droid Sans', 'Helvetica Neue', sans-serif;
 `;
+
 
 
 export default function MovieInfo(props) {
@@ -26,7 +31,7 @@ export default function MovieInfo(props) {
                 <div>
                     <iframe title="movie"width="285" height="200" src={`https://www.youtube.com/embed/${props.movieId}`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
-                <p style={{margin: '5px',fontFamily: "Parisienne,cursive"}}>{props.movieName}</p>
+                <p style={{margin: '5px'}}>{props.movieName}</p>
                 <Button onClick={handleClickOpen} variant="contained" color="primary">Просмотр в режиме кинотеатра</Button>
             </Wrapper>
             <Dialog

@@ -2,18 +2,17 @@ import React from 'react'
 import { ResponsivePie } from '@nivo/pie'
 
 export default function TestResult(props) {
-    const correct =5;
 
 const data =[
     {
         "id": "Не верных",
         "label": "Не верных",
-        "value": correct,
+        "value": 3,
       },
       {
         "id": "Верных",
         "label": "Верных",
-        "value": correct,
+        "value": 7,
       },
 ]
 

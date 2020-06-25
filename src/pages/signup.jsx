@@ -46,9 +46,9 @@ const styles = (theme) => ({
 class Signup extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.UI.errors) {
-          this.setState({ errors: nextProps.UI.errors });
+            this.setState({ errors: nextProps.UI.errors });
         }
-      }
+    }
     constructor() {
         super();
         this.state = {
@@ -76,8 +76,8 @@ class Signup extends Component {
             password: this.state.password,
             confirmPassword: this.state.confirmPassword,
         }
-        this.props.signup(newUserData,this.props.history)
-        
+        this.props.signup(newUserData, this.props.history)
+
     }
     render() {
         const { classes } = this.props;
@@ -170,7 +170,7 @@ class Signup extends Component {
 signup.propTypes = {
     classes: PropTypes.object.isRequired
 }
-const mapStateToProps = (state)=>({
+const mapStateToProps = (state) => ({
     UI: state.UI
 })
 export default connect(mapStateToProps, { signup })(withStyles(styles)(Signup))

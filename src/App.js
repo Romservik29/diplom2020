@@ -30,6 +30,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store'
 import { logoutUser, getUserData } from './redux/actions/userActions';
 import { SET_AUTHENTICATED } from './redux/types';
+import MyAlert from './util/MyAlert';
 
 axios.defaults.baseURL =
   'https://us-central1-diplomsgk2020-ff454.cloudfunctions.net/api';
@@ -44,7 +45,7 @@ const theme = {
 const token = localStorage.FBIdToken
 if (token) {
   const decodedToken = jwtDecode(token);
-  if (decodedToken.exp * 1000 < Date.now()) {
+  if (decodedToken.exp * 3600 < Date.now()) {
     store.dispatch(logoutUser())
     window.location.href = '/login'
   } else {
@@ -66,6 +67,7 @@ const App = () => {
           <Router>
             <ProgressBar style={{ position: 'fixed', top: '0px', left: '0px' }} />
             <Navbar />
+            <MyAlert/>
             <div className="container">
               <Switch>
                 <Route exact path="/" component={home}/>

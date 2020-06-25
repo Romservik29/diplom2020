@@ -12,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import TextField from '@material-ui/core/TextField';
 import Downloading from "./Downloading"
 import { Link } from "react-router-dom";
 import TestResult from "./TestResult";
@@ -22,7 +23,11 @@ const Wrapper = styled.div`
   margin: 30px;
   padding: 30px;
   border-radius: 5px;
-  font-family: "Parisienne", cursive,-apple-system, BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue", Arial,"Noto Sans",sans-serif,"Apple Color Emoji", "Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-family: "Parisienne", cursive,
+  -apple-system, BlinkMacSystemFont,
+  "Segoe UI",Roboto,"Helvetica Neue", Arial,
+  "Noto Sans",sans-serif,"Apple Color Emoji",
+   "Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   margin: auto;
 `;
 
@@ -38,10 +43,12 @@ min-width: 0%;
 
 
 export default function Question(props) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [end, setEnd] = useState(false)
-  const { test, currentQuestion, result } = props.test;
+
   const [value, setValue] = useState('');
+  const [answers, setAnswers] = useState([])
+  const { test, currentQuestion } = props.test;
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
@@ -53,12 +60,15 @@ export default function Question(props) {
     if (test.questions.length > (currentQuestion + 1)) {
       setValue(test.questions[currentQuestion].answers[0]);
       props.addAnswer(value);
+      setAnswers([...answers, value]);
+      setValue('');
       props.nextQuest();
     }
     else if (test.questions.length === (currentQuestion + 1)) {
       props.addAnswer(value);
+      setAnswers([...answers, value])
       setEnd(true)
-      props.getTestResult(props.test.answers, test.testId)
+      props.getTestResult(answers, props.test.testId)
       handleClickOpen();
     }
   };
@@ -87,9 +97,12 @@ export default function Question(props) {
               onChange={handleChange}
             >
 
-              {test.questions[currentQuestion].answers.map(a => (
+              {test.questions[currentQuestion].type === "radio" && test.questions[currentQuestion].answers.map(a => (
                 <><FormControlLabel value={`${a}`} control={<MyRadio />} label={a} /><br /></>
               ))}
+              {test.questions[currentQuestion].type === "text"
+                && <><TextField placeholder="Ваш ответ..." onChange={(e)=>{setValue(e.target.value)}} value={value}/></>
+              }
             </RadioGroup>
             <Button style={{ marginTop: '10px' }} variant="contained" disabled={end} color="primary" onClick={answerHandle}>Далее</Button>
           </Paper>
@@ -103,7 +116,7 @@ export default function Question(props) {
             width={'xl'}
             onClose={handleClose}
           >
-            <DialogTitle id="alert-dialog-slide-title">{test.title}</DialogTitle>
+            <DialogTitle id="alert-dialog-slide-title">{test.title + " - ваша оценка: 7"}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-slide-description">
                 <TestResult />

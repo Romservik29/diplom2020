@@ -2,15 +2,16 @@ import {
     SET_TEST,
     NEXT_QUEST,
     ADD_ANSWER,
-    SET_TEST_RESULT
+    SET_TEST_RESULT,
+    RESET_TEST 
 } from '../types'
 
 const initialState = {
     test: {
         title: '',
         questions: [{
-            question: "0",
-            answers: [""]
+            question: "",
+            answers: []
         }]
     },
     currentQuestion: 0,
@@ -23,7 +24,8 @@ export default function (state = initialState, action) {
         case SET_TEST:
             return {
                 ...state,
-                test: action.test.test
+                test: action.test.test,
+                testId: action.test.testId
             }
         case ADD_ANSWER:
             return {
@@ -40,6 +42,7 @@ export default function (state = initialState, action) {
                 ...state,
                 result: [...state.result, action.result]
             }
+            case  RESET_TEST : return initialState
         default: return state
     }
 }

@@ -5,6 +5,7 @@ import {
     delBook,
     delMovie,
     delIllustration,
+    delTest
 } from '../redux/actions/authorActions';
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
@@ -106,7 +107,7 @@ class Author extends Component {
                         <SubTitle name="Тесты" />
                     </Grid>
                     <Grid item >
-                        <Test tests={tests} role={role} authenticated={authenticated} authorId={id} />
+                        <Test tests={tests} delTest={this.props.delTest} role={role} authenticated={authenticated} authorId={id} />
                     </Grid>
                 </GridWrapper>
                 <AddAuthorItemsMenu role={role} authorId={id} authenticated={authenticated} />
@@ -130,5 +131,6 @@ export default connect(mapStateToProps, {
     uploadPortret,
     delAudio,
     delIllustration,
-    delMovie
+    delMovie,
+    delTest
 })(Author)

@@ -1,7 +1,8 @@
-import { SET_AUDIO } from '../types'
+import { SET_AUDIO,SET_ILLUSTRATION } from '../types'
 
 const initialState = {
-    audio: []
+    audio: [],
+    illustrations:[]
 }
 
 export default function (state = initialState, action) {
@@ -10,6 +11,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 audio: [...action.audio]
+            }
+            case SET_ILLUSTRATION :
+                return{
+                ...state,
+                illustrations: [...action.illustrations]
             }
         default: return state
     }

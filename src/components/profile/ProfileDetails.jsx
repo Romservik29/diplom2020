@@ -36,14 +36,14 @@ const EditProfileDetails = (props) => {
             <StyledInput label="Фамилия" variant="filled" />
             <StyledInput label="Группа" variant="filled" />
             <StyledInput label="Город" variant="filled" />
-           
+
             <Button onClick={props.changeProfileDetails} variant="contained">Изменить</Button>
         </>
     )
 }
 
 
-const ProfileDetails = () => {
+const ProfileDetails = (props) => {
 
     const [isEdit, setIsEdit] = React.useState(false)
     const changeProfileDetails = (profile) => {
@@ -54,13 +54,17 @@ const ProfileDetails = () => {
     }
     return (
         <Wrapper>
-          <h1>Романовский Андрей</h1>
+            <h1>{props.name} {props.secondName}</h1>
             {isEdit === true
                 ? <EditProfileDetails changeProfileDetails={changeProfileDetails} />
-                : <div style={{padding: '10px'}}>
-                    <Data>Город: Могилев</Data>
-                    <Data>Группа: 3ПОБШ</Data>
-                    <Data>Роль: Админ</Data>
+                : <div style={{ padding: '10px' }}>
+                    <Data>Город: {props.city}</Data>
+                    <Data>Группа: {props.group}</Data>
+                    <Data>Роль:
+                        {props.role === 'admin'
+                            ? 'Администратор'
+                            : 'Пользователь'}
+                    </Data>
                     <Button onClick={openEditMode} variant="contained"> Изменить</Button>
                 </div>
             }

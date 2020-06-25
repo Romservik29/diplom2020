@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import ProfileDetails from '../components/profile/ProfileDetails';
 import ProfileImage from '../components/profile/ProfileImage';
 import ProfileStats from '../components/profile/ProfileStats';
-import styled from 'styled-components'
-import {connect} from 'react-redux'
-
+import styled from 'styled-components';
+import { connect } from 'react-redux';
+import {changeProfileImage} from '../redux/actions/userActions';
 const GridWrapper = styled.div`
 display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -48,23 +48,31 @@ const Results = styled.div`
 `;
 
 
- class User extends Component {
+class User extends Component {
 
     componentDidMount() {
-        
+
 
     }
     render() {
+        const { user: {
+            name,
+            secondName,
+            testResults,
+            group,
+            role,
+            city,
+            imageUrl } } = this.props;
         return (
             <Paper>
                 <GridWrapper>
                     <ProfileMain>
-                        <Photo ><ProfileImage /></Photo>
-                        <Details><ProfileDetails /></Details>
+                        <Photo ><ProfileImage imageUrl={imageUrl} changeProfileImage={this.props.changeProfileImage}/></Photo>
+                        <Details><ProfileDetails name={name} secondName={secondName} role={role} city={city} group={group} /></Details>
                     </ProfileMain>
                     <Stats >
                         <h2>Статистика</h2>
-                        <Radar><ProfileStats testResults={this.props.testResults}/></Radar>
+                        <Radar><ProfileStats testResults={testResults} /></Radar>
 
                     </Stats>
                     <Results>
@@ -76,8 +84,8 @@ const Results = styled.div`
         )
     }
 }
-const mapStateToProps=(state)=>({
-    testResults: state.user.credentials.testResults
+const mapStateToProps = (state) => ({
+    user: state.user.credentials
 })
 
-export default connect(mapStateToProps,{})(User)
+export default connect(mapStateToProps, {changeProfileImage})(User)

@@ -7,7 +7,10 @@ import {
     DEL_AUDIO,
     DEL_BOOK,
     DEL_MOVIE,
-    DEL_ILLUSTRATION
+    DEL_ILLUSTRATION,
+    DEL_TEST,
+    SET_ALERT,
+    CLOSE_ALERT
 } from '../types'
 
 import axios from 'axios'
@@ -42,6 +45,8 @@ export const addAuthor = (newAuthor)=>(dispatch)=>{
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
         window.location.href =`/authors/${res.data.id}`
+        dispatch({type: SET_ALERT, title: 'Успех', message: 'Писатель успешно добавлен!', severity: 'success'})
+            setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
     })
     .catch(err=>{
         dispatch({
@@ -67,6 +72,9 @@ export const changeBio = (bio,id)=>(dispatch)=>{
     .post(`/author/${id}/bio`,{bio})
     .then(res=> {
         dispatch(getAuthor(id))
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Биография успешно изменена!', severity:'success'})  
+            setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
     })
     .catch(err=>{
         dispatch({
@@ -83,6 +91,10 @@ export const addAudio = (formData,id) => (dispatch)=>{
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
         dispatch(getAuthor(id))
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Аудиозапись успешно добавлена!', severity:'success'})   
+            setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
+
     })
     .catch(err=>{
         dispatch({
@@ -98,6 +110,10 @@ export const delAudio = (id)=>(dispatch)=>{
     .then(res=>{
         dispatch({type:DEL_AUDIO, payload: id})
         dispatch({type: STOP_LOADING_UI})
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Аудиозапись успешно удалена!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
+
     })
 }
 export const addMovie = (movie)=>(dispatch)=>{
@@ -107,6 +123,10 @@ export const addMovie = (movie)=>(dispatch)=>{
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
         dispatch(getAuthor(movie.authorId))
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Фильм успешно добавлен!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
+
     })
     .catch(err=>{
         dispatch({
@@ -122,6 +142,10 @@ export const delMovie = (id)=>(dispatch)=>{
     .then(res=>{
         dispatch({type:DEL_MOVIE, payload: id})
         dispatch({type: STOP_LOADING_UI})
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Фильм успешно удалён!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
+
     })
 }
 
@@ -132,6 +156,7 @@ export const addTest = (test,id)=>(dispatch)=>{
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
         dispatch(getAuthor(id))
+
     })
     .catch(err=>{
         dispatch({
@@ -140,6 +165,19 @@ export const addTest = (test,id)=>(dispatch)=>{
         })
     }) 
 }
+export const delTest = (id)=>(dispatch)=>{
+    dispatch({type: LOADING_UI})
+    axios
+    .delete(`/test/${id}`)
+    .then(res=>{
+        dispatch({type:DEL_TEST, payload: id})
+        dispatch({type: STOP_LOADING_UI})
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Тест успешно удалён!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
+
+    })
+}
 export const addIllustration = (formData,id)=>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
@@ -147,6 +185,9 @@ export const addIllustration = (formData,id)=>(dispatch)=>{
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
         dispatch(getAuthor(id))
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Иллюстрация успешно добавлена!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
     })
     .catch(err=>{
         dispatch({
@@ -162,6 +203,8 @@ export const delIllustration = (id)=>(dispatch)=>{
     .then(res=>{
         dispatch({type:DEL_ILLUSTRATION, payload: id})
         dispatch({type: STOP_LOADING_UI})
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Иллюстрация успешно удалена!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
     })
 }
 export const addBook = (formData,id)=>(dispatch)=>{
@@ -171,6 +214,9 @@ export const addBook = (formData,id)=>(dispatch)=>{
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
         dispatch(getAuthor(id))
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Книга успешно добавлена!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
     })
     .catch(err=>{
         dispatch({
@@ -186,5 +232,8 @@ export const delBook = (id)=>(dispatch)=>{
     .then(res=>{
         dispatch({type:DEL_BOOK, payload: id})
         dispatch({type: STOP_LOADING_UI})
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Книга успешно удалена!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
     })
 }

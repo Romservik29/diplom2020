@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
   pages: {
     position: 'absolute',
-    left: '35%',
+    left: '40%',
     [theme.breakpoints.down('md')]: {
       left:'40%',
     },
@@ -216,7 +216,7 @@ const PrimarySearchAppBar = (props) => {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder="Поиск…"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,

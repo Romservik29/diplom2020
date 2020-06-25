@@ -2,11 +2,11 @@ import {
     SET_UNAUTHENTICATED,
     SET_USER,
     SET_AUTHENTICATED,
-    //LOADING_USER,
-    //MARK_NOTIFICATION,
     LOADING_UI,
     CLEAR_ERRORS,
-    SET_ERRORS
+    SET_ERRORS,
+    SET_ALERT,
+    CLOSE_ALERT
 } from '../types'
 
 import axios from 'axios'
@@ -23,6 +23,9 @@ export const loginUser = (userData, history) => (dispatch) => {
                 type: CLEAR_ERRORS
             })
             history.push('/authors')
+            dispatch({type: SET_ALERT, title:'Вы успешно вошли!', message:'', severity:'success'})   
+            dispatch({type:SET_ERRORS})
+            setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
         })
         .catch(err => {
             dispatch({
@@ -55,7 +58,6 @@ export const getUserData = () => (dispatch) => {
         })
 }
 
-
 export const signup = (newUserData,history) => (dispatch) => {
     dispatch({ type: LOADING_UI })
     axios
@@ -66,8 +68,10 @@ export const signup = (newUserData,history) => (dispatch) => {
             dispatch({
                 type: CLEAR_ERRORS
             })
-
             history.push('/')
+            dispatch({type: SET_ALERT, title:'Успешная регистрация!', message:'Ура! Теперь вы с нами!', severity:'success'})   
+            setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)            
+            dispatch(getUserData());
         })
         .catch(err => {
             console.log(err)
@@ -83,3 +87,19 @@ const setAuthorizationHeader = (token) => {
     localStorage.setItem('FBIdToken', FBIdToken);
     axios.defaults.headers.common['Authorization'] = FBIdToken;
 };
+
+export const changeProfileImage = (formData)=>(dispatch)=>{
+    
+    dispatch({type: LOADING_UI})
+    axios
+    .post(`/user/image`,formData)
+    .then(res=>{
+        dispatch(getUserData())
+	    dispatch({type:CLEAR_ERRORS})
+    })
+    .catch(err=>{
+    dispatch({type: SET_ALERT, title:'Ошибка', message:'К сожелению не удалось обновить фотографию!', severity:'error'})   
+    dispatch({type:SET_ERRORS})
+    setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+})
+}

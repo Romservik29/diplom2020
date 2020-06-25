@@ -32,24 +32,35 @@ const ImageWrapper = styled.div`
 `;
 
 export default function ProfileImage(props) {
-    return (
-        <ImageWrapper>
-            <div className="image-wrapper">
-                <img src="https://im0-tub-by.yandex.net/i?id=f29f9c06e0f9d7bc8ca4fb19da6bf838&n=13" alt="profile" className="profile-image" />
-                <input
-                    type="file"
-                    id="imageInput"
-                    hidden="hidden"
-                    //onChange={this.handleImageChange}
-                />
-                <MyButton
-                    tip="Изменить фото"
-                    //onClick={this.handleEditPicture}
-                    btnClassName="button"
-                >
-                    <EditIcon color="primary" />
-                </MyButton>
-            </div>
-            </ImageWrapper>
-    )
+
+  const handleEditPicture = () => {
+    const fileInput = document.getElementById('profileImageInput');
+    fileInput.click();
+  };
+  const handleImageChange = (event) => {
+    const image = event.target.files[0];
+    const formData = new FormData();
+    formData.append('image', image, image.name);
+    props.changeProfileImage(formData);
+  };
+  return (
+    <ImageWrapper>
+      <div className="image-wrapper">
+        <img src={props.imageUrl} alt="profile" className="profile-image" />
+        <input
+          type="file"
+          id="profileImageInput"
+          hidden="hidden"
+         onChange={handleImageChange}
+        />
+        <MyButton
+          tip="Изменить фото"
+          onClick={handleEditPicture}
+          btnClassName="button"
+        >
+          <EditIcon color="primary" />
+        </MyButton>
+      </div>
+    </ImageWrapper>
+  )
 }
