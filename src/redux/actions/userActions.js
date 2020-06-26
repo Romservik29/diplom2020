@@ -103,3 +103,18 @@ export const changeProfileImage = (formData)=>(dispatch)=>{
     setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
 })
 }
+
+export const changeProfileData = (userData)=>(dispatch)=>{
+    dispatch({type: LOADING_UI})
+    axios
+    .post(`/user/details`,userData)
+    .then(res=>{
+        dispatch(getUserData())
+	    dispatch({type:CLEAR_ERRORS})
+    })
+    .catch(err=>{
+    dispatch({type: SET_ALERT, title:'Ошибка', message:'К сожелению не удалось обновить фаши данные!', severity:'error'})   
+    dispatch({type:SET_ERRORS})
+    setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+})
+}

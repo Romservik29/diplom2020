@@ -53,7 +53,7 @@ class Signup extends Component {
         super();
         this.state = {
             name: '',
-            secondName: '',
+            lastName: '',
             email: '',
             password: '',
             confirmPassword: '',
@@ -71,7 +71,7 @@ class Signup extends Component {
         e.preventDefault();
         const newUserData = {
             name: this.state.name,
-            secondName: this.state.secondName,
+            lastName: this.state.lastName,
             email: this.state.email,
             password: this.state.password,
             confirmPassword: this.state.confirmPassword,
@@ -110,8 +110,8 @@ class Signup extends Component {
                                 label="Введите фамилию"
                                 className={classes.textField}
                                 helperText={errors.email}
-                                error={errors.secondName ? true : false}
-                                value={this.state.secondName}
+                                error={errors.lastName ? true : false}
+                                value={this.state.lastName}
                                 onChange={this.handleChange}
                                 fullWidth />
 

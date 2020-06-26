@@ -2,10 +2,10 @@ import React from 'react'
 import styled from "styled-components";
 import { TextField } from "@material-ui/core/";
 import Button from '@material-ui/core/Button'
+import { useFormik } from 'formik';
+import FormGroup from '@material-ui/core/FormGroup';
 
-const StyledInput = styled(TextField)`
 
-`;
 
 const Wrapper = styled.div`
 display: flex;
@@ -30,15 +30,39 @@ const Data = styled.div`
 `;
 
 const EditProfileDetails = (props) => {
-    return (
-        <>
-            <StyledInput label="Имя" variant="filled" />
-            <StyledInput label="Фамилия" variant="filled" />
-            <StyledInput label="Группа" variant="filled" />
-            <StyledInput label="Город" variant="filled" />
 
-            <Button onClick={props.changeProfileDetails} variant="contained">Изменить</Button>
-        </>
+    const submit = (values) => {
+        const userData = {
+            name: values.name,
+            lastName: values.lastName,
+            group: values.group,
+            city: values.city
+        }
+        props.changeProfileData(userData)
+        props.changeProfileDetails()
+    }
+    const formik = useFormik({
+        initialValues: {
+            name: props.name,
+            lastName: props.secondName,
+            group: props.group,
+            city: props.city,
+        },
+        onSubmit: values => {
+            submit(values)
+        },
+    });
+
+    return (
+        <form onSubmit={formik.handleSubmit}>
+            <FormGroup column>
+                <TextField id="name" label="Имя" variant="filled" onChange={formik.handleChange} value={formik.values.name} />
+                <TextField id="lastName" label="Фамилия" variant="filled" onChange={formik.handleChange} value={formik.values.lastName} />
+                <TextField id="group" label="Группа" variant="filled" onChange={formik.handleChange} value={formik.values.group} />
+                <TextField id="city" label="Город" variant="filled" onChange={formik.handleChange} value={formik.values.city} />
+            </FormGroup>
+            <Button type="submit" variant="contained">Изменить</Button>
+        </form>
     )
 }
 
@@ -56,7 +80,7 @@ const ProfileDetails = (props) => {
         <Wrapper>
             <h1>{props.name} {props.secondName}</h1>
             {isEdit === true
-                ? <EditProfileDetails changeProfileDetails={changeProfileDetails} />
+                ? <EditProfileDetails {...props} changeProfileData={props.changeProfileData} changeProfileDetails={changeProfileDetails} />
                 : <div style={{ padding: '10px' }}>
                     <Data>Город: {props.city}</Data>
                     <Data>Группа: {props.group}</Data>

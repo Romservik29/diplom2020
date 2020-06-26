@@ -5,7 +5,7 @@ import ProfileImage from '../components/profile/ProfileImage';
 import ProfileStats from '../components/profile/ProfileStats';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import {changeProfileImage} from '../redux/actions/userActions';
+import {changeProfileImage,changeProfileData} from '../redux/actions/userActions';
 const GridWrapper = styled.div`
 display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -68,7 +68,7 @@ class User extends Component {
                 <GridWrapper>
                     <ProfileMain>
                         <Photo ><ProfileImage imageUrl={imageUrl} changeProfileImage={this.props.changeProfileImage}/></Photo>
-                        <Details><ProfileDetails name={name} secondName={secondName} role={role} city={city} group={group} /></Details>
+                        <Details><ProfileDetails changeProfileData={this.props.changeProfileData} name={name} secondName={secondName} role={role} city={city} group={group} /></Details>
                     </ProfileMain>
                     <Stats >
                         <h2>Статистика</h2>
@@ -88,4 +88,4 @@ const mapStateToProps = (state) => ({
     user: state.user.credentials
 })
 
-export default connect(mapStateToProps, {changeProfileImage})(User)
+export default connect(mapStateToProps, {changeProfileImage,changeProfileData})(User)

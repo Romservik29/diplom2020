@@ -16,6 +16,8 @@ import TextField from '@material-ui/core/TextField';
 import Downloading from "./Downloading"
 import { Link } from "react-router-dom";
 import TestResult from "./TestResult";
+import FormGroup from '@material-ui/core/FormGroup';
+import Checkbox from './Checkbox'
 
 const Wrapper = styled.div`
   width: 500px;
@@ -55,6 +57,12 @@ export default function Question(props) {
   const handleChange = event => {
     setValue(event.target.value);
   };
+  const [state, setState] = React.useState({
+    checkedA: false,
+    checkedB: false,
+    checkedF: false,
+    checkedG: false,
+  });
 
   const answerHandle = () => {
     if (test.questions.length > (currentQuestion + 1)) {
@@ -79,7 +87,9 @@ export default function Question(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const handleChecked = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
 
   return (
     <Wrapper>
@@ -100,9 +110,19 @@ export default function Question(props) {
               {test.questions[currentQuestion].type === "radio" && test.questions[currentQuestion].answers.map(a => (
                 <><FormControlLabel value={`${a}`} control={<MyRadio />} label={a} /><br /></>
               ))}
-              {test.questions[currentQuestion].type === "text"
-                && <><TextField placeholder="Ваш ответ..." onChange={(e)=>{setValue(e.target.value)}} value={value}/></>
-              }
+            
+            {test.questions[currentQuestion].type === "text"
+              && <><TextField placeholder="Ваш ответ..." onChange={(e) => { setValue(e.target.value) }} value={value} /></>
+            }
+            
+            {test.questions[currentQuestion].type === "checked"&&
+              <FormGroup column>
+                <FormControlLabel control={<Checkbox name="checkedA" />} onChange={handleChecked} label="Пушкин1" />
+                <FormControlLabel control={<Checkbox name="checkedB" />} onChange={handleChecked} label="Пушкин2" />
+                <FormControlLabel control={<Checkbox name="checkedC" />} onChange={handleChecked} label="Пушкин3" />
+                <FormControlLabel control={<Checkbox name="checkedD" />} onChange={handleChecked} label="Пушкин4" />
+              </FormGroup>
+            }
             </RadioGroup>
             <Button style={{ marginTop: '10px' }} variant="contained" disabled={end} color="primary" onClick={answerHandle}>Далее</Button>
           </Paper>
@@ -141,4 +161,5 @@ export default function Question(props) {
 
 
   );
+
 }
