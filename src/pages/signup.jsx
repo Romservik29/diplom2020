@@ -77,7 +77,6 @@ class Signup extends Component {
             confirmPassword: this.state.confirmPassword,
         }
         this.props.signup(newUserData, this.props.history)
-
     }
     render() {
         const { classes } = this.props;
@@ -98,18 +97,18 @@ class Signup extends Component {
                                 type="text"
                                 label="Введите имя"
                                 className={classes.textField}
-                                helperText={errors.email}
+                                helperText={errors.name}
                                 error={errors.name ? true : false}
                                 value={this.state.name}
                                 onChange={this.handleChange}
                                 fullWidth />
                             <TextField
-                                id="secondName"
-                                name="secondName"
+                                id="lastName"
+                                name="lastName"
                                 type="text"
                                 label="Введите фамилию"
                                 className={classes.textField}
-                                helperText={errors.email}
+                                helperText={errors.lastName}
                                 error={errors.lastName ? true : false}
                                 value={this.state.lastName}
                                 onChange={this.handleChange}

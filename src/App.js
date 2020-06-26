@@ -15,7 +15,7 @@ import signup from './pages/signup';
 import authors from './pages/authors';
 import audios from './pages/audios';
 import movies from './pages/movies';
-import books from './pages/books';
+import CompareAuthor from './pages/CompareAuthor';
 import user from './pages/user';
 import author from './pages/author';
 import Illustrations from './pages/Illustrations';
@@ -77,7 +77,7 @@ const App = () => {
                 <Route exact path="/audios" component={audios} />
                 <Route exact path="/illustrations" component={Illustrations} />
                 <Route exact path="/movies" component={movies} />
-                <Route exact path="/texts" component={books} />
+                <Route exact path="/texts" component={CompareAuthor} />
                 <Route exact path="/authors/:authorId" component={author} />
                 <Route exact path="/test/:testId" component={Test} />
                 <ProtectRoute exact path="/user" component={user} />

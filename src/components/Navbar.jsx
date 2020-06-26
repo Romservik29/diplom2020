@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
   pages: {
     position: 'absolute',
-    left: '40%',
+    left: '36%',
     [theme.breakpoints.down('md')]: {
       left:'40%',
     },
