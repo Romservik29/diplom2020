@@ -77,7 +77,7 @@ const App = () => {
                 <Route exact path="/audios" component={audios} />
                 <Route exact path="/illustrations" component={Illustrations} />
                 <Route exact path="/movies" component={movies} />
-                <Route exact path="/texts" component={CompareAuthor} />
+                <Route exact path="/game" component={CompareAuthor} />
                 <Route exact path="/authors/:authorId" component={author} />
                 <Route exact path="/test/:testId" component={Test} />
                 <ProtectRoute exact path="/user" component={user} />

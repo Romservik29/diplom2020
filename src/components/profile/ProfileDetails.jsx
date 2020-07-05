@@ -44,7 +44,7 @@ const EditProfileDetails = (props) => {
     const formik = useFormik({
         initialValues: {
             name: props.name,
-            lastName: props.secondName,
+            lastName: props.lastName,
             group: props.group,
             city: props.city,
         },
@@ -78,7 +78,7 @@ const ProfileDetails = (props) => {
     }
     return (
         <Wrapper>
-            <h1>{props.name} {props.secondName}</h1>
+            <h1>{props.name} {props.lastName}</h1>
             {isEdit === true
                 ? <EditProfileDetails {...props} changeProfileData={props.changeProfileData} changeProfileDetails={changeProfileDetails} />
                 : <div style={{ padding: '10px' }}>

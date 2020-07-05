@@ -117,10 +117,10 @@ export default function Question(props) {
             
             {test.questions[currentQuestion].type === "checked"&&
               <FormGroup column>
-                <FormControlLabel control={<Checkbox name="checkedA" />} onChange={handleChecked} label="Пушкин1" />
-                <FormControlLabel control={<Checkbox name="checkedB" />} onChange={handleChecked} label="Пушкин2" />
-                <FormControlLabel control={<Checkbox name="checkedC" />} onChange={handleChecked} label="Пушкин3" />
-                <FormControlLabel control={<Checkbox name="checkedD" />} onChange={handleChecked} label="Пушкин4" />
+                <FormControlLabel control={<Checkbox name="checkedA" />} onChange={handleChecked} label={`${"Любовь одна — веселье жизни хладной..."}`} />
+                <FormControlLabel control={<Checkbox name="checkedB" />} onChange={handleChecked} label={`${"Я вас любил: любовь еще, быть может..."}`} />
+                <FormControlLabel control={<Checkbox name="checkedC" />} onChange={handleChecked} label="Колобок" />
+                <FormControlLabel control={<Checkbox name="checkedD" />} onChange={handleChecked} label="Зимнее утро" />
               </FormGroup>
             }
             </RadioGroup>

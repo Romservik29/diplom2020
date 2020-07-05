@@ -208,7 +208,7 @@ const PrimarySearchAppBar = (props) => {
             <Button className={classes.button} color="inherit" component={Link} to="/authors">Писатели</Button>
             <Button className={classes.button} color="inherit" component={Link} to="/movies">Фильмы</Button>
             <Button className={classes.button} color="inherit" component={Link} to="/audios">Аудиозаписи</Button>
-            <Button className={classes.button} color="inherit" component={Link} to="/tests">Тесты</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/game">Игра</Button>
             <Button className={classes.button} color="inherit" component={Link} to="/illustrations">Иллюстрации</Button>
           </Box>
           <div className={classes.search}>

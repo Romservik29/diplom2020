@@ -57,7 +57,7 @@ class User extends Component {
     render() {
         const { user: {
             name,
-            secondName,
+            lastName,
             testResults,
             group,
             role,
@@ -68,7 +68,7 @@ class User extends Component {
                 <GridWrapper>
                     <ProfileMain>
                         <Photo ><ProfileImage imageUrl={imageUrl} changeProfileImage={this.props.changeProfileImage}/></Photo>
-                        <Details><ProfileDetails changeProfileData={this.props.changeProfileData} name={name} secondName={secondName} role={role} city={city} group={group} /></Details>
+                        <Details><ProfileDetails changeProfileData={this.props.changeProfileData} name={name} lastName={lastName} role={role} city={city} group={group} /></Details>
                     </ProfileMain>
                     <Stats >
                         <h2>Статистика</h2>

@@ -14,6 +14,7 @@ align-items: center;
 border-bottom: 3px dotted #48b9f0;
 max-width: 1000;
 position: relative;
+transition: 0.5s;
 &:hover{
     background-color: #ddeef6;
 }
