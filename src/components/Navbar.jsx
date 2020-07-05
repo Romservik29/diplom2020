@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../redux/actions/userActions';
 import MyButton from '../util/MyButton';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -83,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
   pages: {
     position: 'absolute',
-    left: '35%',
+    left: '36%',
     [theme.breakpoints.down('md')]: {
       left:'40%',
     },
@@ -93,7 +94,12 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     color: 'black',
-  }
+  },
+  button:{
+    '&:hover':{
+      backgroundColor: 'rgba(0, 0, 0, 0.30)',
+    },
+  },
 }));
 
 const PrimarySearchAppBar = (props) => {
@@ -101,14 +107,15 @@ const PrimarySearchAppBar = (props) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
+ useEffect(()=>{
 
+ },[props.authenticated])
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -122,7 +129,7 @@ const PrimarySearchAppBar = (props) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
   const logout = () => {
-    props.logoutUser();
+    props.logoutUser(props.history);
     handleMenuClose()
   }
   const menuId = 'primary-search-account-menu';
@@ -153,8 +160,8 @@ const PrimarySearchAppBar = (props) => {
       onClose={handleMobileMenuClose}
     >
       {props.authenticated === true
-         ?<MenuItem onClick={handleMobileMenuClose}>
-          <Link className={classes.link} to="/user">Профиль</Link>
+         ?<MenuItem >
+          <Link onClick={handleMobileMenuClose} className={classes.link} to="/user">Профиль</Link>
         </MenuItem>
         :<MenuItem onClick={handleMobileMenuClose}>
         <Link className={classes.link} to="/login">Войти</Link>
@@ -166,7 +173,7 @@ const PrimarySearchAppBar = (props) => {
         <Link className={classes.link} to="/audio">Аудиозаписи</Link>
       </MenuItem>
       <MenuItem onClick={handleMobileMenuClose}>
-        <Link className={classes.link} to="/books">Тексты</Link>
+        <Link className={classes.link} to="/tests">Тесты</Link>
       </MenuItem>
       <MenuItem onClick={handleMobileMenuClose}>
         <Link className={classes.link} to="/illustrations">Иллюстрации</Link>
@@ -182,10 +189,10 @@ const PrimarySearchAppBar = (props) => {
   );
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <MyButton
-            tip="РуссЛит"
+            tip="БелЛiт"
             edge="start"
             className={classes.menuButton}
             color="inherit"
@@ -194,23 +201,22 @@ const PrimarySearchAppBar = (props) => {
             <SwapHorizIcon color="secondary" />
           </MyButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            БелЛит
+            РусЛит
           </Typography>
 
           <Box component='div' className={classes.pages}>
-            <Button color="inherit" component={Link} to="/authors">Пісьменнікі</Button>
-            <Button color="inherit" component={Link} to="/movies">Фільмы</Button>
-            <Button color="inherit" component={Link} to="/audios">Аўдыёзапісы</Button>
-            <Button color="inherit" component={Link} to="/texts">Тэксты</Button>
-            <Button color="inherit" component={Link} to="/tests">Тэсты</Button>
-            <Button color="inherit" component={Link} to="/illustrations">Ілюстрацыі</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/authors">Писатели</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/movies">Фильмы</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/audios">Аудиозаписи</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/game">Игра</Button>
+            <Button className={classes.button} color="inherit" component={Link} to="/illustrations">Иллюстрации</Button>
           </Box>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder="Поиск…"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
@@ -258,6 +264,6 @@ const PrimarySearchAppBar = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-  authenticated: state.user.authenticated
+  authenticated: state.user.authenticated,
 })
 export default connect(mapStateToProps, { logoutUser })(PrimarySearchAppBar)

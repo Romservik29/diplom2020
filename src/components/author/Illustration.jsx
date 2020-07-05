@@ -1,10 +1,7 @@
 import React from 'react'
-import Carousel from 'react-elastic-carousel' 
+import Carousel from 'react-elastic-carousel'
 import styled from 'styled-components'
-import SubTitle from './SubTitle'
-const img ='https://sun9-21.userapi.com/c850136/v850136968/d1b2b/TiPdxf2idwM.jpg?ava=1';
-
-
+import EmptyContainer from './EmptyContainer';
 
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -36,15 +33,21 @@ margin: 0 15px;
 font-size: 4em;
 `;
 
+const Img = styled.img`
+width:100%;
+height: 100%;
+`;
+
 export default function CarouselGen(props) {
     return (
         <Wrapper>
-            <SubTitle name="Иллюстрации" add tip="Добавить иллюстрацию"/>
-            <CarouselWrapper>
-                <Carousel breakPoints={breakPoints}>
-                    {props.illustrations.map(i =><Item><img src={i.illustrationUrl} alt={props.name}/></Item>)}
-                </Carousel>
-            </CarouselWrapper>
+            {!props.illustrations.length > 0
+                ? <EmptyContainer />
+                : <CarouselWrapper>
+                    <Carousel breakPoints={breakPoints}>
+                        {props.illustrations.map(i => <Item><Img src={i.illustrationUrl} alt={props.name} /></Item>)}
+                    </Carousel>
+                </CarouselWrapper>}
         </Wrapper>
     )
 }

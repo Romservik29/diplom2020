@@ -1,12 +1,16 @@
 import {
     STOP_LOADING_UI,
-    SET_AUTHOR_BIO,
     SET_AUTHORS,
     LOADING_UI,
     SET_ERRORS,
     SET_AUTHOR,
     DEL_AUDIO,
-    DEL_BOOK
+    DEL_BOOK,
+    DEL_MOVIE,
+    DEL_ILLUSTRATION,
+    DEL_TEST,
+    SET_ALERT,
+    CLOSE_ALERT
 } from '../types'
 
 import axios from 'axios'
@@ -27,12 +31,29 @@ export const getAuthor = (id) =>(dispatch)=>{
         dispatch({type: SET_AUTHOR, payload: res.data})
         dispatch({type: STOP_LOADING_UI})
     })
-    .catch(err=>{debugger
+    .catch(err=>{
         dispatch({
             type: SET_ERRORS,
             payload: err.message
         })
     })
+}
+export const addAuthor = (newAuthor)=>(dispatch)=>{
+    dispatch({type: LOADING_UI})
+    axios
+    .post('/author',newAuthor)
+    .then(res=> {
+        dispatch({type: STOP_LOADING_UI})
+        window.location.href =`/authors/${res.data.id}`
+        dispatch({type: SET_ALERT, title: 'Успех', message: 'Писатель успешно добавлен!', severity: 'success'})
+            setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+    })
+    .catch(err=>{
+        dispatch({
+            type: SET_ERRORS,
+            payload: err.message
+        })
+    }) 
 }
 
 export const uploadPortret = (formData,authorId)=>(dispatch)=>{
@@ -45,12 +66,15 @@ export const uploadPortret = (formData,authorId)=>(dispatch)=>{
     })
 }
 
-export const setBio = (bio,id)=>(dispatch)=>{
+export const changeBio = (bio,id)=>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .post(`/author/${id}`,bio)
+    .post(`/author/${id}/bio`,{bio})
     .then(res=> {
         dispatch(getAuthor(id))
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Биография успешно изменена!', severity:'success'})  
+            setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
     })
     .catch(err=>{
         dispatch({
@@ -60,13 +84,17 @@ export const setBio = (bio,id)=>(dispatch)=>{
     }) 
 }
 
-export const addAudio = (formData) => (dispatch)=>{
+export const addAudio = (formData,id) => (dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .post(`author/audio`,formData)
+    .post(`/audio`,formData)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch(getAuthor(formData.authorId))
+        dispatch(getAuthor(id))
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Аудиозапись успешно добавлена!', severity:'success'})   
+            setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
+
     })
     .catch(err=>{
         dispatch({
@@ -82,15 +110,23 @@ export const delAudio = (id)=>(dispatch)=>{
     .then(res=>{
         dispatch({type:DEL_AUDIO, payload: id})
         dispatch({type: STOP_LOADING_UI})
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Аудиозапись успешно удалена!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
+
     })
 }
-export const addMovie = (movie,id)=>(dispatch)=>{
+export const addMovie = (movie)=>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .post(`/author/${id}`,movie)
+    .post(`/movie`,movie)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch(getAuthor(id))
+        dispatch(getAuthor(movie.authorId))
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Фильм успешно добавлен!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
+
     })
     .catch(err=>{
         dispatch({
@@ -98,6 +134,19 @@ export const addMovie = (movie,id)=>(dispatch)=>{
             payload: err.response.data
         })
     }) 
+}
+export const delMovie = (id)=>(dispatch)=>{
+    dispatch({type: LOADING_UI})
+    axios
+    .delete(`/movie/${id}`)
+    .then(res=>{
+        dispatch({type:DEL_MOVIE, payload: id})
+        dispatch({type: STOP_LOADING_UI})
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Фильм успешно удалён!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
+
+    })
 }
 
 export const addTest = (test,id)=>(dispatch)=>{
@@ -107,6 +156,7 @@ export const addTest = (test,id)=>(dispatch)=>{
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
         dispatch(getAuthor(id))
+
     })
     .catch(err=>{
         dispatch({
@@ -115,13 +165,29 @@ export const addTest = (test,id)=>(dispatch)=>{
         })
     }) 
 }
-export const addIllustration = (formData)=>(dispatch)=>{
+export const delTest = (id)=>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .post('/author/illustration',formData)
+    .delete(`/test/${id}`)
+    .then(res=>{
+        dispatch({type:DEL_TEST, payload: id})
+        dispatch({type: STOP_LOADING_UI})
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Тест успешно удалён!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
+
+    })
+}
+export const addIllustration = (formData,id)=>(dispatch)=>{
+    dispatch({type: LOADING_UI})
+    axios
+    .post('/illustration',formData)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch(getAuthor(formData.authorId))
+        dispatch(getAuthor(id))
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Иллюстрация успешно добавлена!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
     })
     .catch(err=>{
         dispatch({
@@ -130,13 +196,27 @@ export const addIllustration = (formData)=>(dispatch)=>{
         })
     }) 
 }
-export const addBook = (formData)=>(dispatch)=>{
+export const delIllustration = (id)=>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .post('/author/text',formData)
+    .delete(`/illustration/${id}`)
+    .then(res=>{
+        dispatch({type:DEL_ILLUSTRATION, payload: id})
+        dispatch({type: STOP_LOADING_UI})
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Иллюстрация успешно удалена!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+    })
+}
+export const addBook = (formData,id)=>(dispatch)=>{
+    dispatch({type: LOADING_UI})
+    axios
+    .post('/book',formData)
     .then(res=> {
         dispatch({type: STOP_LOADING_UI})
-        dispatch(getAuthor(formData.authorId))
+        dispatch(getAuthor(id))
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Книга успешно добавлена!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
     })
     .catch(err=>{
         dispatch({
@@ -148,9 +228,12 @@ export const addBook = (formData)=>(dispatch)=>{
 export const delBook = (id)=>(dispatch)=>{
     dispatch({type: LOADING_UI})
     axios
-    .delete(`/audio/${id}`)
+    .delete(`/book/${id}`)
     .then(res=>{
         dispatch({type:DEL_BOOK, payload: id})
         dispatch({type: STOP_LOADING_UI})
+        dispatch({type: SET_ALERT, title:'Успех!', message:'Книга успешно удалена!', severity:'success'})   
+        setTimeout(()=>dispatch({type: CLOSE_ALERT}),3500)
+
     })
 }

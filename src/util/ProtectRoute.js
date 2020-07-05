@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 //import PropTypes from 'prop-types';
 
- const AuthRoute= ({component: Component, authenticated, ...rest}) => {
+ const ProtectRoute= ({component: Component, authenticated, ...rest}) => {
     return (
         
         <Route
@@ -22,4 +22,4 @@ AuthRoute.PropTypes = {
     user: PropTypes.object
 }
 */
-export default connect(mapStateToProps)(AuthRoute);
+export default connect(mapStateToProps)(ProtectRoute);

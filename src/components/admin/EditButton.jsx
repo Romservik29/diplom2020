@@ -20,27 +20,27 @@ const EditButton = (props) => {
         setOpen(false)
     };
     const handleSubmit =(values)=>{
-        alert(JSON.stringify(values, null, 2));
-        handleClose(values);
+        props.changeBio(values.text,props.authorId)
+        handleClose();
     }
     
-
     const formik = useFormik({
         initialValues: {
-          text: '',
+          text: props.bio,
         },
         onSubmit: values => {
           handleSubmit(values)
         },
+        enableReinitialize:true,
       });
 
     return (
         <>
             <MyButton
-                tip={props.tip}
+                tip="Изменить"
                 onClick={handleOpen}
             >
-                <EditIcon style={{color:'pink'}} />
+                <EditIcon style={{color:'#01f5f5'}} />
             </MyButton>
             <Dialog
                 open={open}
@@ -50,7 +50,7 @@ const EditButton = (props) => {
             >
 
                 <DialogTitle>
-                    Are you sure you want to delete this scream ?
+                    Изменение биографии
                     </DialogTitle>
                 <DialogContent>
                     <form onSubmit={formik.handleSubmit}>
@@ -81,7 +81,7 @@ const EditButton = (props) => {
 EditButton.propTypes = {
     editFunc: PropTypes.func.isRequired,
     editId: PropTypes.string.isRequired,
-    tip: PropTypes.string.isRequired
+    bio: PropTypes.string.isRequired
 };
 
 

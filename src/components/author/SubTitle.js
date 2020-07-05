@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import React from 'react';
-import EditButton from '../adminButtons/EditButton';
-import AddButton from '../adminButtons/AddButton';
-import {connect} from 'react-redux';
+import EditButton from '../admin/EditButton';
+import DeleteButtonList from '../admin/DeleteButtonList';
+import { connect } from 'react-redux';
+import {changeBio} from '../../redux/actions/authorActions'
 
 const Background = styled.div`
 display: flex;
@@ -21,27 +22,25 @@ padding-left: 1em;
 font-weight: bold;
 `;
 
- function SubTitle(props) {
-
-    const AdminButtons = props.authenticated
-        ? <div style={{ paddingRight: '6px' }}>
-            {props.add &&
-                <AddButton addId={'1'} tip={props.tip} addFunc={props.addFunc} />
-            }
-            {props.edit &&
-                <EditButton editId={'d'} tip={props.tip} editFunc={props.editFunc} />
-            }
-        </div>
-        : null
+const SubTitle = (props) => {
     return (
         <Background>
             <Name align='left'>{props.name}</Name>
-{AdminButtons}
+            {
+                props.role === 'admin'
+                && <div style={{ paddingRight: '6px' }}>
+                    {props.delete
+                        ? <DeleteButtonList data={props.data} delFunc={props.delFunc} />
+                        : props.edit
+                        && <EditButton authorId={props.authorId} changeBio={props.changeBio} bio={props.bio}/>
+                    }
+                </div>
 
-        </Background>
+            }
+        </Background >
     )
 }
-let mapStateToProps = (state)=>({
-    authenticated:state.user.authenticated
+let mapStateToProps = (state) => ({
+    role: state.user.credentials.role
 })
-export default connect(mapStateToProps,null)(SubTitle)
+export default connect(mapStateToProps, {changeBio})(SubTitle)

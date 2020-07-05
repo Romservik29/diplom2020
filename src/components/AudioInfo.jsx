@@ -3,87 +3,124 @@ import IconButton from '@material-ui/core/IconButton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Typography from '@material-ui/core/Typography';
 import PauseIcon from '@material-ui/icons/Pause';
-import { CardActionArea } from '@material-ui/core';
 import styled from 'styled-components'
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import DeleteButton from './adminButtons/DeleteButton';
-import PropTypes  from 'prop-types'
+import DeleteButtonModal from './admin/DeleteButtonModal';
+import PropTypes from 'prop-types'
 
-const Root = styled(CardActionArea)`
+const Root = styled.div`
 display: flex;
 align-items: center;
-border-bottom: 1px dotted grey;
+border-bottom: 3px dotted #48b9f0;
 max-width: 1000;
+position: relative;
+transition: 0.5s;
+&:hover{
+    background-color: #ddeef6;
+}
+&:last-child{
+    border-bottom: none;
+}
 `;
 
 const Content = styled.div`
 display: flex;
 width: 100%;
 justify-content: space-between;
+z-index:20;
+`;
+
+const PlyingBg = styled.div`
+background-color: #00acff;
+height: 100%;
+position: absolute;
+width: 100%;
 `;
 
 const AudioInfo = (props) => {
 
-    const title = "вы действительно хотите удалить эту аудиозапись?";
-    const handleDelete = (id)=>{
-    props.delAudio(id);
-}
-    const adminButtons = props.authenticated
-        ? <div>
-            <DeleteButton title={title} deleteId={props.id} deleteFunc={handleDelete}/>
-            <IconButton>
-                <CloudDownloadIcon color='primary' />
-            </IconButton>
-        </div>
-        : <div>
-            <IconButton>
-                <CloudDownloadIcon color='primary' />
-            </IconButton>
-        </div>
+    const player = document.getElementById('player')
     const [play, setPlay] = useState(false);
-    const handlePlayClick = () => {
-        if (play === false) setPlay(true)
-        else setPlay(false);
+    const title = "Вы действительно хотите удалить эту аудиозапись?";
+    const handleDelete = (id) => {
+        props.delAudio(id);
     }
-    
+
+
+    const handlePlayClick = () => {
+        doPlay(props.audioUrl)
+    }
+    const doPlay = (src) => {
+
+        if (player.src !== src) {
+            player.src = src;
+            props.setSrc(src)
+            player.play()
+            setPlay(true)
+        }
+        else if (player.src === src && play === true && !player.paused) {
+
+            player.pause();
+            setPlay(false)
+        }
+        else if (play === false && player.paused) {
+            player.play()
+            setPlay(true)
+        }
+    }
+
+
     return (
         <Root onClick={handlePlayClick}>
             <Content>
-                <div style={{display: 'flex'}}>
+                <div style={{ display: 'flex' }}>
                     <div>
-                    {play === false
-                        ? <IconButton aria-label="play/pause" onClick={handlePlayClick}>
 
-                            <PlayArrowIcon color="primary" />
-                        </IconButton>
-
-                        : <IconButton aria-label="play/pause" onClick={handlePlayClick}>
-                            <PauseIcon color="primary" />
-                        </IconButton>
-                    }
+                        {(play === true && props.audioUrl === props.playerSrc)
+                            ? <IconButton aria-label="play/pause" onClick={handlePlayClick}>
+                                <PauseIcon color="primary" />
+                            </IconButton>
+                            : <IconButton aria-label="play/pause" onClick={handlePlayClick}>
+                                <PlayArrowIcon color="primary" />
+                            </IconButton>
+                        }
                     </div>
                     <div>
-                    <Typography variant='body1'>
-                        {props.name}
-                    </Typography>
-                    <Typography variant='body2'>
-                        {props.name}
-                    </Typography>
+                        <Typography style={{ fontFamily: 'Parisienne, cursive' }}>
+                            {props.name}
+                        </Typography>
+                        <Typography variant='body2'>
+                            {props.singer}
+                        </Typography>
                     </div>
                 </div>
                 <div>
-                    {adminButtons}
-                </div>
-            </Content>
-        </Root>
+                    {props.role === 'admin'
+                        && <DeleteButtonModal tip="удалить"
+                            title={title}
+                            deleteId={props.id}
+                            deleteFunc={handleDelete} />
+                    }
 
+
+                    <a href={props.audioUrl}>
+                        <IconButton>
+                            <CloudDownloadIcon color='primary' />
+                        </IconButton>
+                        </a>    
+                </div>                
+            
+            </Content>
+                    {(props.audioUrl === props.playerSrc) && <PlyingBg />}
+        </Root>
     )
 }
 
-AudioInfo.propTypes ={
-    name: PropTypes.string.isRequired,
+AudioInfo.propTypes = {
+                    name: PropTypes.string.isRequired,
+    singer: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    authenticated: PropTypes.bool.isRequired,
+    role: PropTypes.string.isRequired,
     delAudio: PropTypes.func.isRequired
 }
 

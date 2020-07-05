@@ -3,33 +3,31 @@ import Grid from '@material-ui/core/Grid'
 import AuthorInfo from '../components/AuthorInfo';
 import { connect } from 'react-redux'
 import { getAuthors } from '../redux/actions/authorActions'
-import ReactPaginate from 'react-paginate'
-import './authors.css'
 import AuthorSkeleton from '../util/AuthorSkeleton'
+import Pagination from '@material-ui/lab/Pagination';
 
 class authors extends Component {
     state = {
-        perPage: 10,
-        currentPage: 0
+        currentPage: 1
     }
 
     componentDidMount() {
         this.props.getAuthors()
     }
-    handlePageClick = (e) => {
-        const selectedPage = e.selected;
-
+    handlePageClick = (e, p) => {
         this.setState({
-            currentPage: selectedPage,
+            currentPage: p,
         }, () => {
-            this.props.getAuthors(this.props.currentPage)
+            this.props.getAuthors(this.state.currentPage)
         });
     };
+
+
 
     render() {
         let { authors, loading } = this.props;
         return (
-            <Grid style={{ background: '#fff', height: '100%' }} container justify='space-evenly'>{console.log('render')}
+            <Grid style={{ background: '#fff', height: '100%' }} container justify='space-around'>{console.log('render')}
                 {(loading
                     ? Array.from(new Array(6)) : authors).map((author, index) => <Grid item>
                         {author
@@ -43,19 +41,13 @@ class authors extends Component {
                     justifyContent='center'
                     xs={12}
                 >
-                    <ReactPaginate
-                        previousLabel={"<"}
-                        nextLabel={">"}
-                        breakLabel={"..."}
-                        breakClassName={"break-me"}
-                        pageCount={15}
-                        marginPagesDisplayed={1}
-                        pageRangeDisplayed={3}
-                        onPageChange={this.handlePageClick}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
-                        activeClassName={"active"}
-                    />
+                     <Pagination style={{ margin: 'auto', padding: '10px', paddingBottom: '20px' }}
+                        defaultPage={1}
+                        page={this.state.currentPage}
+                        count={3}
+                        onChange={this.handlePageClick}
+                        variant="outlined"
+                        shape="rounded" />
                 </Grid>
             </Grid>
         )
@@ -63,6 +55,7 @@ class authors extends Component {
 }
 const mapStateToProps = (state) => ({
     authors: state.author.authors,
-    loading: state.UI.loading
+    loading: state.UI.loading,
+    loadingUser: state.user.loading
 })
 export default connect(mapStateToProps, { getAuthors })(authors)

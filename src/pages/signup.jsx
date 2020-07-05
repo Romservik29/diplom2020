@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
-import withStyles from '@material-ui/core/styles/withStyles'
+import React, { Component } from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
 //import PropTypes from 'prop-types'
-import AppIcon from '../images/book2.png'
-import axios from 'axios'
-import PropTypes from 'prop-types'
+import AppIcon from '../images/book2.png';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { signup } from '../redux/actions/userActions';
 //MUI Stuff
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -42,10 +43,17 @@ const styles = (theme) => ({
     }
 });
 
-class signup extends Component {
+class Signup extends Component {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.UI.errors) {
+            this.setState({ errors: nextProps.UI.errors });
+        }
+    }
     constructor() {
         super();
         this.state = {
+            name: '',
+            lastName: '',
             email: '',
             password: '',
             confirmPassword: '',
@@ -61,31 +69,14 @@ class signup extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        this.setState({
-            loading: true
-        })
         const newUserData = {
-            email: this.state.email.trim(),
-            password: this.state.password.trim(),
-            confirmPassword: this.state.confirmPassword.trim(),
-            handle: this.state.handle.trim()
+            name: this.state.name,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            password: this.state.password,
+            confirmPassword: this.state.confirmPassword,
         }
-        axios
-            .post('/signup', newUserData)
-            .then(res => {
-                localStorage.setItem('FBIdToken', ` ${res.data.token}`)
-                this.setState({
-                    loading: false
-                })
-                this.props.history.push('/');
-            })
-            .catch(err => {
-                console.log(err.response.data)
-                this.setState({
-                    errors: err.response.data,
-                    loading: false
-                })
-            })
+        this.props.signup(newUserData, this.props.history)
     }
     render() {
         const { classes } = this.props;
@@ -97,29 +88,41 @@ class signup extends Component {
                     <Paper style={{ padding: '20px' }} >
                         <img width="200px" src={AppIcon} alt="Book" />
                         <Typography variant="h2" className={classes.pageTitle}>
-                            Вход
+                            Регистрация
                         </Typography>
                         <form noValidate onSubmit={this.handleSubmit}>
+                            <TextField
+                                id="name"
+                                name="name"
+                                type="text"
+                                label="Введите имя"
+                                className={classes.textField}
+                                helperText={errors.name}
+                                error={errors.name ? true : false}
+                                value={this.state.name}
+                                onChange={this.handleChange}
+                                fullWidth />
+                            <TextField
+                                id="lastName"
+                                name="lastName"
+                                type="text"
+                                label="Введите фамилию"
+                                className={classes.textField}
+                                helperText={errors.lastName}
+                                error={errors.lastName ? true : false}
+                                value={this.state.lastName}
+                                onChange={this.handleChange}
+                                fullWidth />
+
                             <TextField
                                 id="email"
                                 name="email"
                                 type="email"
-                                label="Email"
+                                label="Введите email"
                                 className={classes.textField}
                                 helperText={errors.email}
                                 error={errors.email ? true : false}
                                 value={this.state.email}
-                                onChange={this.handleChange}
-                                fullWidth />
-                            <TextField
-                                id="handle"
-                                name="handle"
-                                type="text"
-                                label="Номер зачетки"
-                                helperText={errors.handle}
-                                error={errors.handle ? true : false}
-                                className={classes.textField}
-                                value={this.state.handle}
                                 onChange={this.handleChange}
                                 fullWidth />
                             <TextField
@@ -166,5 +169,7 @@ class signup extends Component {
 signup.propTypes = {
     classes: PropTypes.object.isRequired
 }
-
-export default withStyles(styles)(signup)
+const mapStateToProps = (state) => ({
+    UI: state.UI
+})
+export default connect(mapStateToProps, { signup })(withStyles(styles)(Signup))

@@ -7,6 +7,7 @@ import themeObject from './util/theme';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import { ThemeProvider } from 'styled-components';
+
 //Pages 
 import home from './pages/home';
 import login from './pages/login';
@@ -14,10 +15,11 @@ import signup from './pages/signup';
 import authors from './pages/authors';
 import audios from './pages/audios';
 import movies from './pages/movies';
-import books from './pages/books';
+import CompareAuthor from './pages/CompareAuthor';
 import user from './pages/user';
 import author from './pages/author';
 import Illustrations from './pages/Illustrations';
+import Test from './pages/Test'
 //components
 import Navbar from './components/Navbar'
 import AuthRoute from './util/AuthRoute'
@@ -26,8 +28,9 @@ import ProgressBar from './components/ProgressBar';
 //redux
 import { Provider } from 'react-redux';
 import store from './redux/store'
-import { logoutUser } from './redux/actions/userActions';
+import { logoutUser, getUserData } from './redux/actions/userActions';
 import { SET_AUTHENTICATED } from './redux/types';
+import MyAlert from './util/MyAlert';
 
 axios.defaults.baseURL =
   'https://us-central1-diplomsgk2020-ff454.cloudfunctions.net/api';
@@ -42,14 +45,13 @@ const theme = {
 const token = localStorage.FBIdToken
 if (token) {
   const decodedToken = jwtDecode(token);
-  console.log(token);
-  console.log(decodedToken);
-  if (decodedToken.exp * 10000 < Date.now()) {
+  if (decodedToken.exp * 3600 < Date.now()) {
     store.dispatch(logoutUser())
     window.location.href = '/login'
   } else {
     store.dispatch({ type: SET_AUTHENTICATED })
-    axios.defaults.headers.common['Authorization'] = token
+    axios.defaults.headers.common['Authorization'] = token 
+    store.dispatch(getUserData())
   }
 }
 
@@ -63,22 +65,26 @@ const App = () => {
       <MuiThemeProvider theme={MuiTheme}>
         <Provider store={store}>
           <Router>
-            <ProgressBar/>
+            <ProgressBar style={{ position: 'fixed', top: '0px', left: '0px' }} />
             <Navbar />
+            <MyAlert/>
             <div className="container">
               <Switch>
-                <Route exact path="/" component={home} />
+                <Route exact path="/" component={home}/>
                 <AuthRoute exact path="/login" component={login} />
-                <AuthRoute exact path="/signup" component={signup} />
+                <AuthRoute exact path="/signup" component={signup}/>
                 <Route exact path="/authors" component={authors} />
                 <Route exact path="/audios" component={audios} />
                 <Route exact path="/illustrations" component={Illustrations} />
                 <Route exact path="/movies" component={movies} />
-                <Route exact path="/texts" component={books} />
+                <Route exact path="/game" component={CompareAuthor} />
                 <Route exact path="/authors/:authorId" component={author} />
+                <Route exact path="/test/:testId" component={Test} />
                 <ProtectRoute exact path="/user" component={user} />
+                <Route exact path="*" component={home}/>
               </Switch>
             </div>
+            <audio id="player" preload="metadata"></audio>
           </Router>
         </Provider>
       </MuiThemeProvider>

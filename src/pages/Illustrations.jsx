@@ -1,81 +1,34 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
-export default function Illustrations() {
-    let i=0;
-    const photos = [
-    {
-        src: 'https://sun9-20.userapi.com/c824201/v824201969/173425/UZNGRozhtic.jpg?ava=1',
-        width: 3,
-        height: 3,
-        key: i++
-    },    
-    {
-        src: 'https://sun9-20.userapi.com/c824201/v824201969/173425/UZNGRozhtic.jpg?ava=1',
-        width: 3,
-        height: 3,
-        key: i++
-    },   
-    {
-        src: 'https://sun9-20.userapi.com/c824201/v824201969/173425/UZNGRozhtic.jpg?ava=1',
-        width: 3,
-        height: 3,
-        key: i++
-    },    
-    {
-        src: 'https://sun9-20.userapi.com/c824201/v824201969/173425/UZNGRozhtic.jpg?ava=1',
-        width: 3,
-        height: 3,
-        key: i++
+import './illustrations.css';
+import { connect } from 'react-redux';
+import { getIllustration} from '../redux/actions/catalogActions'
 
-    },    
-    {
-        src: 'https://sun9-20.userapi.com/c824201/v824201969/173425/UZNGRozhtic.jpg?ava=1',
-        width: 3,
-        height: 3,
-        key: i++
+const Illustrations = (props) => {
 
-    },    
-    {
-        src: 'https://sun9-20.userapi.com/c824201/v824201969/173425/UZNGRozhtic.jpg?ava=1',
-        width: 3,
-        height: 3,
-        key: i++
+    React.useEffect(() => {
+        props.getIllustration();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-    },      
-    {
-        src: 'https://sun9-20.userapi.com/c824201/v824201969/173425/UZNGRozhtic.jpg?ava=1',
-        width: 3,
-        height: 3,
-        key: i++
-
-    },    
-    {
-        src: 'https://sun9-20.userapi.com/c824201/v824201969/173425/UZNGRozhtic.jpg?ava=1',
-        width: 3,
-        height: 3,
-        key: i++
-
-    },    
-    {
-        src: 'https://sun9-20.userapi.com/c824201/v824201969/173425/UZNGRozhtic.jpg?ava=1',
-        width: 3,
-        height: 3,
-        key: i++
-
-    },    {
-        src: 'https://sun9-20.userapi.com/c824201/v824201969/173425/UZNGRozhtic.jpg?ava=1',
-        width: 3,
-        height: 3,
-        key: i++
-
-    },
-    ]
     return (
         <Grid container justify='space-evenly' spacing={2}>
-            {photos.map(p=>
-            <Grid item sm={4} sx={4}>
-                <img width='100%' src={p.src} alt="l" key={p.key}/>
-            </Grid>)}
+            <div class="wrapper">
+                <div class="gallery">
+                    <ul>
+                        {props.illustrations.map(p =>
+                            <li>
+                                <img width='100%' src={p.illustrationUrl} alt="l" key={p.key} />
+                            </li>)}
+                    </ul>
+                </div>
+            </div>
         </Grid>
     )
 }
+
+const mapStateToProps = (state)=>({
+    illustrations: state.data.illustrations
+})
+
+export default connect(mapStateToProps,{getIllustration}) (Illustrations)

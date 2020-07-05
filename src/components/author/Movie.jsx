@@ -1,7 +1,7 @@
 import React from 'react'
-import SubTitle from './SubTitle'
 import styled from 'styled-components'
 import Carousel from 'react-elastic-carousel'
+import EmptyContainer from './EmptyContainer';
 
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -30,26 +30,20 @@ margin: 0 15px;
 font-size: 4em;
 `;
 
-
-
-const Video = styled.iframe`
-width: 100%;
-height: 100%;
-`;
-
 export default function Movie(props) {
     return (
         <Wrapper>
-            <SubTitle name="Фильмы" add tip="Добавить фильм" />
-            <CarouselWrapper>
-                <Carousel breakPoints={breakPoints}>
-                    {props.movies.map(movie =>
-                        <Item key={movie.moviId}>
-                            <Video src={`https://www.youtube.com/embed/${movie.movieId}`} frameborder="0" allowfullscreen/>
-                        </Item>)
-                    }
-                </Carousel>
-            </CarouselWrapper>
+            {!props.movies.length > 0
+                ? <EmptyContainer />
+                : <CarouselWrapper>
+                    <Carousel breakPoints={breakPoints}>
+                        {props.movies.map(movie =>
+                            <Item key={movie.moviId}>
+                                <iframe title={movie.moviId} style={{width:'100%'}} src={`https://www.youtube.com/embed/${movie.movieId}`} frameborder="0" allowfullscreen="true"/>
+                            </Item>)
+                        }
+                    </Carousel>
+                </CarouselWrapper>}
         </Wrapper>
     )
 }

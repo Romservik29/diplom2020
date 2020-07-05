@@ -11,14 +11,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 
 /*const styles = {
-  deleteButton: {
+  DeleteButtonModal: {
     position: 'absolute',
     left: '90%',
     top: '10%'
   }
 };*/
 
-const DeleteButton = (props) => {
+const DeleteButtonModal = (props) => {
 
     const [open, setOpen] = useState(false)
 
@@ -38,7 +38,7 @@ const DeleteButton = (props) => {
                     tip={props.tip}
                     onClick={handleOpen}
                 >
-                    <DeleteOutline color="primary" />
+                    <DeleteOutline style={{color: 'red'}} />
                 </MyButton>
                 <Dialog
                     open={open}
@@ -62,11 +62,11 @@ const DeleteButton = (props) => {
     )
 }
 
-DeleteButton.propTypes = {
+DeleteButtonModal.propTypes = {
     deleteFunc: PropTypes.func.isRequired,
     deleteId: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     tip: PropTypes.string.isRequired
 };
 
-export default DeleteButton;
+export default DeleteButtonModal;

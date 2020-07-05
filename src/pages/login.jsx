@@ -12,7 +12,6 @@ import { Paper } from '@material-ui/core';
 
 //Redux 
 import {connect} from 'react-redux'
-import {compose} from 'redux'
 import {loginUser} from '../redux/actions/userActions'
 
 const styles =(theme)=>({
@@ -54,6 +53,11 @@ class login extends Component {
              errors: {}
          }
     }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.UI.errors) {
+          this.setState({ errors: nextProps.UI.errors });
+        }
+      }
     handleChange = (e)=>{
         this.setState({
             [e.target.name]: e.target.value
@@ -102,6 +106,11 @@ class login extends Component {
                          value={this.state.password} 
                          onChange={this.handleChange} 
                          fullWidth/>
+            		{errors.general && (
+              			<Typography variant="body2" className={classes.customError}>
+                		{errors.general}
+             		 </Typography>
+            		)}
                         <Button 
                          type="submit" 
                          variant="contained" 
@@ -132,4 +141,4 @@ const mapStateToProps=(state)=>({
     user: state.user,
     UI: state.UI
 })
-export default compose((withStyles(styles)),connect(mapStateToProps,{loginUser}))(login) 
+export default connect(mapStateToProps,{loginUser})(withStyles(styles)(login))
