@@ -66,7 +66,7 @@ const Book = (props, { rest }) => {
 const Books = (props) => {
     return (
         <Wrapper>
-            {!props.books.length > 0
+            {props.books === undefined
                 ? <EmptyContainer />
                 : props.books.map(book => <Book role={props.role} name={book.name} downloadUrl={book.downloadUrl} delBook={props.delBook} id={book.id} />)}
         </Wrapper>

@@ -41,7 +41,7 @@ height: 100%;
 export default function CarouselGen(props) {
     return (
         <Wrapper>
-            {!props.illustrations.length > 0
+            {props.illustrations===undefined
                 ? <EmptyContainer />
                 : <CarouselWrapper>
                     <Carousel breakPoints={breakPoints}>

@@ -84,7 +84,7 @@ export default function Bio(props) {
                     <p style={{ fontWeight: 'lighter' }}>{props.yearOfLife}</p>
                 </CardTop>
                 <SubTitle name="Биография" authorId={props.authorId} bio={props.bio} edit />
-                {props.bio.length < 1
+                {props.bio === undefined
                     ? < EmptyContainer />
                     : <CardContent>
                         {props.bio}

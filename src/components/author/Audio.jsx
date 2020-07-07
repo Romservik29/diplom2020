@@ -15,7 +15,7 @@ export default function Audio(props) {
     }
     return (
         <Wrapper>
-            {!props.audio.length > 0
+            {props.audio === undefined
                 ? <EmptyContainer />
                 : props.audio.map((audio) => <AudioInfo
                     name={audio.name}

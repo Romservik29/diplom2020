@@ -19,7 +19,7 @@ import CompareAuthor from './pages/CompareAuthor';
 import user from './pages/user';
 import author from './pages/author';
 import Illustrations from './pages/Illustrations';
-import Test from './pages/Test'
+import Test from './pages/test'
 //components
 import Navbar from './components/Navbar'
 import AuthRoute from './util/AuthRoute'
@@ -45,7 +45,7 @@ const theme = {
 const token = localStorage.FBIdToken
 if (token) {
   const decodedToken = jwtDecode(token);
-  if (decodedToken.exp * 3600 < Date.now()) {
+  if (decodedToken.exp + 3600 < Date.now()) {
     store.dispatch(logoutUser())
     window.location.href = '/login'
   } else {

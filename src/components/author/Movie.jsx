@@ -33,7 +33,7 @@ font-size: 4em;
 export default function Movie(props) {
     return (
         <Wrapper>
-            {!props.movies.length > 0
+            {props.movies === undefined
                 ? <EmptyContainer />
                 : <CarouselWrapper>
                     <Carousel breakPoints={breakPoints}>

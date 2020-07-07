@@ -3,9 +3,6 @@ import Grid from '@material-ui/core/Grid'
 import MovieInfo from '../components/MovieInfo'
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 export default class authors extends Component {
-    state = {
-        audios: [],
-    }
 
     componentDidMount() {
 

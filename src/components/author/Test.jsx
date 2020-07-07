@@ -11,7 +11,7 @@ export default function Test(props) {
 
     return (
         <Wrapper>
-            {!props.tests.length > 0
+            {props.tests === undefined
                 ? <EmptyContainer />
                 : props.tests.map(test => <TestInfo
                     role={props.role}
