@@ -15,12 +15,9 @@ import {
     ActionSetAuthors
 } from '../types'
 
-
 import axios from 'axios'
 import { ThunkAction } from 'redux-thunk'
 import { StateApp } from '../store'
-import { AuthorDescription } from '../reducers/authorReducer'
-
 
 type Action = {
     type: typeof STOP_LOADING_UI | typeof LOADING_UI | typeof SET_ERRORS | typeof SET_AUTHOR |

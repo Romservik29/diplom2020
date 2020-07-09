@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -21,7 +21,6 @@ import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
-    flexGrow: 1,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -44,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
-      width: 'auto',
+      width: '100%',
     },
   },
   searchIcon: {
@@ -58,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
   inputRoot: {
     color: 'inherit',
-    width: 'auto',
+    width: '100%',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -82,21 +81,29 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  pages: {
-    position: 'absolute',
-    left: '36%',
-    [theme.breakpoints.down('md')]: {
-      left:'40%',
-    },
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    },
+  bar: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  container: {
+    width: '1000px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: '8px',
+    marginBottom: '8px',
+  },
+  pages:{
+whiteSpace: 'nowrap'
   },
   link: {
     color: 'black',
   },
-  button:{
-    '&:hover':{
+  button: {
+    '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, 0.30)',
     },
   },
@@ -113,9 +120,9 @@ const PrimarySearchAppBar = (props) => {
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
- useEffect(()=>{
+  useEffect(() => {
 
- },[props.authenticated])
+  }, [props.authenticated])
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -160,91 +167,74 @@ const PrimarySearchAppBar = (props) => {
       onClose={handleMobileMenuClose}
     >
       {props.authenticated === true
-         ?<MenuItem >
+        ? <MenuItem >
           <Link onClick={handleMobileMenuClose} className={classes.link} to="/user">Профиль</Link>
         </MenuItem>
-        :<MenuItem onClick={handleMobileMenuClose}>
-        <Link className={classes.link} to="/login">Войти</Link>
-      </MenuItem>}
+        : <MenuItem onClick={handleMobileMenuClose}>
+          <Link className={classes.link} to="/login">Войти</Link>
+        </MenuItem>}
       <MenuItem onClick={handleMobileMenuClose}>
         <Link className={classes.link} to="/authors">Писатели</Link>
       </MenuItem>
-      <MenuItem onClick={handleMobileMenuClose}>
-        <Link className={classes.link} to="/tests">Тесты</Link>
-      </MenuItem>
-      <MenuItem onClick={handleMobileMenuClose}>
-        <Link className={classes.link} to="/illustrations">Иллюстрации</Link>
-      </MenuItem>
-      {props.authenticated===true
-            &&<MenuItem onClick={logout}>
-        <Link className={classes.link} to="/login">Выход</Link>
-      </MenuItem>}
+      {props.authenticated === true
+        && <MenuItem onClick={logout}>
+          <Link className={classes.link} to="/login">Выход</Link>
+        </MenuItem>}
     </Menu>
   );
   return (
     <div className={classes.grow}>
       <AppBar position="fixed">
-        <Toolbar>
-          <MyButton
-            tip="БелЛiт"
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-          >
-            <SwapHorizIcon color="secondary" />
-          </MyButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            РусЛит
-          </Typography>
-
-          <Box component='div' className={classes.pages}>
-            <Button className={classes.button} color="inherit" component={Link} to="/authors">Писатели</Button>
-            <Button className={classes.button} color="inherit" component={Link} to="/game">Игра</Button>
-            <Button className={classes.button} color="inherit" component={Link} to="/illustrations">Иллюстрации</Button>
-          </Box>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+        <div className={classes.bar}>
+          <div className={classes.container}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <Typography className={classes.title} variant="h6" noWrap>
+                Литература
+              </Typography>
             </div>
-            <InputBase
-              placeholder="Поиск…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-            />
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Поиск…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+              />
+            </div>
+            <Box component='div' className={classes.pages}>
+              <Button className={classes.button} color="inherit" component={Link} to="/authors">Писатели</Button>
+              <Button className={classes.button} color="inherit" component={Link} to="/game">Игра</Button>
+              {(props.authenticated === false)
+                ? <Button color="secondary" component={Link} to="/login">Войти</Button>
+                : <>
+                  <IconButton
+                    edge="end"
+                    aria-controls={menuId}
+                    aria-haspopup="true"
+                    onClick={handleProfileMenuOpen}
+                    color="inherit"
+                  >
+                    <AccountCircle color="secondary" />
+                  </IconButton>
+                </>
+              }
+            </Box>
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MenuIcon color="secondary" />
+              </IconButton>
+            </div>
           </div>
-
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            {(props.authenticated === false)
-              ? <Button color="secondary" component={Link} to="/login">Войти</Button>
-              : <>
-                <IconButton
-                  edge="end"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                >
-                  <AccountCircle color="secondary" />
-                </IconButton>
-              </>
-            }
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MenuIcon color="secondary" />
-            </IconButton>
-          </div>
-
-        </Toolbar>
+        </div>
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
