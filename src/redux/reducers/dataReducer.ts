@@ -1,11 +1,15 @@
 import { SET_AUDIO,SET_ILLUSTRATION } from '../types'
 
+
 const initialState = {
-    audio: [],
-    illustrations:[]
+    audio: [] as any,
+    illustrations:[] as any
 }
 
-export default function (state = initialState, action) {
+export type DataState = typeof initialState;
+
+
+export default function (state = initialState, action:any):DataState {
     switch (action.type) {
         case SET_AUDIO:
             return {

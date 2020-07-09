@@ -13,8 +13,6 @@ import home from './pages/home';
 import login from './pages/login';
 import signup from './pages/signup';
 import authors from './pages/authors';
-import audios from './pages/audios';
-import movies from './pages/movies';
 import CompareAuthor from './pages/CompareAuthor';
 import user from './pages/user';
 import author from './pages/author';
@@ -74,9 +72,7 @@ const App = () => {
                 <AuthRoute exact path="/login" component={login} />
                 <AuthRoute exact path="/signup" component={signup}/>
                 <Route exact path="/authors" component={authors} />
-                <Route exact path="/audios" component={audios} />
                 <Route exact path="/illustrations" component={Illustrations} />
-                <Route exact path="/movies" component={movies} />
                 <Route exact path="/game" component={CompareAuthor} />
                 <Route exact path="/authors/:authorId" component={author} />
                 <Route exact path="/test/:testId" component={Test} />

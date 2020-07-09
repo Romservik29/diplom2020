@@ -170,16 +170,10 @@ const PrimarySearchAppBar = (props) => {
         <Link className={classes.link} to="/authors">Писатели</Link>
       </MenuItem>
       <MenuItem onClick={handleMobileMenuClose}>
-        <Link className={classes.link} to="/audio">Аудиозаписи</Link>
-      </MenuItem>
-      <MenuItem onClick={handleMobileMenuClose}>
         <Link className={classes.link} to="/tests">Тесты</Link>
       </MenuItem>
       <MenuItem onClick={handleMobileMenuClose}>
         <Link className={classes.link} to="/illustrations">Иллюстрации</Link>
-      </MenuItem>
-      <MenuItem onClick={handleMobileMenuClose}>
-        <Link className={classes.link} to="/movies">Фильмы</Link>
       </MenuItem>
       {props.authenticated===true
             &&<MenuItem onClick={logout}>
@@ -196,7 +190,6 @@ const PrimarySearchAppBar = (props) => {
             edge="start"
             className={classes.menuButton}
             color="inherit"
-            aria-label="open drawer"
           >
             <SwapHorizIcon color="secondary" />
           </MyButton>
@@ -206,8 +199,6 @@ const PrimarySearchAppBar = (props) => {
 
           <Box component='div' className={classes.pages}>
             <Button className={classes.button} color="inherit" component={Link} to="/authors">Писатели</Button>
-            <Button className={classes.button} color="inherit" component={Link} to="/movies">Фильмы</Button>
-            <Button className={classes.button} color="inherit" component={Link} to="/audios">Аудиозаписи</Button>
             <Button className={classes.button} color="inherit" component={Link} to="/game">Игра</Button>
             <Button className={classes.button} color="inherit" component={Link} to="/illustrations">Иллюстрации</Button>
           </Box>
@@ -221,7 +212,6 @@ const PrimarySearchAppBar = (props) => {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
-              inputProps={{ 'aria-label': 'search' }}
             />
           </div>
 
@@ -232,7 +222,6 @@ const PrimarySearchAppBar = (props) => {
               : <>
                 <IconButton
                   edge="end"
-                  aria-label="account of current user"
                   aria-controls={menuId}
                   aria-haspopup="true"
                   onClick={handleProfileMenuOpen}

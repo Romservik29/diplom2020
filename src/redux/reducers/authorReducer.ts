@@ -62,7 +62,7 @@ type Author = {
     books: Book[]
 }
 
-type AuthorDescription = {
+export type AuthorDescription = {
     firstName: string,
     lastName: string,
     midName: string,
@@ -73,17 +73,17 @@ type AuthorDescription = {
     portretUrl: string
 }
 
-type InitialState = {
+export type AuthorState = {
     authors: AuthorDescription[],
     author: Author,
 }
 
-const initialState: InitialState = {
+const initialState: AuthorState = {
     authors: [] as AuthorDescription[],
     author: {} as Author,
 }
 
-type Action = {
+export type Action = {
     type: string
     authors: AuthorDescription[]
     author: Author
@@ -91,7 +91,7 @@ type Action = {
     bio: string
 }
 
-export default function (state = initialState, action: Action): InitialState {
+export default function (state = initialState, action: Action): AuthorState {
     let index;
     switch (action.type) {
         case SET_AUTHORS:

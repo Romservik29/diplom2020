@@ -9,7 +9,9 @@ const initialState = {
     severityAlert: 'info'
 }
 
-export default function (state = initialState, action) {
+export type UIState = typeof initialState
+
+export default function (state = initialState, action:any):UIState {
     switch (action.type) {
         case SET_ERRORS:
             return {

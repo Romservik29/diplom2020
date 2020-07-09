@@ -7,19 +7,22 @@ import {
 } from '../types'
 
 const initialState = {
+    testId: '',
     test: {
         title: '',
         questions: [{
             question: "",
-            answers: []
+            answers: [] as number[]
         }]
     },
     currentQuestion: 0,
-    answers: [],
-    result: []
+    answers: [] as number[],
+    result: [] as string[]
 }
 
-export default function (state = initialState, action) {
+export type TestState = typeof initialState
+
+export default function (state = initialState, action:any):TestState {
     switch (action.type) {
         case SET_TEST:
             return {

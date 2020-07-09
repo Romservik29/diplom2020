@@ -12,7 +12,9 @@ const initialState = {
     credentials: {},
 }
 
-export default function (state = initialState, action) {
+export type UserState = typeof initialState
+
+export default function (state = initialState, action:any):UserState {
     switch (action.type) {
         case SET_AUTHENTICATED:
             return {
