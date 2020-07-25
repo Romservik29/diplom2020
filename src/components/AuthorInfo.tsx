@@ -3,7 +3,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const styles = {
+
+const styles:any = {
     wrapper: {
         flexWrap: 'wrap',
         marginBottom: 25,
@@ -37,8 +38,13 @@ const Hover = styled(Link)`
 }
 `;
 
-class authorInfo extends Component {
-    
+type AuthorInfoProps ={
+    author: import('../redux/reducers/authorReducer').AuthorDescription
+    classes: any
+}
+
+class authorInfo extends Component<AuthorInfoProps,AuthorInfoProps,any>{
+
     render() {
         const { classes,
             author: {

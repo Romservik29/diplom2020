@@ -10,40 +10,39 @@ import {
 } from '../types'
 
 type Audio = {
-    readonly id: string,
-    readonly audioUrl: string,
-    readonly downloadUrl: string,
-    readonly authorId: string
+    id: string,
+    audioUrl: string,
+    downloadUrl: string,
+    authorId: string
     name: string,
     singer: string
 }
 
 type Movie = {
-    readonly id: string,
-    readonly movieId: string,
-    readonly authorId: string
+    id: string,
+    movieId: string,
+    authorId: string
     name: string,
     createdAt: string
 }
 
 type Illustration = {
-    readonly id: string,
-    readonly authorId: string
+    id: string,
+    authorId: string
     illustrationUrl: string,
     name: string
 }
 
 type Test = {
-    readonly id: string,
-    readonly authorId: string
-
+    id: string,
+    authorId: string
 }
 
 type Book = {
-    readonly id: string,
-    readonly authorId: string
-    readonly bookUrl: string,
-    readonly downloadUrl: string,
+    id: string,
+    authorId: string
+    bookUrl: string,
+    downloadUrl: string,
     name: string
 }
 
