@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import SubTitle from './SubTitle'
 import { Paper } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import MyButton from '../../util/MyButton';
 import DeleteButtonModal from '../admin/DeleteButtonModal';
 import EmptyContainer from "./EmptyContainer";
+import SubTitleBio from './SubTitleBio';
+
 const CardTop = styled(Paper)`
 padding: 20px;
 text-align: center;
@@ -39,14 +40,28 @@ white-space: pre-wrap;
         }
 `;
 
+type BioProps = {
+    role: string
+    authorId: string
+    portretUrl: string
+    firstName: string
+    lastName: string
+    midName: string
+    yearOfLife: string
+    bio: string
+    changeBio: () => void
+    uploadPortret: (formData: FormData, authorId: string) => void
+}
 
-export default function Bio(props) {
+
+export default function Bio(props: BioProps) {
     const handleEditPicture = () => {
         const fileInput = document.getElementById('imageInput');
-        fileInput.click();
+        if (fileInput !== null) fileInput.click();
+
     };
-    const handleImageChange = (event) => {
-        const image = event.target.files[0];
+    const handleImageChange = (event: any) => {
+        const image = event.currentTarget.files[0];
         const formData = new FormData();
         formData.append('image', image, image.name);
         formData.append('authorId', props.authorId)
@@ -67,15 +82,23 @@ export default function Bio(props) {
         <>
             <div>
                 <CardTop square>
-                    {props.role==='admin' &&<div style={{ position: 'absolute', top: '10px', right: '10px' }}><DeleteButtonModal tip="Удалить писателя" /></div>}
-                    <div className="image-wrapper">
+                    {props.role === 'admin'
+                        && <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
+                            <DeleteButtonModal
+                                deleteId={props.authorId}
+                                title="Удалить писателя"
+                                deleteFunc={() => alert('Автора еще нельзя удалять')}
+                                tip="Удалить писателя" />
+                        </div>
+                    }
 
+                    <div className="image-wrapper">
                         <AuthorImage src={props.portretUrl} alt={props.firstName} />
                         <input
                             type="file"
                             id="imageInput"
-                            hidden="hidden"
-                            onChange={handleImageChange}
+                            hidden={true}
+                            onChange={(e) => handleImageChange}
                         />
                         {uploadImage}
                     </div>
@@ -83,8 +106,8 @@ export default function Bio(props) {
                     <h4 style={{ lineHeight: '10px' }}>{`${props.firstName} ${props.midName}`}</h4>
                     <p style={{ fontWeight: 'lighter' }}>{props.yearOfLife}</p>
                 </CardTop>
-                <SubTitle name="Биография" authorId={props.authorId} bio={props.bio} edit />
-                {props.bio === undefined
+                <SubTitleBio name="Биография" changeBio={props.changeBio} role={props.role} authorId={props.authorId} bio={props.bio} />
+                {props.bio === undefined || props.bio.length === 0
                     ? < EmptyContainer />
                     : <CardContent>
                         {props.bio}

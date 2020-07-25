@@ -1,16 +1,27 @@
 import React, { useState } from 'react'
 import AudioInfo from '../AudioInfo'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 import EmptyContainer from './EmptyContainer'
 
 const Wrapper = styled.div`
  width: 100%;
 `;
+type Audio ={
+    name: string
+    singer: string
+    id: string
+    audioUrl: string
+}
+type AudioProps = {
+    audio: Audio[]
+    role: string
+    delAudio: ()=> void
+    
+}
 
-export default function Audio(props) {
+export default function Audio(props:AudioProps) {
     const [playerSrc, setPlayerSrc] = useState('');
-    const setSrc = (src) => {
+    const setSrc = (src:string) => {
         setPlayerSrc(src)
     }
     return (
@@ -19,7 +30,7 @@ export default function Audio(props) {
                 ? <EmptyContainer />
                 : props.audio.map((audio) => <AudioInfo
                     name={audio.name}
-                    singer={audio.singer}
+                    singer={audio.singer} 
                     setSrc={setSrc}
                     delAudio={props.delAudio}
                     role={props.role}
@@ -31,10 +42,3 @@ export default function Audio(props) {
     )
 }
 
-Audio.propTypes = {
-    audio: PropTypes.object.isRequired,
-    addAudio: PropTypes.func.isRequired,
-    delAudio: PropTypes.func.isRequired,
-    authorId: PropTypes.string.isRequired,
-    role: PropTypes.string.isRequired
-}

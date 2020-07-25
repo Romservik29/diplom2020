@@ -6,7 +6,6 @@ import PauseIcon from '@material-ui/icons/Pause';
 import styled from 'styled-components'
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import DeleteButtonModal from './admin/DeleteButtonModal';
-import PropTypes from 'prop-types'
 
 const Root = styled.div`
 display: flex;
@@ -37,12 +36,23 @@ position: absolute;
 width: 100%;
 `;
 
-const AudioInfo = (props) => {
+type AudioInfoProps = {
+    delAudio: (id: string) => void
+    setSrc: (src: string) => void
+    audioUrl: string
+    playerSrc: string
+    name: string
+    singer: string
+    role: string
+    id: string
+}
 
-    const player = document.getElementById('player')
+const AudioInfo = (props: AudioInfoProps) => {
+
+    const player:HTMLAudioElement = document.getElementById('player') as HTMLAudioElement
     const [play, setPlay] = useState(false);
     const title = "Вы действительно хотите удалить эту аудиозапись?";
-    const handleDelete = (id) => {
+    const handleDelete = (id: string) => {
         props.delAudio(id);
     }
 
@@ -50,22 +60,23 @@ const AudioInfo = (props) => {
     const handlePlayClick = () => {
         doPlay(props.audioUrl)
     }
-    const doPlay = (src) => {
+    const doPlay = (src: string) => {
+        if (player != null) {
+            if (player.src !== src) {
+                player.src = src;
+                props.setSrc(src)
+                player.play()
+                setPlay(true)
+            }
+            else if (player.src === src && play === true && !player.paused) {
 
-        if (player.src !== src) {
-            player.src = src;
-            props.setSrc(src)
-            player.play()
-            setPlay(true)
-        }
-        else if (player.src === src && play === true && !player.paused) {
-
-            player.pause();
-            setPlay(false)
-        }
-        else if (play === false && player.paused) {
-            player.play()
-            setPlay(true)
+                player.pause();
+                setPlay(false)
+            }
+            else if (play === false && player.paused) {
+                player.play()
+                setPlay(true)
+            }
         }
     }
 
@@ -107,21 +118,13 @@ const AudioInfo = (props) => {
                         <IconButton>
                             <CloudDownloadIcon color='primary' />
                         </IconButton>
-                        </a>    
-                </div>                
-            
+                    </a>
+                </div>
+
             </Content>
-                    {(props.audioUrl === props.playerSrc) && <PlyingBg />}
+            {(props.audioUrl === props.playerSrc) && <PlyingBg />}
         </Root>
     )
-}
-
-AudioInfo.propTypes = {
-                    name: PropTypes.string.isRequired,
-    singer: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    role: PropTypes.string.isRequired,
-    delAudio: PropTypes.func.isRequired
 }
 
 export default AudioInfo;

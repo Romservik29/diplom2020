@@ -17,6 +17,7 @@
     "@types/node": "^14.0.18",
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
+    "@types/react-redux": "^7.1.9",
     "@types/styled-components": "^5.1.1",
     "axios": "^0.19.2",
     "clsx": "^1.1.1",
@@ -59,5 +60,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://us-central1-diplomsgk2020-ff454.cloudfunctions.net/api"
+  "proxy": "https://us-central1-diplomsgk2020-ff454.cloudfunctions.net/api",
+  "devDependencies": {}
 }

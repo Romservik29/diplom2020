@@ -9,7 +9,9 @@ import {
 const initialState = {
     authenticated: false,
     loading: false,
-    credentials: {},
+    credentials: {
+        role: 'user'
+    },
 }
 
 export type UserState = typeof initialState

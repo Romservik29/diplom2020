@@ -16,7 +16,6 @@ import authors from './pages/authors';
 import CompareAuthor from './pages/CompareAuthor';
 import user from './pages/user';
 import author from './pages/author';
-import Illustrations from './pages/Illustrations';
 import Test from './pages/test'
 //components
 import Navbar from './components/Navbar'
@@ -72,7 +71,6 @@ const App = () => {
                 <AuthRoute exact path="/login" component={login} />
                 <AuthRoute exact path="/signup" component={signup}/>
                 <Route exact path="/authors" component={authors} />
-                <Route exact path="/illustrations" component={Illustrations} />
                 <Route exact path="/game" component={CompareAuthor} />
                 <Route exact path="/authors/:authorId" component={author} />
                 <Route exact path="/test/:testId" component={Test} />

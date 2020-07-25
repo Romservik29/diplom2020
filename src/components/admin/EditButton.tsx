@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 // MUI Stuff
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,8 +9,14 @@ import { useFormik } from 'formik';
 import { TextField, DialogContent } from '@material-ui/core';
 import MyButton from '../../util/MyButton';
 
+type EditButtonProps = {
+    changeBio: (bio:string,authorId:string)=>void
+    editId: string,
+    bio: string,
+    authorId: string
+};
 
-const EditButton = (props) => {
+const EditButton = (props:EditButtonProps) => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => {
         setOpen(true)
@@ -19,7 +24,7 @@ const EditButton = (props) => {
     const handleClose = () => {
         setOpen(false)
     };
-    const handleSubmit =(values)=>{
+    const handleSubmit =(values: {text:string})=>{
         props.changeBio(values.text,props.authorId)
         handleClose();
     }
@@ -78,11 +83,5 @@ const EditButton = (props) => {
         </>
     )
 }
-EditButton.propTypes = {
-    editFunc: PropTypes.func.isRequired,
-    editId: PropTypes.string.isRequired,
-    bio: PropTypes.string.isRequired
-};
-
 
 export default EditButton;

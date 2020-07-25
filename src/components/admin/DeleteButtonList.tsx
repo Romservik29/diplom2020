@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types';
-
 // MUI Stuff
 import MyButton from '../../util/MyButton';
 import Dialog from '@material-ui/core/Dialog';
@@ -13,13 +11,35 @@ import ListItemText from '@material-ui/core/ListItemText';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 
-const SimpleDialog = (props) => {
+
+export type Data = {
+    id: string
+    movieId?: string
+    illustrationUrl?: string
+    name:string,
+    index: number
+}
+
+type SimpleDialogProps ={
+    onClose: ()=>void
+    delFunc: (id:string)=>void
+    open: boolean
+    data: Data[]
+}
+
+type DeleteButtonListProps ={
+    delFunc: (id:string)=>void
+    data: Data[]
+}
+
+
+const SimpleDialog = (props:SimpleDialogProps) => {
     const { onClose, open, data , delFunc} = props;
     const handleClose = () => {
         onClose();
     };
 
-    const handleListItemClick = (value) => {
+    const handleListItemClick = (value:string) => {
         delFunc(value)
         onClose();
     };
@@ -27,11 +47,11 @@ const SimpleDialog = (props) => {
         <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
             <DialogTitle id="simple-dialog-title">Удалить? Это действие нельзя отменить.</DialogTitle>
             <List>
-                {data.map((item) => (
+                {data.map((item:Data) => (
                     <ListItem button onClick={() => handleListItemClick(item.id)} key={item.index}>
                         <ListItemAvatar>
                             {item.illustrationUrl !== undefined
-                                ? <img item width="30px" height="30px" src={item.illustrationUrl} alt="Картинка"/>
+                                ? <img width="30px" height="30px" src={item.illustrationUrl} alt="Картинка"/>
                                 : <YouTubeIcon style={{color: 'red'}}/>}
                         </ListItemAvatar>
                         <ListItemText primary={item.name} />
@@ -42,14 +62,7 @@ const SimpleDialog = (props) => {
     );
 }
 
-SimpleDialog.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    delFunc: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired,
-    data: PropTypes.array.isRequired
-};
-
-const DeleteButtonList = (props) => {
+const DeleteButtonList = (props:DeleteButtonListProps) => {
 
     const [open, setOpen] = useState(false)
 
@@ -68,10 +81,5 @@ const DeleteButtonList = (props) => {
         </>
     )
 }
-DeleteButtonList.propTypes = {
-    delFunc: PropTypes.func.isRequired,
-    title: PropTypes.string.isRequired,
-    data: PropTypes.array.isRequired,
-};
 
 export default DeleteButtonList;

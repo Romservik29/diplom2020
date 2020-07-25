@@ -6,6 +6,8 @@ import {
     addIllustration,
     addBook,
     addAuthor,
+    Movie,
+    Author,
 } from '../../redux/actions/authorActions';
 import { connect } from 'react-redux';
 //MUI staff
@@ -17,9 +19,25 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { TextField, DialogContent } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { Menu, MenuItem } from '@material-ui/core';
-import PropTypes from 'prop-types'
 
-const AddAuthorItemsMenu = (props) => {
+
+type Data = {
+    file: File
+    name: string
+    second: string
+}
+
+type AddAuthorItemsMenuProps = {
+    addBook: (formData: FormData, authorId: string) => void,
+    addAudio: (formData: FormData, authorId: string) => void,
+    addMovie: (movie: Movie) => void,
+    addAuthor: (author: Author) => void,
+    addIllustration: (formData: FormData, authorId: string) => void,
+    role: string,
+    authorId: string,
+}
+
+const AddAuthorItemsMenu = (props: AddAuthorItemsMenuProps) => {
 
     const [anchorEl, setAnchorEl] = useState(null)
     const [open, setOpen] = useState(false)
@@ -28,7 +46,7 @@ const AddAuthorItemsMenu = (props) => {
     const handleCloseMenu = () => {
         setAnchorEl(null)
     }
-    const handleClick = (event) => {
+    const handleClick = (event:any) => {
         setAnchorEl(event.currentTarget)
     };
 
@@ -39,7 +57,7 @@ const AddAuthorItemsMenu = (props) => {
         setOpen(false)
     };
 
-    const submit = (values, { resetForm }) => {
+    const submit = (values: Data & Author, resetForm: any) => {
         switch (func) {
             case audioAddId: {
                 addAudio(values.file, values.name, values.second);
@@ -58,7 +76,7 @@ const AddAuthorItemsMenu = (props) => {
                 break;
             }
             case authorAddId: {
-                addAuthor(values.firstName, values.lastName,values.midName,values.yearOfLife);
+                addAuthor(values.firstName, values.lastName, values.midName, values.yearOfLife);
                 break;
             }
             default: break;
@@ -67,7 +85,7 @@ const AddAuthorItemsMenu = (props) => {
         handleClose();
     }
 
-    const addAuthor = (firstName, lastName, midName, yearOfLife) => {
+    const addAuthor = (firstName: string, lastName: string, midName: string, yearOfLife: string) => {
         const newAuthor = {
             firstName: firstName,
             lastName: lastName,
@@ -77,7 +95,7 @@ const AddAuthorItemsMenu = (props) => {
         props.addAuthor(newAuthor)
     }
 
-    const addAudio = (file, name, second) => {
+    const addAudio = (file: File, name: string, second: string) => {
         const formData = new FormData();
         formData.append('audio', file, file.name);
         formData.append('name', name);
@@ -85,7 +103,7 @@ const AddAuthorItemsMenu = (props) => {
         formData.append('authorId', props.authorId);
         props.addAudio(formData, props.authorId);
     }
-    const addBook = (file, name, second) => {
+    const addBook = (file: File, name: string, second: string) => {
         const formData = new FormData();
         formData.append('audio', file, file.name);
         formData.append('name', name);
@@ -93,30 +111,32 @@ const AddAuthorItemsMenu = (props) => {
         formData.append('authorId', props.authorId);
         props.addBook(formData, props.authorId);
     }
-    const addIllustration = (file, name) => {
+    const addIllustration = (file: File, name: string) => {
         const formData = new FormData();
         formData.append('image', file, file.name);
         formData.append('name', name);
         formData.append('authorId', props.authorId);
         props.addIllustration(formData, props.authorId);
     }
-    const addMovie = (name, movieId) => {
-        const newMovie = {}
-        newMovie.name = name;
-        newMovie.movieId = movieId;
-        newMovie.authorId = props.authorId
+
+    const addMovie = (name: string, movieId: string) => {
+        const newMovie = {
+            name: name,
+            movieId: movieId,
+            authorId: props.authorId
+        };
+
         props.addMovie(newMovie);
     }
 
-    const handleItemAddClick = (e) => {
+    const handleItemAddClick = (e: any) => {
         const id = e.target.id;
         setFunc(id)
         handleCloseMenu()
         handleOpen()
     }
 
-    const handleReset = (resetForm) => {
-
+    const handleReset = (resetForm: any) => {
         handleClose();
         resetForm();
 
@@ -131,7 +151,7 @@ const AddAuthorItemsMenu = (props) => {
     return (
         <Formik
             initialValues={{
-                file: undefined,
+                file: {} as File,
                 name: '',
                 second: '',
                 firstName: '',
@@ -158,7 +178,7 @@ const AddAuthorItemsMenu = (props) => {
                     }}>
                         {props.role === 'admin'
                             && <>
-                                <MyButton tip="Добавить" onClick={handleClick}>
+                                <MyButton tip="Добавить" onClick={() => handleClick}>
                                     <AddCircleIcon style={{ fontSize: '2.25em', color: '#19ff19' }} />
                                 </MyButton>
                                 <Menu
@@ -207,58 +227,58 @@ const AddAuthorItemsMenu = (props) => {
                                             type="text"
                                             onChange={handleChange}
                                             value={values.second}
-                                            placeholder={func === audioAddId ? "Исполнитель" : func === bookAddId ? "Писатель" : func === movieAddId && "Id видео"}
+                                            placeholder={`${func === audioAddId ? "Исполнитель" : func === bookAddId ? "Писатель" : func === movieAddId && "Id видео"}`}
                                             onBlur={handleBlur}
                                             fullWidth
                                         />}
-                                    {!(func === movieAddId||func === authorAddId) && <input
+                                    {!(func === movieAddId || func === authorAddId) && <input
                                         id="file"
                                         name="file"
                                         type="file"
-                                        onChange={event => { setFieldValue("file", event.currentTarget.files[0], false) }}
+                                        onChange={event => { setFieldValue("file", event.currentTarget.files![0], false) }}
                                     />}
-                                    {func ===authorAddId&&<>
-                                    <TextField id="firstName"
-                                        name="firstName"
-                                        type="text"
-                                        onChange={handleChange}
-                                        value={values.firstName}
-                                        placeholder="Имя"
-                                        onBlur={handleBlur}
-                                        fullWidth />
-                                    <TextField id="midName"
-                                        name="midName"
-                                        type="text"
-                                        onChange={handleChange}
-                                        value={values.midName}
-                                        placeholder="Отчество"
-                                        onBlur={handleBlur}
-                                        fullWidth />
-                                    <TextField id="lastName"
-                                        name="lastName"
-                                        type="text"
-                                        onChange={handleChange}
-                                        value={values.lastName}
-                                        placeholder="Фамилия"
-                                        onBlur={handleBlur}
-                                        fullWidth />
-                                    <TextField id="yearOfLife"
-                                        name="yearOfLife"
-                                        type="text"
-                                        onChange={handleChange}
-                                        value={values.yearOfLife}
-                                        placeholder="Годы жизни"
-                                        onBlur={handleBlur}
-                                        fullWidth />
-                                        </>
+                                    {func === authorAddId && <>
+                                        <TextField id="firstName"
+                                            name="firstName"
+                                            type="text"
+                                            onChange={handleChange}
+                                            value={values.firstName}
+                                            placeholder="Имя"
+                                            onBlur={handleBlur}
+                                            fullWidth />
+                                        <TextField id="midName"
+                                            name="midName"
+                                            type="text"
+                                            onChange={handleChange}
+                                            value={values.midName}
+                                            placeholder="Отчество"
+                                            onBlur={handleBlur}
+                                            fullWidth />
+                                        <TextField id="lastName"
+                                            name="lastName"
+                                            type="text"
+                                            onChange={handleChange}
+                                            value={values.lastName}
+                                            placeholder="Фамилия"
+                                            onBlur={handleBlur}
+                                            fullWidth />
+                                        <TextField id="yearOfLife"
+                                            name="yearOfLife"
+                                            type="text"
+                                            onChange={handleChange}
+                                            value={values.yearOfLife}
+                                            placeholder="Годы жизни"
+                                            onBlur={handleBlur}
+                                            fullWidth />
+                                    </>
                                     }
                                     <DialogActions>
                                         <Button onClick={handleReset.bind(null, resetForm)} color="primary">
-                                            Отменить
-                                </Button>
-                                        <Button disable={isSubmitting} type='submit' color='primary'>
-                                            Добавить
-                                </Button>
+                                            {"Отменить"}
+                                        </Button>
+                                        <Button disabled={isSubmitting} type='submit' color='primary'>
+                                            {"Добавить"}
+                                        </Button>
                                     </DialogActions>
                                 </form>
                             </DialogContent>
@@ -269,16 +289,6 @@ const AddAuthorItemsMenu = (props) => {
         />
 
     )
-}
-
-AddAuthorItemsMenu.propTypes = {
-    addBook: PropTypes.func.isRequired,
-    addAudio: PropTypes.func.isRequired,
-    addMovie: PropTypes.func.isRequired,
-    addAuthor: PropTypes.func.isRequired,
-    addIllustration: PropTypes.func.isRequired,
-    role: PropTypes.string.isRequired,
-    authorId: PropTypes.string.isRequired,
 }
 
 export default connect(null, {

@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import IconButton from '@material-ui/core/IconButton';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import DeleteButtonModal from '../admin/DeleteButtonModal';
-import PropTypes from 'prop-types'
 import EmptyContainer from './EmptyContainer'
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 
@@ -37,12 +36,32 @@ align-items: center;
 height: 2.28em;
 `;
 
+type BookProps = {
+    name: string
+    downloadUrl: string
+    id: string
+    role: string
+    delBook: (id: string) => void
+}
+
+type BooksProps = {
+    delBook: (id: string) => void
+    books: {
+        name: string
+        downloadUrl: string
+        id: string
+    }[]
+    role: string
+    name: string
+    id: string
+}
+
 const title = "Вы действительно хотите удалить эту книгу?";
 
-const Book = (props, { rest }) => {
+const Book = (props: BookProps, { rest }: any) => {
     return <Container>
         <Name >
-            <MenuBookIcon style={{color:'#00acff', margin: '0px .5rem 0px .5rem'}}/>
+            <MenuBookIcon style={{ color: '#00acff', margin: '0px .5rem 0px .5rem' }} />
             <span>
                 {props.name}
             </span>
@@ -63,7 +82,7 @@ const Book = (props, { rest }) => {
         </div>
     </Container>
 }
-const Books = (props) => {
+const Books = (props: BooksProps) => {
     return (
         <Wrapper>
             {props.books === undefined
@@ -74,12 +93,6 @@ const Books = (props) => {
 }
 
 
-Books.propTypes = {
-    book: PropTypes.object.isRequired,
-    delBook: PropTypes.func.isRequired,
-    role: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired
-}
+
 
 export default Books

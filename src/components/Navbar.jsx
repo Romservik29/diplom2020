@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
@@ -15,13 +14,8 @@ import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../redux/actions/userActions';
-import MyButton from '../util/MyButton';
-import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
-
 
 const useStyles = makeStyles((theme) => ({
-  grow: {
-  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -183,7 +177,7 @@ const PrimarySearchAppBar = (props) => {
     </Menu>
   );
   return (
-    <div className={classes.grow}>
+    <div>
       <AppBar position="fixed">
         <div className={classes.bar}>
           <div className={classes.container}>

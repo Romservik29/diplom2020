@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-
 
 // MUI Stuff
 import MyButton from '../../util/MyButton';
@@ -10,15 +8,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 
-/*const styles = {
-  DeleteButtonModal: {
-    position: 'absolute',
-    left: '90%',
-    top: '10%'
-  }
-};*/
-
-const DeleteButtonModal = (props) => {
+type Props = {
+    deleteFunc: (deleteId: string)=>void
+    deleteId:string
+    title: string,
+    tip: string
+};
+const DeleteButtonModal = (props:Props) => {
 
     const [open, setOpen] = useState(false)
 
@@ -61,12 +57,5 @@ const DeleteButtonModal = (props) => {
             </>
     )
 }
-
-DeleteButtonModal.propTypes = {
-    deleteFunc: PropTypes.func.isRequired,
-    deleteId: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    tip: PropTypes.string.isRequired
-};
 
 export default DeleteButtonModal;

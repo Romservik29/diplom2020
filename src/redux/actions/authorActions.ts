@@ -19,13 +19,13 @@ import axios from 'axios'
 import { ThunkAction } from 'redux-thunk'
 import { StateApp } from '../store'
 
-type Action = {
+export type Action = {
     type: typeof STOP_LOADING_UI | typeof LOADING_UI | typeof SET_ERRORS | typeof SET_AUTHOR |
     typeof DEL_AUDIO | typeof DEL_BOOK | typeof DEL_MOVIE | typeof DEL_ILLUSTRATION | typeof DEL_TEST | typeof CLOSE_ALERT
     payload?: any
 } | ActionSetAlert | ActionSetAuthors
 
-type ThunkActionTS = ThunkAction<void, StateApp, unknown, Action>
+export type ThunkActionTS = ThunkAction<void, StateApp, unknown, Action>
 
 export const getAuthors = (page = 1, limit = 6): ThunkActionTS => async (dispatch) => {
     dispatch({ type: LOADING_UI })
@@ -50,7 +50,13 @@ export const getAuthor = (id: string): ThunkActionTS => async (dispatch) => {
             })
         })
 }
-export const addAuthor = (newAuthor: any): ThunkActionTS => async (dispatch) => {
+export type Author = {
+    firstName: string
+    lastName: string
+    midName: string
+    yearOfLife: string
+}
+export const addAuthor = (newAuthor: Author): ThunkActionTS => async (dispatch) => {
     dispatch({ type: LOADING_UI })
     axios
         .post('/author', newAuthor)
@@ -68,8 +74,7 @@ export const addAuthor = (newAuthor: any): ThunkActionTS => async (dispatch) => 
         })
 }
 
-export const uploadPortret = (formData: any, authorId: string): ThunkActionTS => async (dispatch) => {
-    debugger
+export const uploadPortret = (formData: FormData, authorId: string): ThunkActionTS => async (dispatch) => {
     dispatch({ type: LOADING_UI })
     axios
         .post(`/author/portret`, formData)
@@ -96,7 +101,7 @@ export const changeBio = (bio: string, id: string): ThunkActionTS => async (disp
         })
 }
 
-export const addAudio = (formData: any, id: string): ThunkActionTS => async (dispatch) => {
+export const addAudio = (formData: FormData, id: string): ThunkActionTS => async (dispatch) => {
     dispatch({ type: LOADING_UI })
     axios
         .post(`/audio`, formData)
@@ -128,7 +133,13 @@ export const delAudio = (id: string): ThunkActionTS => async (dispatch) => {
 
         })
 }
-export const addMovie = (movie: any): ThunkActionTS => async (dispatch) => {
+
+export type Movie = {
+    name: string
+    movieId: string
+    authorId: string
+}
+export const addMovie = (movie: Movie): ThunkActionTS => async (dispatch) => {
     dispatch({ type: LOADING_UI })
     axios
         .post(`/movie`, movie)
@@ -219,7 +230,7 @@ export const delIllustration = (id: string): ThunkActionTS => async (dispatch) =
             setTimeout(() => dispatch({ type: CLOSE_ALERT }), 3500)
         })
 }
-export const addBook = (formData: any, id: string): ThunkActionTS => async (dispatch) => {
+export const addBook = (formData: FormData, id: string): ThunkActionTS => async (dispatch) => {
     dispatch({ type: LOADING_UI })
     axios
         .post('/book', formData)

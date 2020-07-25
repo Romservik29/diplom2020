@@ -2,7 +2,7 @@ import { SET_ERRORS, CLEAR_ERRORS, LOADING_UI, STOP_LOADING_UI, SET_ALERT, CLOSE
 
 const initialState = {
     loading: false,
-    errors: null,
+    errors: null as null| Object,
     isAlert: false,
     titleAlert: '',
     messageAlert:'',
