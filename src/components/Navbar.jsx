@@ -90,8 +90,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '8px',
     marginBottom: '8px',
   },
-  pages:{
-whiteSpace: 'nowrap'
+  pages: {
+    whiteSpace: 'nowrap'
   },
   link: {
     color: 'black',
@@ -182,9 +182,11 @@ const PrimarySearchAppBar = (props) => {
         <div className={classes.bar}>
           <div className={classes.container}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Typography className={classes.title} variant="h6" noWrap>
-                Литература
-              </Typography>
+              <Button className={classes.button} color="inherit" component={Link} to="/">
+                <Typography className={classes.title} variant="h6" noWrap>
+                  Литература
+                </Typography>
+              </Button>
             </div>
             <div className={classes.search}>
               <div className={classes.searchIcon}>

@@ -13,7 +13,6 @@ import home from './pages/home';
 import login from './pages/login';
 import signup from './pages/signup';
 import authors from './pages/authors';
-import CompareAuthor from './pages/CompareAuthor';
 import user from './pages/user';
 import author from './pages/author';
 import Test from './pages/test'
@@ -28,6 +27,7 @@ import store from './redux/store'
 import { logoutUser, getUserData } from './redux/actions/userActions';
 import { SET_AUTHENTICATED } from './redux/types';
 import MyAlert from './util/MyAlert';
+import Game from './pages/game/GameContainer';
 
 axios.defaults.baseURL =
   'https://us-central1-diplomsgk2020-ff454.cloudfunctions.net/api';
@@ -71,14 +71,13 @@ const App = () => {
                 <AuthRoute exact path="/login" component={login} />
                 <AuthRoute exact path="/signup" component={signup}/>
                 <Route exact path="/authors" component={authors} />
-                <Route exact path="/game" component={CompareAuthor} />
+                <Route exact path="/game" component={Game} />
                 <Route exact path="/authors/:authorId" component={author} />
                 <Route exact path="/test/:testId" component={Test} />
                 <ProtectRoute exact path="/user" component={user} />
                 <Route exact path="*" component={home}/>
               </Switch>
             </div>
-            <audio id="player" preload="metadata"></audio>
           </Router>
         </Provider>
       </MuiThemeProvider>
