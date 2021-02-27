@@ -10,7 +10,6 @@ class Test extends Component {
         let testId = this.props.match.params.testId;
         this.props.getTest(testId)
     }
-
     render() {
         return (
             <div>
@@ -31,4 +30,3 @@ const mapStateToProps = (state) => ({
 })
 
 export default withRouter(connect(mapStateToProps, { addAnswer, nextQuest, getTest,getTestResult })(Test))
-

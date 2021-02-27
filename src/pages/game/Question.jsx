@@ -55,7 +55,6 @@ margin: auto;
 `;
 
 export default function QuestionBlock(props) {
-    debugger
     return (
         <div style={{ margin: 'auto' }}>
                     {props.correct === null

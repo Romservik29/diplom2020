@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.deploySubpath": ".",
+    "appService.defaultWebAppToDeploy": "/subscriptions/4448eea5-d82f-43ac-a61b-6155f03fd17f/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/WritersTest"
+}
