@@ -31,6 +31,8 @@ const theme ={
   background: '#174578'
 }
 
+axios.defaults.baseURL = "https://us-central1-diplomsgk2020-ff454.cloudfunctions.net/api"
+
 const token = localStorage.FBIdToken
 if(token){
   const decodedToken = jwtDecode(token)
