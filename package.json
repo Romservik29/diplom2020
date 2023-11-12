@@ -21,7 +21,7 @@
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.1",
-    "axios": "^0.21.1",
+    "axios": "^1.6.0",
     "caniuse-lite": "^1.0.30001249",
     "clsx": "^1.1.1",
     "formik": "^2.1.4",
